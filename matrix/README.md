@@ -1,4 +1,5 @@
-BiblioPixelAnimations
+Matrix Animations
 =====================
 
-User created animations for BiblioPixel
+Animations that inherit from BaseMatrixAnimation
+
