@@ -1,4 +1,4 @@
-BiblioPixelAnimations
+Strip Animations
 =====================
 
-User created animations for BiblioPixel
+Animations that inherit from BaseStripAnim
