@@ -1,5 +1,5 @@
 Matrix Animations
 =====================
 
-Animations that inherit from BaseMatrixAnimation
+Animations that inherit from BaseMatrixAnim
 
