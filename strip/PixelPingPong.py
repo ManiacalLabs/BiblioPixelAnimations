@@ -2,12 +2,13 @@ from bibliopixel.animation import *
 
 class PixelPingPong(BaseStripAnim):
 
-    def __init__(self, led, max_led, color=(255, 255, 255), speed=0.01, additional_pixels=0):
+    def __init__(self, led, max_led=-1, color=(255, 255, 255), additional_pixels=0):
         super(PixelPingPong, self).__init__(led, 0, -1)
         self._current = 0
         self._minLed = 0
         self._maxLed = max_led
-        self._speed = speed
+        if self._maxLed < 0 or self._maxLed < self._minLed:
+            self._maxLed = self._led.lastIndex
         self._additionalPixels = additional_pixels
         self._positive = True
         self._color = color
@@ -25,7 +26,5 @@ class PixelPingPong(BaseStripAnim):
         if self._current + self._additionalPixels == self._maxLed:
             self._positive = False
 
-        if self._current == 0:
+        if self._current == self._minLed:
             self._positive = True
-
-        time.sleep(self._speed)
