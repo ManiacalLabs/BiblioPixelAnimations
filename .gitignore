@@ -52,3 +52,5 @@ docs/_build/
 
 # PyBuilder
 target/
+matrix_test.py
+strip_test.py
