@@ -24,5 +24,5 @@ class Alternates(BaseStripAnim):
                 self._led.fill(self._color2 if self._positive else self._color1, self._current, self._current)
             self._current += amt
 
-        self._current = 0
+        self._current = self._minLed
         self._positive = not self._positive
