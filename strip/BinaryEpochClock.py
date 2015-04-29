@@ -5,7 +5,7 @@ class BEClock(BaseStripAnim):
    """Binary Epoch Clock"""
 
    def __init__(self, led, onColor, offColor, bitWidth, bitSpace, reverse):
-       super(BEClock, self).__init__(led, 0, 0)
+    super(BEClock, self).__init__(led, 0, 0)
     self._onColor = onColor
     self._offColor = offColor    
     self._bitWidth = bitWidth
@@ -13,7 +13,7 @@ class BEClock(BaseStripAnim):
     self._reverse = reverse
        
    def step(self, amt = 1):
-       z = calendar.timegm(time.gmtime(time.time()))
+    z = calendar.timegm(time.gmtime(time.time()))
         
     if self._reverse:
         for i in range(32):
