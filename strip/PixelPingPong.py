@@ -1,5 +1,6 @@
 from bibliopixel.animation import *
 
+
 class PixelPingPong(BaseStripAnim):
 
     def __init__(self, led, max_led=-1, color=(255, 255, 255), additional_pixels=0):
@@ -16,7 +17,8 @@ class PixelPingPong(BaseStripAnim):
     def step(self, amt=1):
         self._led.fill((0, 0, 0), 0, self._maxLed)
 
-        self._led.fill(self._color, self._current, self._current + self._additionalPixels)
+        self._led.fill(
+            self._color, self._current, self._current + self._additionalPixels)
 
         if self._positive:
             self._current += 1
