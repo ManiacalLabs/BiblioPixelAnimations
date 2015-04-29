@@ -1,6 +1,7 @@
 # Author: Daniel Ternes
 # More Info: http://forum.maniacallabs.com/showthread.php?tid=6
 
+from bibliopixel.animation import *
 
 class BEClock(BaseStripAnim):
 
