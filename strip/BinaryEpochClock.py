@@ -29,8 +29,8 @@ class BEClock(BaseStripAnim):
         else:
             for i in range(32):
                 if (z & (1 << i)) > 0:
-                    self._led.fill(self._onColor, (self._bitSpace + self._bitWidth) * i, ((self._bitS​pace + self._bitWidth) * i) + self._bitWidth)
+                    self._led.fill(self._onColor, (self._bitSpace + self._bitWidth) * i, ((self._bitSpace + self._bitWidth) * i) + self._bitWidth)
                 else:
-                    self._led.fill(self._offColor, (self._bitSpace + self._bitWidth) * i, ((self._bit​Space + self._bitWidth) * i) + self._bitWidth)
+                    self._led.fill(self._offColor, (self._bitSpace + self._bitWidth) * i, ((self._bitSpace + self._bitWidth) * i) + self._bitWidth)
 
         self._step = 0

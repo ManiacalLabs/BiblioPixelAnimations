@@ -190,3 +190,47 @@ class GameOfLifeRGB(BaseMatrixAnim):
         self.doStableCheck(self._tableG)
         self.doStableCheck(self._tableB)
         self._step = 0
+
+
+MANIFEST = [
+        {
+            "id":"GameOfLife",
+            "class":GameOfLife,
+            "type": "animation",
+            "display": "Game of Life",
+            "controller": "matrix",
+            "params": [{
+                "id": "color",
+                "label": "Color",
+                "type": "color",
+                "default": (255,0,0),
+                "help":"Color of simulation cells."
+            },{
+                "id": "bg",
+                "label": "Background Color",
+                "type": "color",
+                "default": (0,0,0),
+                "help":"Color of simulation background."
+            },{
+                "id": "toroidal",
+                "label": "Toroidal",
+                "type": "bool",
+                "default": False,
+                "help":"Wrap similation around edges like a toroid (donut shape)."
+            },]
+        },
+        {
+            "id":"GameOfLifeRGB",
+            "class":GameOfLifeRGB,
+            "type": "animation",
+            "display": "Game of Life RGB",
+            "controller": "matrix",
+            "params": [{
+                "id": "toroidal",
+                "label": "Toroidal",
+                "type": "bool",
+                "default": False,
+                "help":"Wrap similation around edges like a toroid (donut shape)."
+            },]
+        }
+]
