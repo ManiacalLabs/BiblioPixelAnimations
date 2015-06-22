@@ -21,14 +21,14 @@ from bibliopixel.animation import *
 
 class PixelPingPong(BaseStripAnim):
 
-    def __init__(self, led, max_led=-1, color=(255, 255, 255), additional_pixels=0):
+    def __init__(self, led, max_led=None, color=(255, 255, 255), total_pixels=1):
         super(PixelPingPong, self).__init__(led, 0, -1)
         self._current = 0
         self._minLed = 0
         self._maxLed = max_led
-        if self._maxLed < 0 or self._maxLed < self._minLed:
+        if self._maxLed == None or self._maxLed < self._minLed:
             self._maxLed = self._led.lastIndex
-        self._additionalPixels = additional_pixels
+        self._additionalPixels = total_pixels - 1
         self._positive = True
         self._color = color
 
@@ -48,3 +48,35 @@ class PixelPingPong(BaseStripAnim):
 
         if self._current == self._minLed:
             self._positive = True
+
+
+MANIFEST = [
+        {
+            "id":"pixel_ping_pong",
+            "class":PixelPingPong,
+            "type": "animation",
+            "controller":"strip",
+            "display": "Pixel Ping Pong",
+            "params": [{
+                "id": "max_led",
+                "label": "Last Pixel",
+                "type": "int",
+                "min": 0,
+                "default": None,
+                "help":"Last pixel index to use. Leave empty to use max index."
+            },{
+                "id": "color",
+                "label": "Color",
+                "type": "color",
+                "default": (255,255,255),
+                "help":"Background Color"
+            },{
+                "id": "total_pixels",
+                "label": "Pixel Count",
+                "type": "int",
+                "min": 1,
+                "default": 1,
+                "help":"Total pixels on ping pong."
+            },]
+        }
+]
