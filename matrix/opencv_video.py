@@ -23,7 +23,6 @@
 # You must set <inputfile>, <output>, <width>, <height>, <framerate>
 
 #Load driver for your hardware, visualizer just for example
-from bibliopixel import *
 from bibliopixel.animation import *
 import numpy as np
 import cv2
