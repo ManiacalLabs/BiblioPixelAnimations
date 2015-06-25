@@ -205,3 +205,16 @@ class TicTacToe(BaseMatrixAnim):
             new_move = self.determine(self._board, self._player)
             self._board.make_move(new_move, self._player)
             self._player = self._board.get_enemy(self._player)
+
+
+MANIFEST = [
+    {
+        "class": TicTacToe, 
+        "controller": "matrix", 
+        "desc": "Plays Tic Tac Toe against itself. Designed for 24x24 display.", 
+        "display": "TicTacToe", 
+        "id": "TicTacToe", 
+        "params": [], 
+        "type": "animation"
+    }
+]

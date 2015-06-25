@@ -199,6 +199,7 @@ MANIFEST = [
             "type": "animation",
             "display": "Game of Life",
             "controller": "matrix",
+            "desc": "Conway's Game of Life",
             "params": [{
                 "id": "color",
                 "label": "Color",
@@ -225,6 +226,7 @@ MANIFEST = [
             "type": "animation",
             "display": "Game of Life RGB",
             "controller": "matrix",
+            "desc": "Conway's Game of Life running three separate simulations, one on each color channel.",
             "params": [{
                 "id": "toroidal",
                 "label": "Toroidal",

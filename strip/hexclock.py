@@ -15,8 +15,21 @@ class HEXClock(BaseStripAnim):
     def step(self, amt=1):
         t = time.localtime()
         hex = "#{0:0>2}{1:0>2}{2:0>2}".format(t.tm_hour, t.tm_min, t.tm_sec)
-        log.info(hex)
         c = colors.hex2rgb(hex)
         self._led.fill(c)
 
         self._step = 0
+
+
+
+MANIFEST = [
+    {
+        "class": HEXClock, 
+        "controller": "strip", 
+        "desc": None, 
+        "display": "HEXClock", 
+        "id": "HEXClock", 
+        "params": [], 
+        "type": "animation"
+    }
+]

@@ -123,4 +123,3 @@ class OpenCVVideo(BaseMatrixAnim):
 	        if self._frameCount >= self._frameTotal:
 	        	self._vid.set(1, 0)#CV_CAP_PROP_POS_FRAMES
 	        	self._frameCount = 0
-
