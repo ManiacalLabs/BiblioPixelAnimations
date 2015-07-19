@@ -21,18 +21,3 @@ class CPUUsage(BaseMatrixAnim):
         for x in range(self.width):
             if self._usage[x] > 0:
                 self._led.drawLine(x, self.height, x, self.height-1-self._usage[x], self._onColor)
-
-
-from bibliopixel.drivers.visualizer import *
-
-driver = DriverVisualizer(width=20, height=50, pixelSize=10, port=1618, stayTop=True)
-
-led = LEDMatrix(driver, serpentine=True)
-
-anim = CPUUsage(led, colors.Red)
-
-try:
-    anim.run(amt=1, fps=None, sleep=None, max_steps=0, untilComplete=False, max_cycles=0, threaded=False, joinThread=False)
-except KeyboardInterrupt:
-    led.all_off()
-    led.update()
