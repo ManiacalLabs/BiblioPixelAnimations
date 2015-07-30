@@ -4,19 +4,20 @@
 
 #Requires numpy 1.9.x or greated and opencv-python 3.0.0 or greater
 #On Windows, see here for install instructions: http://opencv-python-tutroals.readthedocs.org/en/latest/py_tutorials/py_setup/py_setup_in_windows/py_setup_in_windows.html
+#For the Raspberry Pi, see here: http://www.pyimagesearch.com/2015/07/27/installing-opencv-3-0-for-both-python-2-7-and-python-3-on-your-raspberry-pi-2/
 
 # OpenCVVideo displays video from either a webcam or video file
 # to an LEDMatrix instance. Parameters are as follows:
 # videoSource: Leave as default to use the default system webcam, otherwise set to a video file* path.
 # mirror: Mirror image over the vertical axis. Mainly for use with webcams.
-# offset: -1.0 to 1.0, when image is cropped or padded to fix on the display, setting this will shift the image. 
+# offset: -1.0 to 1.0, when image is cropped or padded to fix on the display, setting this will shift the image.
 #     -1.0 means shift to far left or top, 1.0 means far right or bottom.
 # crop: Fill the display be cropping the image to best fit.
-# userVidFPS: If true, the fps param can be left off anim.run() and it will use the FPS value of the provided video. 
+# userVidFPS: If true, the fps param can be left off anim.run() and it will use the FPS value of the provided video.
 #     Does nothing with webcams. This is always overriden by the run() fps or sleep parameters.
 
-# *Video file codec support is system dependent, but in general very poor. 
-# it is best to conver any videos first, including decreasing their size. 
+# *Video file codec support is system dependent, but in general very poor.
+# it is best to conver any videos first, including decreasing their size.
 # Pre-converting to a smaller resolution will decrease required CPU usage.
 # The following ffmpeg command line with convert most videos to the required format:
 # ffmpeg -i <inputfile> -c:v rawvideo -vf scale=<width>:<height> -r "<framerate>" -an <output>.avi
@@ -42,7 +43,7 @@ class OpenCVVideo(BaseMatrixAnim):
         #cv2 param defs here: https://github.com/Itseez/opencv/blob/master/modules/videoio/include/opencv2/videoio/videoio_c.h
         self._frameTotal = int(self._vid.get(7)) #CV_CAP_PROP_FRAME_COUNT
         self._frameCount = 0
-        self._vidfps = 0 
+        self._vidfps = 0
         ret, i = self._vid.read()
 
         if not isinstance(self.videoSource,int):
@@ -96,14 +97,14 @@ class OpenCVVideo(BaseMatrixAnim):
 
         self._pad = (padTB+padYoff, padTB-padYoff, padLR+padXoff, padLR-padXoff)
 
-        self.xoff = int(round(self._cropX * xoffset)) - self._cropX    
-        self.yoff = int(round(self._cropY * yoffset)) - self._cropY    
+        self.xoff = int(round(self._cropX * xoffset)) - self._cropX
+        self.yoff = int(round(self._cropY * yoffset)) - self._cropY
 
     def step(self, amt = 1):
         ret, frame = self._vid.read()
 
         image = cv2.cvtColor(frame, cv2.COLOR_RGB2BGRA)
-       
+
         if self.crop:
             image = image[self._cropY+self.yoff:self._ih-self._cropY+self.yoff, self._cropX+self.xoff:self._iw-self._cropX+self.xoff]
         else:
