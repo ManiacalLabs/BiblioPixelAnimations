@@ -41,16 +41,17 @@ class OpenCVVideo(BaseMatrixAnim):
 
         self._vid = cv2.VideoCapture(self.videoSource)
         #cv2 param defs here: https://github.com/Itseez/opencv/blob/master/modules/videoio/include/opencv2/videoio/videoio_c.h
-        self._frameTotal = int(self._vid.get(7)) #CV_CAP_PROP_FRAME_COUNT
+
         self._frameCount = 0
         self._vidfps = 0
         ret, i = self._vid.read()
 
         if not isinstance(self.videoSource,int):
-        	self._vid.set(1, 0)#CV_CAP_PROP_POS_FRAMES
-        	self._vidfps = int(self._vid.get(5))#CV_CAP_PROP_FPS
-        	if useVidFPS:
-        		self._internalDelay = (1000/self._vidfps)
+            self._vid.set(1, 0)#CV_CAP_PROP_POS_FRAMES
+            self._vidfps = int(self._vid.get(5))#CV_CAP_PROP_FPS
+            if useVidFPS:
+                self._internalDelay = (1000/self._vidfps)
+            self._frameTotal = int(self._vid.get(7)) #CV_CAP_PROP_FRAME_COUNT
 
         if i is None:
             raise IOError("Error loading video source");
@@ -120,7 +121,7 @@ class OpenCVVideo(BaseMatrixAnim):
                 self._led.set(x,y,tuple(resized[y,x][0:3]))
 
         if not isinstance(self.videoSource,int):
-	        self._frameCount += 1
-	        if self._frameCount >= self._frameTotal:
-	        	self._vid.set(1, 0)#CV_CAP_PROP_POS_FRAMES
-	        	self._frameCount = 0
+            self._frameCount += 1
+            if self._frameCount >= self._frameTotal:
+                self._vid.set(1, 0)#CV_CAP_PROP_POS_FRAMES
+                self._frameCount = 0
