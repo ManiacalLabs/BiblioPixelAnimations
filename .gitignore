@@ -54,3 +54,5 @@ docs/_build/
 target/
 matrix_test.py
 strip_test.py
+.remote-sync.json
+.remote-sync.json
