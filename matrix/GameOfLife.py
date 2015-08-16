@@ -146,15 +146,18 @@ class GameOfLife(BaseMatrixAnim):
 
         self._step = 0
 
+import time
 class GameOfLifeRGB(BaseMatrixAnim):
     def __init__(self, led, toroidal = True):
         super(GameOfLifeRGB, self).__init__(led)
 
         self._tableR = Table(self._led.height, self._led.width, 1, None)
         self._tableR.toroidal = toroidal
+        time.sleep(0.01)
 
         self._tableG = Table(self._led.height, self._led.width, 1, None)
         self._tableG.toroidal = toroidal
+        time.sleep(0.01)
 
         self._tableB = Table(self._led.height, self._led.width, 1, None)
         self._tableB.toroidal = toroidal

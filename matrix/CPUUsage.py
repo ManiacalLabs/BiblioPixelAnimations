@@ -15,7 +15,6 @@ class CPUUsage(BaseMatrixAnim):
         self._internalDelay = 500
         self._led.all_off()
         usage = psutil.cpu_percent()
-        print usage
         self._usage.append(int(usage/100.0*self.height))
 
         for x in range(self.width):
