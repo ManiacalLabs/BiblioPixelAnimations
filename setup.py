@@ -7,6 +7,8 @@ _ver = "9.9.9b"
 if len(head_data) > 0:
     _ver = head_data[0]["object"]["sha"]
 
+print __file__
+
 setup(
     name='BiblioPixelAnimations',
     version=_ver,
