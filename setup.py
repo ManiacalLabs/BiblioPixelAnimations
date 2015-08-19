@@ -1,9 +1,9 @@
 from distutils.core import setup
-import bibliopixel
+import BiblioPixelAnimations
 
 setup(
-    name='BiblioPixel',
-    version="1.4",
+    name='BiblioPixelAnimations',
+    version=BiblioPixelAnimations.__version__,
     description='BiblioPixelAnimations is an animation repository for animation classes that work with BiblioPixel: http://github.com/maniacallabs/BiblioPixel',
     author='Adam Haile',
     author_email='adam@maniacallabs.com',
