@@ -54,3 +54,48 @@ class LangtonsAnt(BaseMatrixAnim):
         	self._led.set(self.x, self.y, self.pathColor)
         	self.__changeDir(True)
         	self.__moveAnt()
+
+MANIFEST = [
+    {
+        "class": LangtonsAnt,
+        "controller": "matrix",
+        "desc": "Langton's ant is a two-dimensional Turing machine with a very simple set of rules but complex emergent behavior.",
+        "display": "LangtonsAnt",
+        "id": "LangtonsAnt",
+        "params": [
+            {
+                "default": [
+                    255,
+                    0,
+                    0
+                ],
+                "help": "",
+                "id": "pathColor",
+                "label": "Path Color",
+                "type": "color"
+            },
+            {
+                "default": [
+                    0,
+                    255,
+                    0
+                ],
+                "help": "",
+                "id": "antColor",
+                "label": "Ant Color",
+                "type": "color"
+            }
+        ],
+        "presets" : [
+            {
+                "display": "Blue Path, Orange Ant",
+                "desc": "",
+                "params":{
+                    "pathColor": [0,0,255],
+                    "antColor": [255,143,0]
+                }
+            }
+        ],
+        "type": "animation"
+    }
+]
