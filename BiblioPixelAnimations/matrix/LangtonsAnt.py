@@ -8,8 +8,8 @@ import random
 class LangtonsAnt(BaseMatrixAnim):
     def __init__(self, led, antColor=colors.Green, pathColor=colors.Red):
         super(LangtonsAnt, self).__init__(led)
-        self.antColor = antColor
-        self.pathColor = pathColor
+        self.antColor = tuple(antColor)
+        self.pathColor = tuple(pathColor)
         self.offColor = colors.Off
         self.curColor = self.offColor
         self.x = random.randrange(self.width)
@@ -89,11 +89,19 @@ MANIFEST = [
         "presets" : [
             {
                 "display": "Blue Path, Orange Ant",
-                "desc": "",
-                "params":{
+                "desc": "This shows help! Testing only.",
+                "config":{
                     "pathColor": [0,0,255],
                     "antColor": [255,143,0]
+                },
+                "run": {
+                    "amt": 1,
+                    "fps": 30,
+                    "max_cycles": 1,
+                    "max_steps": 0,
+                    "untilComplete": False
                 }
+
             }
         ],
         "type": "animation"
