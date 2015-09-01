@@ -52,8 +52,6 @@ docs/_build/
 
 # PyBuilder
 target/
-matrix_test.py
-strip_test.py
 .remote-sync.json
 .remote-sync.json
 .remote-sync.json
