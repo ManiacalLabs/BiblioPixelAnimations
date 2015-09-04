@@ -105,5 +105,15 @@ MANIFEST = [
             }
         ],
         "type": "animation"
+    },
+    {
+        "id":"LangtonPreConfig",
+        "class":LangtonsAnt,
+        "controller": "matrix",
+        "type": "preset",
+        "preset_type": "animation",
+        "display": "Langton Preconfig",
+        "desc": "Preconfig anim test",
+        "preconfig": {}
     }
 ]
