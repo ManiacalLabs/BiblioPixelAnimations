@@ -143,6 +143,7 @@ class GameOfLife(BaseMatrixAnim):
             if self._finishCount > 10:
                 self._table.genNewTable()
                 self._finishCount = 0
+                self.animComplete = True
 
         self._step = 0
 
