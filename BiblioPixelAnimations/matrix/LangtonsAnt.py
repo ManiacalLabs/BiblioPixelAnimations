@@ -44,7 +44,9 @@ class LangtonsAnt(BaseMatrixAnim):
     	self.curColor = self._led.get(self.x, self.y)
     	self._led.set(self.x, self.y, self.antColor)
 
-
+    def preRun(self, amt=1):
+        self._led.all_off()
+        
     def step(self, amt=1):
         if self.curColor == self.pathColor:
         	self._led.set(self.x, self.y, self.offColor)
