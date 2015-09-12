@@ -36,6 +36,7 @@ class OpenCVVideo(BaseMatrixAnim):
         self.mirror = mirror
 
         self.videoSource = videoSource
+
         if self.videoSource == None:
             self.videoSource = 0
 
@@ -101,6 +102,10 @@ class OpenCVVideo(BaseMatrixAnim):
         self.xoff = int(round(self._cropX * xoffset)) - self._cropX
         self.yoff = int(round(self._cropY * yoffset)) - self._cropY
 
+    def _exit(self, type, value, traceback):
+        # self._vid.release()
+        pass
+
     def step(self, amt = 1):
         ret, frame = self._vid.read()
 
@@ -125,6 +130,7 @@ class OpenCVVideo(BaseMatrixAnim):
             if self._frameCount >= self._frameTotal:
                 self._vid.set(1, 0)#CV_CAP_PROP_POS_FRAMES
                 self._frameCount = 0
+                self.animComplete = True
 
 
 
@@ -159,7 +165,7 @@ MANIFEST = [
             #     "type": ""
             # },
             {
-                "default": True,
+                "default": False,
                 "help": "Mirrors image along vertical. Useful for webcam video.",
                 "id": "mirror",
                 "label": "Mirror",
@@ -167,7 +173,7 @@ MANIFEST = [
             },
             {
                 "default": None,
-                "help": "Leave blank of use default system camera. Otherwise give path to AVI video file.", 
+                "help": "Leave blank of use default system camera. Otherwise give path to AVI video file.",
                 "id": "videoSource",
                 "label": "Source",
                 "type": "str"

@@ -163,7 +163,7 @@ class EQ(BaseMatrixAnim):
 
             for y in range(self.height):
                 if y < int(numPix):
-                    led.set(x, self.height - y - 1, self.colors[y])
+                    self._led.set(x, self.height - y - 1, self.colors[y])
 
         self._step += amt
 
@@ -196,7 +196,7 @@ class BassPulse(BaseMatrixAnim):
 
         for y in range(self.height):
             if y < int(numPix):
-                led.drawCircle(self.width/2, self.height/2, y, self.colors[y*2])
+                self._led.drawCircle(self.width/2, self.height/2, y, self.colors[y*2])
 
         self._step += amt
 
