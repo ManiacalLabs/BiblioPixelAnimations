@@ -112,6 +112,7 @@ class Tetris(BaseGameAnim):
         self.addKeyFunc("X", self.togglePause, speed=1, hold=False)
         self.init_game()
 
+
     def togglePause(self):
         self.paused = not self.paused
 

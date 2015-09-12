@@ -23,6 +23,17 @@ class Snake(BaseGameAnim):
 
         self.setSpeed("move", 4)
 
+        if hasattr(self._input_dev, "setLights") and hasattr(self._input_dev, "setLightsOff"):
+            self._input_dev.setLightsOff(5)
+            lights = {
+                "A": (0,0,0),
+                "B": (0,0,0),
+                "X": (0,0,0),
+                "Y": (0,0,0),
+                "FIRE":(0,0,0)
+            }
+            self._input_dev.setLights(lights)
+
         self.addKeyFunc("UP", lambda:self.changeDir(0), speed=1, hold=False)
         self.addKeyFunc("DOWN", lambda:self.changeDir(1), speed=1, hold=False)
         self.addKeyFunc("RIGHT", lambda:self.changeDir(2), speed=1, hold=False)

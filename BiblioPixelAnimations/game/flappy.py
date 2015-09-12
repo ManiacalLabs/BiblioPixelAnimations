@@ -15,6 +15,17 @@ class Flappy(BaseGameAnim):
         self.setSpeed("add_pipe", 16)
         self.setSpeed("scroll", 5)
 
+        if hasattr(self._input_dev, "setLights") and hasattr(self._input_dev, "setLightsOff"):
+            self._input_dev.setLightsOff(5)
+            lights = {
+                "A": (0,0,0),
+                "B": (0,0,0),
+                "X": (0,255,0),
+                "Y": (0,0,0),
+                "FIRE":(255,0,0)
+            }
+            self._input_dev.setLights(lights)
+
         self.addKeyFunc("FIRE", self.flap, speed=1, hold=False)
         self.addKeyFunc("X", self.togglePause, speed=1, hold=False)
 
