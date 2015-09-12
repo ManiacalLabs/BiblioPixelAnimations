@@ -125,3 +125,54 @@ class OpenCVVideo(BaseMatrixAnim):
             if self._frameCount >= self._frameTotal:
                 self._vid.set(1, 0)#CV_CAP_PROP_POS_FRAMES
                 self._frameCount = 0
+
+
+
+MANIFEST = [
+    {
+        "class": OpenCVVideo,
+        "controller": "matrix",
+        "desc": None,
+        "display": "OpenCVVideo",
+        "id": "OpenCVVideo",
+        "params": [
+            {
+                "default": False,
+                "help": "Run at framerate of source video",
+                "id": "useVidFPS",
+                "label": "Use Source FPS",
+                "type": "bool"
+            },
+            {
+                "default": True,
+                "help": "Crop input video to display size.",
+                "id": "crop",
+                "label": "Crop",
+                "type": "bool"
+            },
+            # Requires float value input in UI
+            # {
+            #     "default": 0.0,
+            #     "help": "",
+            #     "id": "offset",
+            #     "label": "",
+            #     "type": ""
+            # },
+            {
+                "default": True,
+                "help": "Mirrors image along vertical. Useful for webcam video.",
+                "id": "mirror",
+                "label": "Mirror",
+                "type": "bool"
+            },
+            {
+                "default": None,
+                "help": "Leave blank of use default system camera. Otherwise give path to AVI video file.", 
+                "id": "videoSource",
+                "label": "Source",
+                "type": "str"
+            }
+        ],
+        "type": "animation"
+    }
+]

@@ -69,3 +69,84 @@ class WaveMove(BaseStripAnim):
         self._moveStep += 1
         if(self._moveStep >= self._size):
             self._moveStep = 0
+
+
+#
+# MANIFEST = [
+#     {
+#         "class": Wave,
+#         "controller": "strip",
+#         "desc": None,
+#         "display": "Wave",
+#         "id": "Wave",
+#         "params": [
+#             {
+#                 "default": -1,
+#                 "help": "",
+#                 "id": "end",
+#                 "label": "",
+#                 "type": "int"
+#             },
+#             {
+#                 "default": 0,
+#                 "help": "",
+#                 "id": "start",
+#                 "label": "",
+#                 "type": "int"
+#             },
+#             {
+#                 "default": None,
+#                 "help": "",
+#                 "id": "cycles",
+#                 "label": "",
+#                 "type": ""
+#             },
+#             {
+#                 "default": None,
+#                 "help": "",
+#                 "id": "color",
+#                 "label": "",
+#                 "type": ""
+#             }
+#         ],
+#         "type": "animation"
+#     },
+#     {
+#         "class": WaveMove,
+#         "controller": "strip",
+#         "desc": None,
+#         "display": "WaveMove",
+#         "id": "WaveMove",
+#         "params": [
+#             {
+#                 "default": -1,
+#                 "help": "",
+#                 "id": "end",
+#                 "label": "",
+#                 "type": "int"
+#             },
+#             {
+#                 "default": 0,
+#                 "help": "",
+#                 "id": "start",
+#                 "label": "",
+#                 "type": "int"
+#             },
+#             {
+#                 "default": None,
+#                 "help": "",
+#                 "id": "cycles",
+#                 "label": "",
+#                 "type": ""
+#             },
+#             {
+#                 "default": None,
+#                 "help": "",
+#                 "id": "color",
+#                 "label": "",
+#                 "type": ""
+#             }
+#         ],
+#         "type": "animation"
+#     }
+# ]

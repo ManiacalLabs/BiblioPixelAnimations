@@ -34,3 +34,39 @@ class SpiningTriangle(BaseMatrixAnim):
         self._led.drawLine(c[0], c[1], a[0], a[1], color)
 
         self._angles = self.__stepAngles(self._angles, amt)
+
+
+
+MANIFEST = [
+    {
+        "class": SpiningTriangle,
+        "controller": "matrix",
+        "desc": None,
+        "display": "SpiningTriangle",
+        "id": "SpiningTriangle",
+        "params": [
+            {
+                "default": None,
+                "help": "",
+                "id": "radius",
+                "label": "Radius",
+                "type": "int"
+            },
+            {
+                "default": None,
+                "help": "",
+                "id": "cy",
+                "label": "Y Pos",
+                "type": "int"
+            },
+            {
+                "default": None,
+                "help": "",
+                "id": "cx",
+                "label": "X Pos",
+                "type": "int"
+            }
+        ],
+        "type": "animation"
+    }
+]

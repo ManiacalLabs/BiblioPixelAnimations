@@ -33,3 +33,32 @@ class LinearRainbow(BaseStripAnim):
             self._current = self._minLed
         else:
             self._current += amt
+
+
+
+# MANIFEST = [
+#     {
+#         "class": LinearRainbow,
+#         "controller": "strip",
+#         "desc": None,
+#         "display": "LinearRainbow",
+#         "id": "LinearRainbow",
+#         "params": [
+#             {
+#                 "default": False,
+#                 "help": "",
+#                 "id": "individual_pixel",
+#                 "label": "",
+#                 "type": "bool"
+#             },
+#             {
+#                 "default": -1,
+#                 "help": "",
+#                 "id": "max_led",
+#                 "label": "",
+#                 "type": "int"
+#             }
+#         ],
+#         "type": "animation"
+#     }
+# ]

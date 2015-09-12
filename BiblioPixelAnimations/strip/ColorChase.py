@@ -18,3 +18,46 @@ class ColorChase(BaseStripAnim):
         overflow = (self._start + self._step) - self._end
         if overflow >= 0:
             self._step = overflow
+
+
+
+MANIFEST = [
+    {
+        "class": ColorChase,
+        "controller": "strip",
+        "desc": "Chase a pixel (or pixels) of one color down the strip.",
+        "display": "ColorChase",
+        "id": "ColorChase",
+        "params": [
+            {
+                "default": -1,
+                "help": "",
+                "id": "end",
+                "label": "End Pixel",
+                "type": "int"
+            },
+            {
+                "default": 0,
+                "help": "",
+                "id": "start",
+                "label": "Start Pixel",
+                "type": "int"
+            },
+            {
+                "default": 1,
+                "help": "Width of lit section",
+                "id": "width",
+                "label": "Width",
+                "type": "int"
+            },
+            {
+                "default": None,
+                "help": "",
+                "id": "color",
+                "label": "Color",
+                "type": "color"
+            }
+        ],
+        "type": "animation"
+    }
+]

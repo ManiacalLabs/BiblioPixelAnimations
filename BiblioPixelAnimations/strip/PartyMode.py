@@ -19,3 +19,39 @@ class PartyMode(BaseStripAnim):
             self._led.all_off()
 
         self._step += amt
+
+
+#Needs color list input on UI
+# MANIFEST = [
+#     {
+#         "class": PartyMode,
+#         "controller": "strip",
+#         "desc": None,
+#         "display": "PartyMode",
+#         "id": "PartyMode",
+#         "params": [
+#             {
+#                 "default": -1,
+#                 "help": "",
+#                 "id": "end",
+#                 "label": "",
+#                 "type": "int"
+#             },
+#             {
+#                 "default": 0,
+#                 "help": "",
+#                 "id": "start",
+#                 "label": "",
+#                 "type": "int"
+#             },
+#             {
+#                 "default": None,
+#                 "help": "",
+#                 "id": "colors",
+#                 "label": "",
+#                 "type": ""
+#             }
+#         ],
+#         "type": "animation"
+#     }
+# ]

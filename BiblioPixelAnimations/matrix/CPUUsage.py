@@ -20,3 +20,25 @@ class CPUUsage(BaseMatrixAnim):
         for x in range(self.width):
             if self._usage[x] > 0:
                 self._led.drawLine(x, self.height, x, self.height-1-self._usage[x], self._onColor)
+
+
+
+MANIFEST = [
+    {
+        "class": CPUUsage,
+        "controller": "matrix",
+        "desc": "Displays scrolling CPU usage graph.",
+        "display": "CPUUsage",
+        "id": "CPUUsage",
+        "params": [
+            {
+                "default": [255, 0, 0],
+                "help": "", 
+                "id": "onColor",
+                "label": "Graph Color",
+                "type": "color"
+            }
+        ],
+        "type": "animation"
+    }
+]

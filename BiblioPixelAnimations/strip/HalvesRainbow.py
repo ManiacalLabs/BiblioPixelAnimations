@@ -46,3 +46,38 @@ class HalvesRainbow(BaseStripAnim):
             self._current = self._minLed
         else:
             self._current += amt
+
+
+# MANIFEST = [
+#     {
+#         "class": HalvesRainbow,
+#         "controller": "strip",
+#         "desc": None,
+#         "display": "HalvesRainbow",
+#         "id": "HalvesRainbow",
+#         "params": [
+#             {
+#                 "default": 4,
+#                 "help": "",
+#                 "id": "rainbow_inc",
+#                 "label": "",
+#                 "type": "int"
+#             },
+#             {
+#                 "default": True,
+#                 "help": "",
+#                 "id": "centre_out",
+#                 "label": "",
+#                 "type": "bool"
+#             },
+#             {
+#                 "default": -1,
+#                 "help": "",
+#                 "id": "max_led",
+#                 "label": "",
+#                 "type": "int"
+#             }
+#         ],
+#         "type": "animation"
+#     }
+# ]

@@ -81,3 +81,69 @@ class MatrixRainBow(BaseMatrixAnim):
                     self._drops[x].remove(r)
 
         self._step = 0
+
+
+
+MANIFEST = [
+    {
+        "class": MatrixRain,
+        "controller": "matrix",
+        "desc": None,
+        "display": "MatrixRain",
+        "id": "MatrixRain",
+        "params": [
+            {
+                "default": 4,
+                "help": "Number of new drops per frame",
+                "id": "growthRate",
+                "label": "Growth Rate",
+                "type": "int"
+            },
+            {
+                "default": 4,
+                "help": "Length of drop",
+                "id": "tail",
+                "label": "Length",
+                "type": "int"
+            },
+            {
+                "default": [
+                    [
+                        0,
+                        255,
+                        0
+                    ]
+                ],
+                "help": "Color of drops",
+                "id": "rain_colors",
+                "label": "Color",
+                "type": "color"
+            }
+        ],
+        "type": "animation"
+    },
+    {
+        "class": MatrixRainBow,
+        "controller": "matrix",
+        "desc": None,
+        "display": "MatrixRainBow",
+        "id": "MatrixRainBow",
+        "params": [
+            {
+                "default": 4,
+                "help": "Number of new drops per frame",
+                "id": "growthRate",
+                "label": "Growth Rate",
+                "type": "int"
+            },
+            {
+                "default": 4,
+                "help": "Length of drop",
+                "id": "tail",
+                "label": "Length",
+                "type": "int"
+            }
+        ],
+        "type": "animation"
+    }
+]

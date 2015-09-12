@@ -25,3 +25,46 @@ class ColorFade(BaseStripAnim):
         self._led.fill(colors.color_scale(color, self._levels[l_index]), self._start, self._end)
 
         self._step += amt
+
+
+#Needs color list input on UI
+# MANIFEST = [
+#     {
+#         "class": ColorFade,
+#         "controller": "strip",
+#         "desc": None,
+#         "display": "ColorFade",
+#         "id": "ColorFade",
+#         "params": [
+#             {
+#                 "default": -1,
+#                 "help": "",
+#                 "id": "end",
+#                 "label": "End Pixel",
+#                 "type": "int"
+#             },
+#             {
+#                 "default": 0,
+#                 "help": "",
+#                 "id": "start",
+#                 "label": "Start Pixel",
+#                 "type": "int"
+#             },
+#             {
+#                 "default": 5,
+#                 "help": "Amount to change brightness by. 0-255",
+#                 "id": "step",
+#                 "label": "Step",
+#                 "type": "int"
+#             },
+#             {
+#                 "default": None,
+#                 "help": "",
+#                 "id": "colors",
+#                 "label": "",
+#                 "type": ""
+#             }
+#         ],
+#         "type": "animation"
+#     }
+# ]

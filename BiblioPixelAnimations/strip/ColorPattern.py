@@ -23,3 +23,53 @@ class ColorPattern(BaseStripAnim):
             self._step -= amt
             if self._step < 0:
                 self._step = self._end + self._step
+
+
+#Needs color list input on UI
+# MANIFEST = [
+#     {
+#         "class": ColorPattern,
+#         "controller": "strip",
+#         "desc": None,
+#         "display": "ColorPattern",
+#         "id": "ColorPattern",
+#         "params": [
+#             {
+#                 "default": -1,
+#                 "help": "",
+#                 "id": "end",
+#                 "label": "",
+#                 "type": "int"
+#             },
+#             {
+#                 "default": 0,
+#                 "help": "",
+#                 "id": "start",
+#                 "label": "",
+#                 "type": "int"
+#             },
+#             {
+#                 "default": True,
+#                 "help": "",
+#                 "id": "dir",
+#                 "label": "",
+#                 "type": "bool"
+#             },
+#             {
+#                 "default": None,
+#                 "help": "",
+#                 "id": "width",
+#                 "label": "",
+#                 "type": ""
+#             },
+#             {
+#                 "default": None,
+#                 "help": "",
+#                 "id": "colors",
+#                 "label": "",
+#                 "type": ""
+#             }
+#         ],
+#         "type": "animation"
+#     }
+# ]
