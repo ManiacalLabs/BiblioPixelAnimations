@@ -48,11 +48,14 @@ class OpenCVVideo(BaseMatrixAnim):
         ret, i = self._vid.read()
 
         if not isinstance(self.videoSource,int):
-            self._vid.set(1, 0)#CV_CAP_PROP_POS_FRAMES
-            self._vidfps = int(self._vid.get(5))#CV_CAP_PROP_FPS
-            if useVidFPS:
-                self._internalDelay = (1000/self._vidfps)
-            self._frameTotal = int(self._vid.get(7)) #CV_CAP_PROP_FRAME_COUNT
+            try:
+                self._vid.set(1, 0)#CV_CAP_PROP_POS_FRAMES
+                self._vidfps = int(self._vid.get(5))#CV_CAP_PROP_FPS
+                if useVidFPS:
+                    self._internalDelay = (1000/self._vidfps)
+                self._frameTotal = int(self._vid.get(7)) #CV_CAP_PROP_FRAME_COUNT
+            except:
+                pass
 
         if i is None:
             raise IOError("Error loading video source");
