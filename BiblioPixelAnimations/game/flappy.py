@@ -115,8 +115,8 @@ class Flappy(BaseGameAnim):
 
     def drawPipes(self):
         for p in self._pipes:
-            self._led.drawLine(p[0], 0, p[0], p[1], colors.Green)
-            self._led.drawLine(p[0], p[1]+self.height/3, p[0], self.height-1, colors.Green)
+            self._led.drawLine(p[0], 0, p[0], p[1], colorFunc=lambda pos: colors.hue_helper(p[1]-pos, p[1], self._speedStep*2))
+            self._led.drawLine(p[0], p[1]+self.height/3, p[0], self.height-1, colorFunc=lambda pos: colors.hue_helper(pos, self.height-p[1]+self.height/3, self._speedStep*2))
 
     def drawBird(self):
         self._led.set(self._x,self._pos,colors.Red)
