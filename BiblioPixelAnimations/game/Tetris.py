@@ -91,10 +91,10 @@ class Tetris(BaseGameAnim):
         if hasattr(self._input_dev, "setLights") and hasattr(self._input_dev, "setLightsOff"):
             self._input_dev.setLightsOff(5)
             lights = {
-                "A": (0,255,0),
+                "Y": (0,255,0),
                 "B": (0,0,0),
                 "X": (0,0,0),
-                "Y": (255,0,0),
+                "A": (255,0,0),
                 "FIRE":(255,0,0)
             }
             self._input_dev.setLights(lights)
@@ -107,8 +107,8 @@ class Tetris(BaseGameAnim):
         self.addKeyFunc("LEFT", lambda:self.move(-1), speed=3, hold=True)
         self.addKeyFunc("RIGHT", lambda:self.move(+1), speed=3, hold=True)
         self.addKeyFunc("DOWN", lambda:self.drop(True), speed=1, hold=True)
-        self.addKeyFunc(["UP", "A"], self.rotate_stone, speed=1, hold=False)
-        self.addKeyFunc(["FIRE", "Y"], self.insta_drop, speed=1, hold=False)
+        self.addKeyFunc(["UP", "Y"], self.rotate_stone, speed=1, hold=False)
+        self.addKeyFunc(["FIRE", "A"], self.insta_drop, speed=1, hold=False)
         self.addKeyFunc("X", self.togglePause, speed=1, hold=False)
         self.init_game()
 
