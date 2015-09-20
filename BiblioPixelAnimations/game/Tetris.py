@@ -99,7 +99,7 @@ class Tetris(BaseGameAnim):
             }
             self._input_dev.setLights(lights)
 
-        self.setSpeed("drop", 6)
+        self.setSpeed("drop", 3)
         self.rlim = cols
 
         self.next_stone = tetris_shapes[rand(len(tetris_shapes))]
