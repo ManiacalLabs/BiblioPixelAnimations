@@ -14,7 +14,11 @@ class ImageDissolve(BaseMatrixAnim):
         self.imgIndex = 0
         self.waitFrames = waitFrames
         self.waitCount = 0
+
+    def preRun(self):
         self.resetAndLoad()
+        self.imgIndex = 0
+        self.waitCount = 0
 
     def resetAndLoad(self):
         self._led.setTexture(loadImage(self._led, imagePath=self.imageFiles[self.imgIndex]))
