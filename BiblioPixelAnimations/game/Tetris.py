@@ -252,8 +252,8 @@ class Tetris(BaseGameAnim):
         self._led.all_off()
         if self.gameover:
             self._led.all_off()
-            self._led.drawText("GAME", self.width/2-11, self.height/2-8)
-            self._led.drawText("OVER", self.width/2-11, self.height/2+1)
+            self._led.drawText("GAME", self.width/2-11, self.height/2-8, color=colors.Green)
+            self._led.drawText("OVER", self.width/2-11, self.height/2+1, color=colors.Green)
             s = "{}".format(self.score)
             self._led.drawText(s, self.width/2-(len(s)*4)/2+1, self.height/2+9, size=0)
         elif self.win:

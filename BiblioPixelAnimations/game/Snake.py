@@ -166,8 +166,8 @@ class Snake(BaseGameAnim):
 
         if self._gameOver:
             self._led.all_off()
-            self._led.drawText("GAME", self.width/2-11, self.height/2-8)
-            self._led.drawText("OVER", self.width/2-11, self.height/2+1)
+            self._led.drawText("GAME", self.width/2-11, self.height/2-8, color=colors.Red)
+            self._led.drawText("OVER", self.width/2-11, self.height/2+1, color=colors.Red)
             # self._gameOverCount += 1
             # if self._gameOverCount > 45:
             #     self.resetBody()
