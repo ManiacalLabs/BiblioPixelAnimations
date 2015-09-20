@@ -175,10 +175,10 @@ class Snake(BaseGameAnim):
             #     self._gameOver = False
         elif self._levelUp:
             self._led.all_off()
-            self._led.drawText("LVL", self.width/2-8, self.height/2-8)
+            self._led.drawText("LVL", self.width/2-8, self.height/2-8, color=colors.Red)
             lvl = "{}".format(self._level)
             w = len(lvl)*6
-            self._led.drawText(lvl, self.width/2-(w/2), self.height/2+1)
+            self._led.drawText(lvl, self.width/2-(w/2), self.height/2+1, color=colors.Red)
             # if self._keys.FIRE:#any(v > 0 for v in self._keys.itervalues()):
             #     self._levelUp = False
             #     self.resetBody()
