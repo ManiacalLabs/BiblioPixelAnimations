@@ -150,7 +150,7 @@ class Tetris(BaseGameAnim):
         self._last_move = {"RIGHT": False, "LEFT": False}
 
     def disp_msg(self, msg, x, y):
-        self._led.drawText(msg, x, y, size=0)
+        self._led.drawText(msg, x, y, size=0, color=colors.White)
 
     def draw_matrix(self, matrix, offset):
         off_x, off_y  = offset
@@ -274,16 +274,16 @@ class Tetris(BaseGameAnim):
                 if self.levelUp:
                     self._led.drawText("LVL", self.width/2-8, self.height/2-8, color=colors.Green)
                     l = "{}".format(self.level)
-                    self._led.drawText(l, self.width/2-(len(l)*6)/2+1, self.height/2+1, color=colors.green)
+                    self._led.drawText(l, self.width/2-(len(l)*6)/2+1, self.height/2+1, color=colors.Green)
                 else:
                     x = self.width/2-2
                     y = 1
-                    self._led.drawText("P", x, y+0)
-                    self._led.drawText("A", x, y+8)
-                    self._led.drawText("U", x, y+16)
-                    self._led.drawText("S", x, y+24)
-                    self._led.drawText("E", x, y+32)
-                    self._led.drawText("D", x, y+40)
+                    self._led.drawText("P", x, y+0, color=colors.White)
+                    self._led.drawText("A", x, y+8, color=colors.White)
+                    self._led.drawText("U", x, y+16, color=colors.White)
+                    self._led.drawText("S", x, y+24, color=colors.White)
+                    self._led.drawText("E", x, y+32, color=colors.White)
+                    self._led.drawText("D", x, y+40, color=colors.White)
 
             else:
                 self.disp_msg("{}".format(self.score), 1, 1)
