@@ -161,12 +161,12 @@ class Flappy(BaseGameAnim):
                 else:
                     x = self.width/2-2
                     y = 1
-                    self._led.drawText("P", x, y+0)
-                    self._led.drawText("A", x, y+8)
-                    self._led.drawText("U", x, y+16)
-                    self._led.drawText("S", x, y+24)
-                    self._led.drawText("E", x, y+32)
-                    self._led.drawText("D", x, y+40)
+                    self._led.drawText("P", x, y+0, color=colors.Blue)
+                    self._led.drawText("A", x, y+8, color=colors.Blue)
+                    self._led.drawText("U", x, y+16, color=colors.Blue)
+                    self._led.drawText("S", x, y+24, color=colors.Blue)
+                    self._led.drawText("E", x, y+32, color=colors.Blue)
+                    self._led.drawText("D", x, y+40, color=colors.Blue)
 
             else:
                 self.moveBird()
