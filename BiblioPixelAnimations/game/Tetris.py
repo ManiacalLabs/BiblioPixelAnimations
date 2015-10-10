@@ -95,11 +95,11 @@ class Tetris(BaseGameAnim):
                 "B": (0,0,0),
                 "X": (0,0,0),
                 "A": (255,0,0),
-                "FIRE":(255,0,0)
+                "SELECT":(255,0,0)
             }
             self._input_dev.setLights(lights)
 
-        self.setSpeed("drop", 3)
+        self.setSpeed("drop", 5)
         self.rlim = cols
 
         self.next_stone = tetris_shapes[rand(len(tetris_shapes))]
@@ -107,9 +107,9 @@ class Tetris(BaseGameAnim):
         self.addKeyFunc("LEFT", lambda:self.move(-1), speed=3, hold=True)
         self.addKeyFunc("RIGHT", lambda:self.move(+1), speed=3, hold=True)
         self.addKeyFunc("DOWN", lambda:self.drop(True), speed=1, hold=True)
-        self.addKeyFunc(["UP", "Y"], self.rotate_stone, speed=1, hold=False)
-        self.addKeyFunc(["FIRE", "A"], self.insta_drop, speed=1, hold=False)
-        self.addKeyFunc("X", self.togglePause, speed=1, hold=False)
+        self.addKeyFunc(["A"], self.rotate_stone, speed=1, hold=False)
+        self.addKeyFunc(["B", "SELECT"], self.insta_drop, speed=1, hold=False)
+        self.addKeyFunc("START", self.togglePause, speed=1, hold=False)
         self.init_game()
 
 
@@ -145,9 +145,6 @@ class Tetris(BaseGameAnim):
         self.level = 1
         self.score = 0
         self.lines = 0
-        self._last_up = False
-        self._lastFire = False
-        self._last_move = {"RIGHT": False, "LEFT": False}
 
     def disp_msg(self, msg, x, y):
         self._led.drawText(msg, x, y, size=0, color=colors.White)
