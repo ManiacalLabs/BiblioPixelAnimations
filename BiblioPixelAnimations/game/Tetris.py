@@ -24,7 +24,14 @@ colors.Green,
 colors.Blue,
 colors.Purple,
 colors.Violet,
-(35,  35,  35) # Helper color for background grid
+
+colors.Cyan,
+colors.SeaGreen,
+colors.Navy,
+colors.YellowGreen,
+colors.DarkRed,
+colors.Teal,
+colors.MediumVioletRed,
 ]
 
 # Define the shapes of the single parts
@@ -47,7 +54,32 @@ tetris_shapes = [
     [[6, 6, 6, 6]],
 
     [[7, 7],
-     [7, 7]]
+     [7, 7]],
+
+    [[8]],
+
+    [[9,0,0],
+     [9,9,0],
+     [9,9,9]],
+
+    [[10, 0, 10],
+     [10, 10, 10]],
+
+    [[0 ,11, 0],
+     [11,11,11],
+     [0 ,11, 0]],
+
+    [[12, 0, 0],
+     [12,12,12],
+     [0 , 0,12]],
+
+    [[13 ,13, 13],
+     [13 ,0 , 13],
+     [13, 13, 13]],
+
+    [[14,0,0],
+     [14,0,0],
+     [14,14,14]],
 ]
 
 def rotate_clockwise(shape):
@@ -82,7 +114,7 @@ def new_board():
     return board
 
 class Tetris(BaseGameAnim):
-    def __init__(self, led, inputDev):
+    def __init__(self, led, inputDev, evil=False):
         super(Tetris, self).__init__(led, inputDev)
 
         if (self.width, self.height) != (25,50):
@@ -101,8 +133,9 @@ class Tetris(BaseGameAnim):
 
         self.setSpeed("drop", 5)
         self.rlim = cols
-
-        self.next_stone = tetris_shapes[rand(len(tetris_shapes))]
+        self._evilMode = evil;
+        self._doEvil = False;
+        self.next_stone = self._getNextPiece()
 
         self.addKeyFunc("LEFT", lambda:self.move(-1), speed=3, hold=True)
         self.addKeyFunc("RIGHT", lambda:self.move(+1), speed=3, hold=True)
@@ -112,6 +145,9 @@ class Tetris(BaseGameAnim):
         self.addKeyFunc("START", self.togglePause, speed=1, hold=False)
         self.init_game()
 
+    def _getNextPiece(self):
+        stop = len(tetris_shapes) if self._doEvil else 7
+        return tetris_shapes[rand(0, stop)]
 
     def togglePause(self):
         self.paused = not self.paused
@@ -124,7 +160,7 @@ class Tetris(BaseGameAnim):
 
     def new_stone(self):
         self.stone = self.next_stone[:]
-        self.next_stone = tetris_shapes[rand(len(tetris_shapes))]
+        self.next_stone = self._getNextPiece()
         self.stone_x = int(cols / 2 - len(self.stone[0])/2)
         self.stone_y = 0
 
@@ -158,6 +194,8 @@ class Tetris(BaseGameAnim):
 
     def add_cl_lines(self, n):
         linescores = [0, 40, 100, 300, 1200]
+        if n > 0 and self._evilMode and not self._doEvil:
+            self._doEvil = True
         self.lines += n
         self.score += linescores[n] * self.level
         if self.lines >= self.level*self.lines_per_level:
@@ -304,7 +342,7 @@ class Tetris(BaseGameAnim):
                 #draw current block
                 self.draw_matrix(self.stone, (self.stone_x + 3, self.stone_y+9))
                 #draw next block
-                self.draw_matrix(self.next_stone, (self.width-4, 1))
+                self.draw_matrix(self.next_stone, (self.width-6, 1))
                 #drop block
                 if self.checkSpeed("drop"):
                     self.drop(False)
