@@ -26,7 +26,7 @@ else:
         author_email='adam@maniacallabs.com',
         url='http://github.com/maniacallabs/BiblioPixelAnimations/',
         license='MIT',
-        packages=['BiblioPixelAnimations', 'BiblioPixelAnimations.matrix', 'BiblioPixelAnimations.strip'],
+        packages=['BiblioPixelAnimations', 'BiblioPixelAnimations.matrix', 'BiblioPixelAnimations.strip', 'BiblioPixelAnimations.game'],
         classifiers = [
             'Development Status :: 5 - Production/Stable',
             'License :: OSI Approved :: MIT License',
