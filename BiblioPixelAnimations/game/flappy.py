@@ -22,12 +22,12 @@ class Flappy(BaseGameAnim):
                 "B": (0,0,0),
                 "X": (0,255,0),
                 "Y": (0,0,0),
-                "FIRE":(255,0,0)
+                "SELECT":(255,0,0)
             }
             self._input_dev.setLights(lights)
 
-        self.addKeyFunc("FIRE", self.flap, speed=1, hold=False)
-        self.addKeyFunc("X", self.togglePause, speed=1, hold=False)
+        self.addKeyFunc("B", self.flap, speed=1, hold=False)
+        self.addKeyFunc("START", self.togglePause, speed=1, hold=False)
 
         self.init_game()
         self.start_game()

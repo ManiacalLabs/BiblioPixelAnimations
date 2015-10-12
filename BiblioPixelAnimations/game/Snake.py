@@ -30,7 +30,7 @@ class Snake(BaseGameAnim):
                 "B": (0,0,0),
                 "X": (0,0,0),
                 "Y": (0,0,0),
-                "FIRE":(0,0,0)
+                "START":(0,0,0)
             }
             self._input_dev.setLights(lights)
 
