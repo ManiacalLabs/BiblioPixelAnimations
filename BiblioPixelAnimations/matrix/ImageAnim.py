@@ -43,6 +43,7 @@ class ImageAnim(BaseMatrixAnim):
 
         for x in range(ox, w + ox):
             for y in range(oy, h + oy):
+                if x < 0 or y < 0: continue
                 pixel = self._led.matrix_map[y][x]
                 r, g, b, a = frame.getpixel((x - ox,y - oy))
                 if a == 0:
@@ -168,17 +169,23 @@ MANIFEST = [
                 "id": "brightness",
                 "label": "Brightness",
                 "type": "int"
+            },
+            {
+                "default": [0,0],
+                "help": "Image placement offset",
+                "id": "offset",
+                "label": "Offset",
+                "type": "multi_tuple",
+                "controls": [{
+                    "label": "X",
+                    "type": "int",
+                    "default": 0
+                },{
+                    "label": "Y",
+                    "type": "int",
+                    "default": 0
+                }]
             }
-            # {
-            #     "default": [
-            #         0,
-            #         0
-            #     ],
-            #     "help": "",
-            #     "id": "offset",
-            #     "label": "",
-            #     "type": ""
-            # }
         ],
         "type": "animation"
     }

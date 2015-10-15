@@ -6,7 +6,8 @@ class MatrixRain(BaseMatrixAnim):
     #TODO: Upgrade back to use multiple colors when supported by UI
     def __init__(self, led, rain_colors=colors.Green, tail=4, growthRate=4):
         super(MatrixRain, self).__init__(led)
-        self._colors = [rain_colors]
+        if not isinstance(rain_colors, list): rain_colors=[rain_colors]
+        self._colors = rain_colors
         self._tail = tail
         self._drops = [[] for x in range(self._led.width)]
         self._growthRate = growthRate
@@ -114,10 +115,22 @@ MANIFEST = [
                         0
                     ]
                 ],
-                "help": "Color of drops",
+                "help": "Colors of drops",
                 "id": "rain_colors",
-                "label": "Color",
-                "type": "color"
+                "label": "Colors",
+                "type": "multi",
+                "controls": {
+                    "default": [
+                        [
+                            0,
+                            255,
+                            0
+                        ]
+                    ],
+                    "help": "Drop color",
+                    "label": "Color",
+                    "type": "color"
+                }
             }
         ],
         "type": "animation"
