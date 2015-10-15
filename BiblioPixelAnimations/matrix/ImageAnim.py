@@ -1,3 +1,22 @@
+### Usage
+# Run the animation in "pacman.gif" for 5 total cycles. When loading from an animated GIF file, the timing of each frame is automatically loaded from the file but if a different, constant time is needed the "fps" or "sleep" parameters of run() can be used.
+# 
+# ```python
+# import bibliopixel.image as image
+# anim = image.ImageAnim(led, "./anims/pacman.gif")
+# anim.run(untilComplete = True, max_cycles = 5)
+# ```
+# 
+# Run the animation from sequential files stored in "./anim/supermario". Files are loaded in alpha/numeric order. To ensure files load in the same order on all systems, best practice is to name the files as: 001.bmp, 002.bmp, 003.bmp, 004.bmp, etc...
+# 
+# Note that when loading static files as a sequence, the "fps" or "sleep" parameters of run() are required to control the timing between each frame. Like above, untilComplete and max_cycles are still valid when using static sequences.
+# 
+# ```python
+# import bibliopixel.image as image
+# anim = image.ImageAnim(led, "./anims/supermario/")
+# anim.run()
+# ```
+
 from bibliopixel.animation import BaseMatrixAnim
 import bibliopixel.log as log
 
