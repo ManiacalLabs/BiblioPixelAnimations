@@ -44,7 +44,7 @@ MANIFEST = [
         "display": "Tall Countdown",
         "id": "TallCountdown",
         "params": [{
-            "display": "Target Time",
+            "label": "Target Time",
             "id":"target",
             "type":"str",
             "default":"00:00:00",
