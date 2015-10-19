@@ -12,10 +12,10 @@ class TallClock(BaseMatrixAnim):
         self._led.all_off()
         t = time.localtime()
         hrs = str(t.tm_hour).zfill(2)
-        min = str(t.tm_min).zfill(2)
+        mins = str(t.tm_min).zfill(2)
         sec = str(t.tm_sec).zfill(2)
         self._led.drawText(hrs, x = 2, y = 2, size = 2)
-        self._led.drawText(min, x = 2, y = 18, size = 2)
+        self._led.drawText(mins, x = 2, y = 18, size = 2)
         self._led.drawText(sec, x = 2, y = 34, size = 2)
 
         self._step += amt
