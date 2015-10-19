@@ -15,7 +15,7 @@ if not 'pip' in __file__:
     print """
     This installer MUST be run from pip!
     Please install using the following command:
-    pip install git+https://github.com/ManiacalLabs/BiblioPixelAnimations.git --upgrade
+    pip install https://github.com/ManiacalLabs/BiblioPixelAnimations/archive/master.zip --upgrade
     """
 else:
     setup(
