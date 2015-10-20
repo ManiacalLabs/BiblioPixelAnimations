@@ -6,8 +6,11 @@ class ImageShow(BaseMatrixAnim):
 
     def __init__(self, led, imagePath, offset = (0,0)):
         super(ImageShow, self).__init__(led)
-        self.img = loadImage(led, imagePath=imagePath, offset=offset)
-        self._led.setTexture(self.img)
+        self.img = imagePath
+        self.offset = offset
+
+    def preRun(self):
+        self._led.setTexture(loadImage(self._led, imagePath=self.img, offset=self.offset))
 
     def step(self, amt):
         self._led.fillScreen()
