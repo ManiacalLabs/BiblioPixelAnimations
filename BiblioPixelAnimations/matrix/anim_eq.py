@@ -137,3 +137,17 @@ class EQ(BaseMatrixAnim):
 #     anim.endRecord()
 #     led.all_off()
 #     led.update()
+
+
+
+MANIFEST = [
+    {
+        "class": EQ,
+        "controller": "matrix",
+        "desc": "Reads system audio output and displays VU meter.", 
+        "display": "EQ",
+        "id": "EQ",
+        "params": [],
+        "type": "animation"
+    }
+]

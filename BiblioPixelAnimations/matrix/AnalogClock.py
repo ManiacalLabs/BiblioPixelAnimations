@@ -55,3 +55,26 @@ class RGBAnalogClock(BaseMatrixAnim):
         self._led.drawLine(self._centerX, self._centerY, p_sec[0], p_sec[1], c_sec)
 
         self._step = 0
+
+
+
+MANIFEST = [
+    {
+        "class": AnalogClock,
+        "controller": "matrix",
+        "desc": "Displays analog clock with red, green, and blue hands.", 
+        "display": "AnalogClock",
+        "id": "AnalogClock",
+        "params": [],
+        "type": "animation"
+    },
+    {
+        "class": RGBAnalogClock,
+        "controller": "matrix",
+        "desc": "Displays analog clock with hand colors based on their angle converted to a hue value.",
+        "display": "RGBAnalogClock",
+        "id": "RGBAnalogClock",
+        "params": [],
+        "type": "animation"
+    }
+]

@@ -36,6 +36,7 @@ class OpenCVVideo(BaseMatrixAnim):
         self.mirror = mirror
 
         self.videoSource = videoSource
+
         if self.videoSource == None:
             self.videoSource = 0
 
@@ -47,11 +48,14 @@ class OpenCVVideo(BaseMatrixAnim):
         ret, i = self._vid.read()
 
         if not isinstance(self.videoSource,int):
-            self._vid.set(1, 0)#CV_CAP_PROP_POS_FRAMES
-            self._vidfps = int(self._vid.get(5))#CV_CAP_PROP_FPS
-            if useVidFPS:
-                self._internalDelay = (1000/self._vidfps)
-            self._frameTotal = int(self._vid.get(7)) #CV_CAP_PROP_FRAME_COUNT
+            try:
+                self._vid.set(1, 0)#CV_CAP_PROP_POS_FRAMES
+                self._vidfps = int(self._vid.get(5))#CV_CAP_PROP_FPS
+                if useVidFPS:
+                    self._internalDelay = (1000/self._vidfps)
+                self._frameTotal = int(self._vid.get(7)) #CV_CAP_PROP_FRAME_COUNT
+            except:
+                pass
 
         if i is None:
             raise IOError("Error loading video source");
@@ -101,6 +105,10 @@ class OpenCVVideo(BaseMatrixAnim):
         self.xoff = int(round(self._cropX * xoffset)) - self._cropX
         self.yoff = int(round(self._cropY * yoffset)) - self._cropY
 
+    def _exit(self, type, value, traceback):
+        # self._vid.release()
+        pass
+
     def step(self, amt = 1):
         ret, frame = self._vid.read()
 
@@ -125,3 +133,55 @@ class OpenCVVideo(BaseMatrixAnim):
             if self._frameCount >= self._frameTotal:
                 self._vid.set(1, 0)#CV_CAP_PROP_POS_FRAMES
                 self._frameCount = 0
+                self.animComplete = True
+
+
+
+MANIFEST = [
+    {
+        "class": OpenCVVideo,
+        "controller": "matrix",
+        "desc": None,
+        "display": "OpenCVVideo",
+        "id": "OpenCVVideo",
+        "params": [
+            {
+                "default": False,
+                "help": "Run at framerate of source video",
+                "id": "useVidFPS",
+                "label": "Use Source FPS",
+                "type": "bool"
+            },
+            {
+                "default": True,
+                "help": "Crop input video to display size.",
+                "id": "crop",
+                "label": "Crop",
+                "type": "bool"
+            },
+            # Requires float value input in UI
+            # {
+            #     "default": 0.0,
+            #     "help": "",
+            #     "id": "offset",
+            #     "label": "",
+            #     "type": ""
+            # },
+            {
+                "default": False,
+                "help": "Mirrors image along vertical. Useful for webcam video.",
+                "id": "mirror",
+                "label": "Mirror",
+                "type": "bool"
+            },
+            {
+                "default": None,
+                "help": "Leave blank of use default system camera. Otherwise give path to AVI video file.",
+                "id": "videoSource",
+                "label": "Source",
+                "type": "str"
+            }
+        ],
+        "type": "animation"
+    }
+]

@@ -44,6 +44,8 @@ class LangtonsAnt(BaseMatrixAnim):
     	self.curColor = self._led.get(self.x, self.y)
     	self._led.set(self.x, self.y, self.antColor)
 
+    def preRun(self, amt=1):
+        self._led.all_off()
 
     def step(self, amt=1):
         if self.curColor == self.pathColor:
@@ -89,7 +91,7 @@ MANIFEST = [
         "presets" : [
             {
                 "display": "Blue Path, Orange Ant",
-                "desc": "This shows help! Testing only.",
+                "desc": "Demo Built-In Preset",
                 "config":{
                     "pathColor": [0,0,255],
                     "antColor": [255,143,0]
@@ -106,4 +108,14 @@ MANIFEST = [
         ],
         "type": "animation"
     }
+    # {
+    #     "id":"LangtonPreConfig",
+    #     "class":LangtonsAnt,
+    #     "controller": "matrix",
+    #     "type": "preset",
+    #     "preset_type": "animation",
+    #     "display": "Langton Preconfig",
+    #     "desc": "Preconfig anim test",
+    #     "preconfig": {}
+    # }
 ]

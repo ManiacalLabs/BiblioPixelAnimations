@@ -34,3 +34,25 @@ class Bloom(BaseMatrixAnim):
         self._step += amt
         if(self._step >= 255):
             self._step = 0
+
+
+
+MANIFEST = [
+    {
+        "class": Bloom,
+        "controller": "matrix",
+        "desc": "Rainbow blooming animation.",
+        "display": "Bloom",
+        "id": "Bloom",
+        "params": [
+            {
+                "default": True,
+                "help": "On for bloom in, off for bloom out.",
+                "id": "dir",
+                "label": "Direction",
+                "type": "bool"
+            }
+        ],
+        "type": "animation"
+    }
+]

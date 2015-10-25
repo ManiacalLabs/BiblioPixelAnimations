@@ -34,3 +34,60 @@ class RGBClock(BaseStripAnim):
         self._led.fillRGB(r,g,b,self._sStart,self._sEnd)
 
         self._step = 0
+
+
+
+# MANIFEST = [
+#     {
+#         "class": RGBClock,
+#         "controller": "strip",
+#         "desc": None,
+#         "display": "RGBClock",
+#         "id": "RGBClock",
+#         "params": [
+#             {
+#                 "default": None,
+#                 "help": "",
+#                 "id": "sEnd",
+#                 "label": "",
+#                 "type": ""
+#             },
+#             {
+#                 "default": None,
+#                 "help": "",
+#                 "id": "sStart",
+#                 "label": "",
+#                 "type": ""
+#             },
+#             {
+#                 "default": None,
+#                 "help": "",
+#                 "id": "mEnd",
+#                 "label": "",
+#                 "type": ""
+#             },
+#             {
+#                 "default": None,
+#                 "help": "",
+#                 "id": "mStart",
+#                 "label": "",
+#                 "type": ""
+#             },
+#             {
+#                 "default": None,
+#                 "help": "",
+#                 "id": "hEnd",
+#                 "label": "",
+#                 "type": ""
+#             },
+#             {
+#                 "default": None,
+#                 "help": "",
+#                 "id": "hStart",
+#                 "label": "",
+#                 "type": ""
+#             }
+#         ],
+#         "type": "animation"
+#     }
+# ]

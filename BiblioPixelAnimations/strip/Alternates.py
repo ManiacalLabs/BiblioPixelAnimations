@@ -46,3 +46,47 @@ class Alternates(BaseStripAnim):
 
         self._current = self._minLed
         self._positive = not self._positive
+
+
+
+MANIFEST = [
+    {
+        "class": Alternates,
+        "controller": "strip",
+        "desc": None,
+        "display": "Alternates",
+        "id": "Alternates",
+        "params": [
+            {
+                "default": [
+                    255,
+                    255,
+                    255
+                ],
+                "help": "",
+                "id": "color1",
+                "label": "Color 1",
+                "type": "color"
+            },
+            {
+                "default": [
+                    0,
+                    0,
+                    0
+                ],
+                "help": "",
+                "id": "color2",
+                "label": "Color 2",
+                "type": "color"
+            },
+            {
+                "default": -1,
+                "help": "",
+                "id": "max_led",
+                "label": "Color Width", 
+                "type": "int"
+            }
+        ],
+        "type": "animation"
+    }
+]

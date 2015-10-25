@@ -16,3 +16,39 @@ class ColorWipe(BaseStripAnim):
         overflow = (self._start + self._step) - self._end
         if overflow >= 0:
             self._step = overflow
+
+
+#Needs color list input on UI
+# MANIFEST = [
+#     {
+#         "class": ColorWipe,
+#         "controller": "strip",
+#         "desc": None,
+#         "display": "ColorWipe",
+#         "id": "ColorWipe",
+#         "params": [
+#             {
+#                 "default": -1,
+#                 "help": "",
+#                 "id": "end",
+#                 "label": "",
+#                 "type": "int"
+#             },
+#             {
+#                 "default": 0,
+#                 "help": "",
+#                 "id": "start",
+#                 "label": "",
+#                 "type": "int"
+#             },
+#             {
+#                 "default": None,
+#                 "help": "",
+#                 "id": "color",
+#                 "label": "",
+#                 "type": ""
+#             }
+#         ],
+#         "type": "animation"
+#     }
+# ]

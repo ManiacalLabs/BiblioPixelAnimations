@@ -26,3 +26,53 @@ class FireFlies(BaseStripAnim):
                     self._led.set(pixel + i, color)
 
         self._step += amt
+
+
+#Needs color list input on UI
+# MANIFEST = [
+#     {
+#         "class": FireFlies,
+#         "controller": "strip",
+#         "desc": None,
+#         "display": "FireFlies",
+#         "id": "FireFlies",
+#         "params": [
+#             {
+#                 "default": -1,
+#                 "help": "",
+#                 "id": "end",
+#                 "label": "",
+#                 "type": "int"
+#             },
+#             {
+#                 "default": 0,
+#                 "help": "",
+#                 "id": "start",
+#                 "label": "",
+#                 "type": "int"
+#             },
+#             {
+#                 "default": 1,
+#                 "help": "",
+#                 "id": "count",
+#                 "label": "",
+#                 "type": "int"
+#             },
+#             {
+#                 "default": 1,
+#                 "help": "",
+#                 "id": "width",
+#                 "label": "",
+#                 "type": "int"
+#             },
+#             {
+#                 "default": None,
+#                 "help": "",
+#                 "id": "colors",
+#                 "label": "",
+#                 "type": ""
+#             }
+#         ],
+#         "type": "animation"
+#     }
+# ]

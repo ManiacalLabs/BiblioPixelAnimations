@@ -13,15 +13,15 @@ import pyaudio
 import threading
 import struct
 from collections import deque
- 
+
 from bibliopixel import LEDMatrix
 from bibliopixel.animation import BaseMatrixAnim
 import bibliopixel.colors as colors
- 
- 
+
+
 class Recorder:
     """Simple, cross-platform class to record from the microphone."""
-     
+
     def __init__(self):
         """minimal garb is executed when class is loaded."""
         self.RATE=48000
@@ -30,30 +30,30 @@ class Recorder:
         self.threadsDieNow=False
         self.newAudio=False
         self.maxVals = deque(maxlen=500)
-                 
+
     def setup(self):
         """initialize sound card."""
         #TODO - windows detection vs. alsa or something for linux
         #TODO - try/except for sound card selection/initiation
- 
+
         self.buffersToRecord = 1
-         
+
         self.p = pyaudio.PyAudio()
         self.inStream = self.p.open(format=pyaudio.paInt16,channels=1,rate=self.RATE,input=True, output=False,frames_per_buffer=self.BUFFERSIZE)
- 
-        self.audio=numpy.empty((self.buffersToRecord*self.BUFFERSIZE),dtype=numpy.int16)              
-     
+
+        self.audio=numpy.empty((self.buffersToRecord*self.BUFFERSIZE),dtype=numpy.int16)
+
     def close(self):
         """cleanly back out and release sound card."""
         self.p.close(self.inStream)
-     
-    ### RECORDING AUDIO ### 
-     
+
+    ### RECORDING AUDIO ###
+
     def getAudio(self):
         """get a single buffer size worth of audio."""
         audioString=self.inStream.read(self.BUFFERSIZE)
         return numpy.fromstring(audioString,dtype=numpy.int16)
-         
+
     def record(self,forever=True):
         """record secToRecord seconds of audio."""
         while True:
@@ -62,16 +62,16 @@ class Recorder:
                 self.audio[i*self.BUFFERSIZE:(i+1)*self.BUFFERSIZE]=self.getAudio()
             self.newAudio=True
             if forever==False: break
-     
+
     def continuousStart(self):
         """CALL THIS to start running forever."""
         self.t = threading.Thread(target=self.record)
         self.t.start()
-         
+
     def continuousEnd(self):
         """shut down continuous recording."""
         self.threadsDieNow=True
- 
+
     ### MATH ###
     def piff(self, val, chunk_size, sample_rate):
         '''Return the power array index corresponding to a particular frequency.'''
@@ -86,9 +86,9 @@ class Recorder:
         Optimizations from work by Scott Driscoll:
         http://www.instructables.com/id/Raspberry-Pi-Spectrum-Analyzer-with-RGB-LED-Strip-/
         '''
- 
+
         data = self.audio
-           
+
         # if you take an FFT of a chunk of audio, the edges will look like
         # super high frequency cutoffs. Applying a window tapers the edges
         # of each end of the chunk down to zero.
@@ -110,7 +110,7 @@ class Recorder:
             matrix[i] = numpy.log10(numpy.sum(power[self.piff(frequency_limits[i][0], self.BUFFERSIZE, self.RATE)
                                               :self.piff(frequency_limits[i][1], self.BUFFERSIZE, self.RATE):1]))
 
-        return matrix    
+        return matrix
 
     def calculate_channel_frequency(self, min_frequency, max_frequency, width ):
         '''Calculate frequency values for each channel, taking into account custom settings.'''
@@ -131,12 +131,12 @@ class Recorder:
         for i in range(0, channel_length):
             frequency_store.append((frequency_limits[i], frequency_limits[i + 1]))
             print("channel %d is %6.2f to %6.2f " %( i, frequency_limits[i], frequency_limits[i + 1]))
-     
 
-        return frequency_store        
-  
+
+        return frequency_store
+
 class EQ(BaseMatrixAnim):
- 
+
     def __init__(self, led, minFrequency, maxFrequency):
         super(EQ, self).__init__(led)
         self.rec = Recorder()
@@ -144,10 +144,10 @@ class EQ(BaseMatrixAnim):
         self.rec.continuousStart()
         self.colors = [colors.hue_helper(y, self.height, 0) for y in range(self.height)]
         self.frequency_limits = self.rec.calculate_channel_frequency(minFrequency, maxFrequency, self.width)
- 
+
     def endRecord(self):
         self.rec.continuousEnd()
- 
+
     def step(self, amt = 1):
         self._led.all_off()
         eq_data = self.rec.calculate_levels(self.frequency_limits, self.width)
@@ -163,12 +163,12 @@ class EQ(BaseMatrixAnim):
 
             for y in range(self.height):
                 if y < int(numPix):
-                    led.set(x, self.height - y - 1, self.colors[y])
-        
+                    self._led.set(x, self.height - y - 1, self.colors[y])
+
         self._step += amt
-        
+
 class BassPulse(BaseMatrixAnim):
- 
+
     def __init__(self, led, minFrequency, maxFrequency):
         super(BassPulse, self).__init__(led)
         self.rec = Recorder()
@@ -176,14 +176,14 @@ class BassPulse(BaseMatrixAnim):
         self.rec.continuousStart()
         self.colors = [colors.hue_helper(y, self.height, 0) for y in range(self.height)]
         self.frequency_limits = self.rec.calculate_channel_frequency(minFrequency, maxFrequency, self.width)
- 
+
     def endRecord(self):
         self.rec.continuousEnd()
- 
+
     def step(self, amt = 1):
         self._led.all_off()
         eq_data = self.rec.calculate_levels(self.frequency_limits, self.width)
-        
+
         # only take bass values and draw circles with that value
         # normalize output
         height = (eq_data[0] - 9.0) / 5
@@ -196,11 +196,11 @@ class BassPulse(BaseMatrixAnim):
 
         for y in range(self.height):
             if y < int(numPix):
-                led.drawCircle(self.width/2, self.height/2, y, self.colors[y*2])
-        
+                self._led.drawCircle(self.width/2, self.height/2, y, self.colors[y*2])
+
         self._step += amt
-   
- 
+
+
 # #Load driver for your hardware, visualizer just for example
 # from bibliopixel.drivers.visualizer import DriverVisualizer
 # from bibliopixel.drivers.network import DriverNetwork
@@ -216,7 +216,7 @@ class BassPulse(BaseMatrixAnim):
 # parser.add_argument("--visualizer", help="use the visualization driver", action="store_true")
 # parser.add_argument("--network", help="use the network driver", action="store_true")
 # args = parser.parse_args()
-    
+
 # if args.visualizer:
 #     driver = DriverVisualizer(width = w, height = h, stayTop = True)
 #     led = LEDMatrix(driver, width = w, height = h)
@@ -225,12 +225,12 @@ class BassPulse(BaseMatrixAnim):
 #     #load the LEDMatrix class
 #     #change rotation and vert_flip as needed by your display
 #     led = LEDMatrix(driver, width = h, height = w, rotation = MatrixRotation.ROTATE_270, vert_flip = True)
- 
+
 
 # led.setMasterBrightness(255)
 # import bibliopixel.log as log
 # #log.setLogLevel(log.DEBUG)
- 
+
 # minFrequency   = float(50) # 50 Hz
 # maxFrequency   = float(15000) # 15000 HZ
 
@@ -243,7 +243,68 @@ class BassPulse(BaseMatrixAnim):
 #     anim.run(fps=20, max_steps = 20 * 60) # 1 minute animation
 # except KeyboardInterrupt:
 #     pass
-    
+
 # anim.endRecord()
 # led.all_off()
 # led.update()
+
+
+
+MANIFEST = [
+    {
+        "class": BassPulse,
+        "controller": "matrix",
+        "desc": None,
+        "display": "BassPulse",
+        "id": "BassPulse",
+        "params": [
+            {
+                "default": 15000,
+                "help": "",
+                "id": "maxFrequency",
+                "label": "Max Freq",
+                "min": 500,
+                "max": 30000,
+                "type": "int"
+            },
+            {
+                "default": 50,
+                "help": "",
+                "id": "minFrequency",
+                "label": "Min Freq",
+                "min": 5,
+                "max": 500,
+                "type": "int"
+            }
+        ],
+        "type": "animation"
+    },
+    {
+        "class": EQ,
+        "controller": "matrix",
+        "desc": None,
+        "display": "EQ",
+        "id": "EQ",
+        "params": [
+            {
+                "default": 15000,
+                "help": "",
+                "id": "maxFrequency",
+                "label": "Max Freq",
+                "min": 500,
+                "max": 30000,
+                "type": "int"
+            },
+            {
+                "default": 50,
+                "help": "",
+                "id": "minFrequency",
+                "label": "Min Freq",
+                "min": 5,
+                "max": 500,
+                "type": "int"
+            }
+        ],
+        "type": "animation"
+    }
+]

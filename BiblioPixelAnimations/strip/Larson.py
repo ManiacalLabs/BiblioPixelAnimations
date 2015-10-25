@@ -44,3 +44,77 @@ class LarsonRainbow(LarsonScanner):
         self._color = colors.hue_helper(0, self._size, self._step)
 
         super(LarsonRainbow, self).step(amt)
+
+
+
+# MANIFEST = [
+#     {
+#         "class": LarsonRainbow,
+#         "controller": "strip",
+#         "desc": None,
+#         "display": "LarsonRainbow",
+#         "id": "LarsonRainbow",
+#         "params": [
+#             {
+#                 "default": -1,
+#                 "help": "",
+#                 "id": "end",
+#                 "label": "",
+#                 "type": "int"
+#             },
+#             {
+#                 "default": 0,
+#                 "help": "",
+#                 "id": "start",
+#                 "label": "",
+#                 "type": "int"
+#             },
+#             {
+#                 "default": 2,
+#                 "help": "",
+#                 "id": "tail",
+#                 "label": "",
+#                 "type": "int"
+#             }
+#         ],
+#         "type": "animation"
+#     },
+#     {
+#         "class": LarsonScanner,
+#         "controller": "strip",
+#         "desc": None,
+#         "display": "LarsonScanner",
+#         "id": "LarsonScanner",
+#         "params": [
+#             {
+#                 "default": -1,
+#                 "help": "",
+#                 "id": "end",
+#                 "label": "",
+#                 "type": "int"
+#             },
+#             {
+#                 "default": 0,
+#                 "help": "",
+#                 "id": "start",
+#                 "label": "",
+#                 "type": "int"
+#             },
+#             {
+#                 "default": 2,
+#                 "help": "",
+#                 "id": "tail",
+#                 "label": "",
+#                 "type": "int"
+#             },
+#             {
+#                 "default": None,
+#                 "help": "",
+#                 "id": "color",
+#                 "label": "",
+#                 "type": ""
+#             }
+#         ],
+#         "type": "animation"
+#     }
+# ]
