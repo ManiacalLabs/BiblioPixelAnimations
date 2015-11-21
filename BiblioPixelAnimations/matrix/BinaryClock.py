@@ -24,72 +24,74 @@ class MatrixBinaryClock(BaseMatrixAnim):
 
     def step(self, amt = 1):
         self._led.all_off()
-        
+
         a = "" + time.ctime()
         tIndex = [11,12,14,15,17,18]
         colSize = [2,4,3,4,3,4]
-        
+
         for x in range (6):
             b = bin(128+int(a[tIndex[x]]))
             for i in range (colSize[x]):
-                if b[6+(4-colSize[x])+i] == '0':
-                    self._led.fillRect(self._origX+(x)+(self._lightSize-1)*x+self._colSpacing*x, ((4-colSize[x])+i+self._origY)*self._lightSize, self._lightSize, self._lightSize, self._offColor)
-                else:
-                    self._led.fillRect(self._origX+(x)+(self._lightSize-1)*x+self._colSpacing*x, ((4-colSize[x])+i+self._origY)*self._lightSize, self._lightSize, self._lightSize, self._onColor)
+                self._led.fillRect(
+                    self._origX+(x)+(self._lightSize-1)*x+self._colSpacing*x,
+                    ((4-colSize[x])+i+self._origY)*self._lightSize,
+                    self._lightSize, self._lightSize,
+                    self._offColor if b[6+(4-colSize[x])+i] == '0' else self._onColor)
+
         self._step = 0
 
 
 MANIFEST = [
     {
-        "class": MatrixBinaryClock, 
-        "controller": "matrix", 
-        "desc": "Display a BCD Binary clock", 
-        "display": "MatrixBinaryClock", 
-        "id": "MatrixBinaryClock", 
+        "class": MatrixBinaryClock,
+        "controller": "matrix",
+        "desc": "Display a BCD Binary clock",
+        "display": "MatrixBinaryClock",
+        "id": "MatrixBinaryClock",
         "params": [
             {
-                "default": [(255,0,0)], 
-                "help": "Color of On lights", 
-                "id": "onColor", 
-                "label": "onColor", 
+                "default": [(255,0,0)],
+                "help": "Color of On lights",
+                "id": "onColor",
+                "label": "onColor",
                 "type": "color"
-            }, 
+            },
             {
-                "default": 0, 
-                "help": "Origin (top left) X coordinate", 
-                "id": "origX", 
-                "label": "Origin X", 
-                "type": "int"
-            }, 
+                "default": [(0,0,255)],
+                "help": "Color of Off lights",
+                "id": "offColor",
+                "label": "offColor",
+                "type": "color"
+            },
             {
-                "default": 0, 
-                "help": "Origin (top left) Y coordinate", 
-                "id": "origY", 
-                "label": "Origin Y", 
+                "default": 0,
+                "help": "Origin (top left) X coordinate",
+                "id": "origX",
+                "label": "Origin X",
                 "type": "int"
             },
-{
-                "default": 1, 
-                "help": "Size of the clock Lights (1=1 pixel, 2=2x2, 3=3x3, etc...)", 
-                "id": "lightSize", 
-                "label": "Light Size", 
+            {
+                "default": 0,
+                "help": "Origin (top left) Y coordinate",
+                "id": "origY",
+                "label": "Origin Y",
                 "type": "int"
             },
-{
-                "default": 0, 
-                "help": "Number of pixels between each column", 
-                "id": "colSpacing", 
-                "label": "Column  Spacing", 
-                "type": "int"
-            },            
             {
-                "default": [(0,0,255)], 
-                "help": "Color of Off lights", 
-                "id": "offColor", 
-                "label": "offColor", 
-                "type": "color"
+                "default": 1,
+                "help": "Size of the clock Lights (1=1 pixel, 2=2x2, 3=3x3, etc...)",
+                "id": "lightSize",
+                "label": "Light Size",
+                "type": "int"
+            },
+            {
+                "default": 0,
+                "help": "Number of pixels between each column",
+                "id": "colSpacing",
+                "label": "Column Spacing",
+                "type": "int"
             }
-        ], 
+        ],
         "type": "animation"
     }
 ]
