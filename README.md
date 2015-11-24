@@ -12,6 +12,10 @@ pip install https://github.com/ManiacalLabs/BiblioPixelAnimations/archive/master
 
 This will clone the latest code from GitHub and install it to your python path.
 
+## PixelWeb ##
+
+For information on how to make your animation PixelWeb ready, checkout the PixelWeb wikie: https://github.com/ManiacalLabs/PixelWeb/wiki/Manifests
+
 ## Submit ##
 
 To submit, please post to our [forum](http://forum.maniacallabs.com/forumdisplay.php?fid=6). We will add them to this repository as we have time. Or, if you would like to help, fork this repository, add your animation as a new file under /matrix or /strip and submit a pull request.
