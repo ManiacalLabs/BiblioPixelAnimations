@@ -21,37 +21,44 @@ class PartyMode(BaseStripAnim):
         self._step += amt
 
 
-#Needs color list input on UI
-# MANIFEST = [
-#     {
-#         "class": PartyMode,
-#         "controller": "strip",
-#         "desc": None,
-#         "display": "PartyMode",
-#         "id": "PartyMode",
-#         "params": [
-#             {
-#                 "default": -1,
-#                 "help": "",
-#                 "id": "end",
-#                 "label": "",
-#                 "type": "int"
-#             },
-#             {
-#                 "default": 0,
-#                 "help": "",
-#                 "id": "start",
-#                 "label": "",
-#                 "type": "int"
-#             },
-#             {
-#                 "default": None,
-#                 "help": "",
-#                 "id": "colors",
-#                 "label": "",
-#                 "type": ""
-#             }
-#         ],
-#         "type": "animation"
-#     }
-# ]
+import bibliopixel.colors as colors
+rainbow = [colors.Red, colors.Orange, colors.Yellow, colors.Green, colors.Blue, colors.Purple]
+MANIFEST = [
+    {
+        "class": PartyMode,
+        "controller": "strip",
+        "desc": None,
+        "display": "PartyMode",
+        "id": "PartyMode",
+        "params": [
+            {
+                "default": rainbow,
+                "help": "Colors for pixels",
+                "id": "colors",
+                "label": "Colors",
+                "type": "multi",
+                "controls": {
+                    "default": rainbow,
+                    "help": None,
+                    "label": "Color",
+                    "type": "color"
+                }
+            },
+            # {
+            #     "default": -1,
+            #     "help": "",
+            #     "id": "end",
+            #     "label": "",
+            #     "type": "int"
+            # },
+            # {
+            #     "default": 0,
+            #     "help": "",
+            #     "id": "start",
+            #     "label": "",
+            #     "type": "int"
+            # }
+        ],
+        "type": "animation"
+    }
+]

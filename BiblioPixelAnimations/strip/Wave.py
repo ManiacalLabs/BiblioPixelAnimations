@@ -71,82 +71,82 @@ class WaveMove(BaseStripAnim):
             self._moveStep = 0
 
 
-#
-# MANIFEST = [
-#     {
-#         "class": Wave,
-#         "controller": "strip",
-#         "desc": None,
-#         "display": "Wave",
-#         "id": "Wave",
-#         "params": [
-#             {
-#                 "default": -1,
-#                 "help": "",
-#                 "id": "end",
-#                 "label": "",
-#                 "type": "int"
-#             },
-#             {
-#                 "default": 0,
-#                 "help": "",
-#                 "id": "start",
-#                 "label": "",
-#                 "type": "int"
-#             },
-#             {
-#                 "default": None,
-#                 "help": "",
-#                 "id": "cycles",
-#                 "label": "",
-#                 "type": ""
-#             },
-#             {
-#                 "default": None,
-#                 "help": "",
-#                 "id": "color",
-#                 "label": "",
-#                 "type": ""
-#             }
-#         ],
-#         "type": "animation"
-#     },
-#     {
-#         "class": WaveMove,
-#         "controller": "strip",
-#         "desc": None,
-#         "display": "WaveMove",
-#         "id": "WaveMove",
-#         "params": [
-#             {
-#                 "default": -1,
-#                 "help": "",
-#                 "id": "end",
-#                 "label": "",
-#                 "type": "int"
-#             },
-#             {
-#                 "default": 0,
-#                 "help": "",
-#                 "id": "start",
-#                 "label": "",
-#                 "type": "int"
-#             },
-#             {
-#                 "default": None,
-#                 "help": "",
-#                 "id": "cycles",
-#                 "label": "",
-#                 "type": ""
-#             },
-#             {
-#                 "default": None,
-#                 "help": "",
-#                 "id": "color",
-#                 "label": "",
-#                 "type": ""
-#             }
-#         ],
-#         "type": "animation"
-#     }
-# ]
+import bibliopixel.colors as colors
+MANIFEST = [
+    {
+        "class": Wave,
+        "controller": "strip",
+        "desc": "Stationary Sine Wave ",
+        "display": "Wave",
+        "id": "Wave",
+        "params": [
+            {
+                "default": colors.Red,
+                "help": "Wave Color",
+                "id": "color",
+                "label": "Color",
+                "type": "color"
+            },
+            # {
+            #     "default": 0,
+            #     "help": "",
+            #     "id": "start",
+            #     "label": "",
+            #     "type": "int"
+            # },
+            # {
+            #     "default": -1,
+            #     "help": "",
+            #     "id": "end",
+            #     "label": "",
+            #     "type": "int"
+            # },
+            {
+                "default": 1,
+                "help": "Number of peaks per strip",
+                "id": "cycles",
+                "label": "# Cycles",
+                "type": "int"
+            }
+        ],
+        "type": "animation"
+    },
+    {
+        "class": WaveMove,
+        "controller": "strip",
+        "desc": "Moving Sine Wave",
+        "display": "WaveMove",
+        "id": "WaveMove",
+        "params": [
+            {
+                "default": colors.Red,
+                "help": "",
+                "id": "color",
+                "label": "",
+                "type": "color"
+            },
+            # {
+            #     "default": 0,
+            #     "help": "",
+            #     "id": "start",
+            #     "label": "",
+            #     "type": "int"
+            # },
+            # {
+            #     "default": -1,
+            #     "help": "",
+            #     "id": "end",
+            #     "label": "",
+            #     "type": "int"
+            # },
+            {
+                "default": 1,
+                "help": "Number of peaks per strip",
+                "id": "cycles",
+                "label": "# Cycles",
+                "type": "int"
+            }
+        ],
+        "type": "animation"
+    }
+]

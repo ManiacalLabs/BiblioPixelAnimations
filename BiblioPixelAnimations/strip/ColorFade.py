@@ -27,44 +27,53 @@ class ColorFade(BaseStripAnim):
         self._step += amt
 
 
-#Needs color list input on UI
-# MANIFEST = [
-#     {
-#         "class": ColorFade,
-#         "controller": "strip",
-#         "desc": None,
-#         "display": "ColorFade",
-#         "id": "ColorFade",
-#         "params": [
-#             {
-#                 "default": -1,
-#                 "help": "",
-#                 "id": "end",
-#                 "label": "End Pixel",
-#                 "type": "int"
-#             },
-#             {
-#                 "default": 0,
-#                 "help": "",
-#                 "id": "start",
-#                 "label": "Start Pixel",
-#                 "type": "int"
-#             },
-#             {
-#                 "default": 5,
-#                 "help": "Amount to change brightness by. 0-255",
-#                 "id": "step",
-#                 "label": "Step",
-#                 "type": "int"
-#             },
-#             {
-#                 "default": None,
-#                 "help": "",
-#                 "id": "colors",
-#                 "label": "",
-#                 "type": ""
-#             }
-#         ],
-#         "type": "animation"
-#     }
-# ]
+import bibliopixel.colors as colors
+rainbow = [colors.Red, colors.Orange, colors.Yellow, colors.Green, colors.Blue, colors.Purple]
+MANIFEST = [
+    {
+        "class": ColorFade,
+        "controller": "strip",
+        "desc": None,
+        "display": "ColorFade",
+        "id": "ColorFade",
+        "params": [
+            {
+                "default": rainbow,
+                "help": "Colors for pixels",
+                "id": "colors",
+                "label": "Colors",
+                "type": "multi",
+                "controls": {
+                    "default": rainbow,
+                    "help": None,
+                    "label": "Color",
+                    "type": "color"
+                }
+            },
+            # {
+            #     "default": 0,
+            #     "help": "",
+            #     "id": "start",
+            #     "label": "",
+            #     "type": "int"
+            # },
+            # {
+            #     "default": -1,
+            #     "help": "",
+            #     "id": "end",
+            #     "label": "",
+            #     "type": "int"
+            # },
+            {
+                "default": 5,
+                "min": 1,
+                "max": 50, 
+                "help": "",
+                "id": "step",
+                "label": "Brightness Step",
+                "type": "int"
+            }
+        ],
+        "type": "animation"
+    }
+]

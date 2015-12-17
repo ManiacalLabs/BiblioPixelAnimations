@@ -45,18 +45,18 @@ class LinearRainbow(BaseStripAnim):
 #         "id": "LinearRainbow",
 #         "params": [
 #             {
-#                 "default": False,
-#                 "help": "",
-#                 "id": "individual_pixel",
-#                 "label": "",
-#                 "type": "bool"
-#             },
-#             {
 #                 "default": -1,
 #                 "help": "",
 #                 "id": "max_led",
 #                 "label": "",
 #                 "type": "int"
+#             },
+#             {
+#                 "default": False,
+#                 "help": "",
+#                 "id": "individual_pixel",
+#                 "label": "",
+#                 "type": "bool"
 #             }
 #         ],
 #         "type": "animation"

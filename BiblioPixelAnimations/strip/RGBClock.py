@@ -37,57 +37,57 @@ class RGBClock(BaseStripAnim):
 
 
 
-# MANIFEST = [
-#     {
-#         "class": RGBClock,
-#         "controller": "strip",
-#         "desc": None,
-#         "display": "RGBClock",
-#         "id": "RGBClock",
-#         "params": [
-#             {
-#                 "default": None,
-#                 "help": "",
-#                 "id": "sEnd",
-#                 "label": "",
-#                 "type": ""
-#             },
-#             {
-#                 "default": None,
-#                 "help": "",
-#                 "id": "sStart",
-#                 "label": "",
-#                 "type": ""
-#             },
-#             {
-#                 "default": None,
-#                 "help": "",
-#                 "id": "mEnd",
-#                 "label": "",
-#                 "type": ""
-#             },
-#             {
-#                 "default": None,
-#                 "help": "",
-#                 "id": "mStart",
-#                 "label": "",
-#                 "type": ""
-#             },
-#             {
-#                 "default": None,
-#                 "help": "",
-#                 "id": "hEnd",
-#                 "label": "",
-#                 "type": ""
-#             },
-#             {
-#                 "default": None,
-#                 "help": "",
-#                 "id": "hStart",
-#                 "label": "",
-#                 "type": ""
-#             }
-#         ],
-#         "type": "animation"
-#     }
-# ]
+MANIFEST = [
+    {
+        "class": RGBClock,
+        "controller": "strip",
+        "desc": "Color Clock",
+        "display": "RGBClock",
+        "id": "RGBClock",
+        "params": [
+            {
+                "default": None,
+                "help": "",
+                "id": "hStart",
+                "label": "Hour Start Pixel",
+                "type" : "int"
+            },
+            {
+                "default": None,
+                "help": "",
+                "id": "hEnd",
+                "label": "Hour End Pixel",
+                "type" : "int"
+            },
+            {
+                "default": None,
+                "help": "",
+                "id": "mStart",
+                "label": "Min Start Pixel",
+                "type" : "int"
+            },
+            {
+                "default": None,
+                "help": "",
+                "id": "mEnd",
+                "label": "Minute End Pixel",
+                "type" : "int"
+            },
+            {
+                "default": None,
+                "help": "",
+                "id": "sStart",
+                "label": "Sec Start Pixel",
+                "type" : "int"
+            },
+            {
+                "default": None,
+                "help": "",
+                "id": "sEnd",
+                "label": "Sec End Pixel", 
+                "type" : "int"
+            }
+        ],
+        "type": "animation"
+    }
+]

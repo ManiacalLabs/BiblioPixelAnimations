@@ -25,51 +25,58 @@ class ColorPattern(BaseStripAnim):
                 self._step = self._end + self._step
 
 
-#Needs color list input on UI
-# MANIFEST = [
-#     {
-#         "class": ColorPattern,
-#         "controller": "strip",
-#         "desc": None,
-#         "display": "ColorPattern",
-#         "id": "ColorPattern",
-#         "params": [
-#             {
-#                 "default": -1,
-#                 "help": "",
-#                 "id": "end",
-#                 "label": "",
-#                 "type": "int"
-#             },
-#             {
-#                 "default": 0,
-#                 "help": "",
-#                 "id": "start",
-#                 "label": "",
-#                 "type": "int"
-#             },
-#             {
-#                 "default": True,
-#                 "help": "",
-#                 "id": "dir",
-#                 "label": "",
-#                 "type": "bool"
-#             },
-#             {
-#                 "default": None,
-#                 "help": "",
-#                 "id": "width",
-#                 "label": "",
-#                 "type": ""
-#             },
-#             {
-#                 "default": None,
-#                 "help": "",
-#                 "id": "colors",
-#                 "label": "",
-#                 "type": ""
-#             }
-#         ],
-#         "type": "animation"
-#     }
-# ]
+import bibliopixel.colors as colors
+rainbow = [colors.Red, colors.Orange, colors.Yellow, colors.Green, colors.Blue, colors.Purple]
+MANIFEST = [
+    {
+        "class": ColorPattern,
+        "controller": "strip",
+        "desc": None,
+        "display": "ColorPattern",
+        "id": "ColorPattern",
+        "params": [
+            {
+                "default": rainbow,
+                "help": "Colors for pixels",
+                "id": "colors",
+                "label": "Colors",
+                "type": "multi",
+                "controls": {
+                    "default": rainbow,
+                    "help": None,
+                    "label": "Color",
+                    "type": "color"
+                }
+            },
+            # {
+            #     "default": True,
+            #     "help": "",
+            #     "id": "dir",
+            #     "label": "",
+            #     "type": "bool"
+            # },
+            # {
+            #     "default": -1,
+            #     "help": "",
+            #     "id": "end",
+            #     "label": "",
+            #     "type": "int"
+            # },
+            # {
+            #     "default": 0,
+            #     "help": "",
+            #     "id": "start",
+            #     "label": "",
+            #     "type": "int"
+            # },
+            {
+                "default": 1,
+                "help": "",
+                "id": "width", 
+                "label": "Color Width",
+                "type": "int"
+            }
+        ],
+        "type": "animation"
+    }
+]

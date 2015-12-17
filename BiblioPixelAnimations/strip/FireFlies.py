@@ -28,51 +28,58 @@ class FireFlies(BaseStripAnim):
         self._step += amt
 
 
-#Needs color list input on UI
-# MANIFEST = [
-#     {
-#         "class": FireFlies,
-#         "controller": "strip",
-#         "desc": None,
-#         "display": "FireFlies",
-#         "id": "FireFlies",
-#         "params": [
-#             {
-#                 "default": -1,
-#                 "help": "",
-#                 "id": "end",
-#                 "label": "",
-#                 "type": "int"
-#             },
-#             {
-#                 "default": 0,
-#                 "help": "",
-#                 "id": "start",
-#                 "label": "",
-#                 "type": "int"
-#             },
-#             {
-#                 "default": 1,
-#                 "help": "",
-#                 "id": "count",
-#                 "label": "",
-#                 "type": "int"
-#             },
-#             {
-#                 "default": 1,
-#                 "help": "",
-#                 "id": "width",
-#                 "label": "",
-#                 "type": "int"
-#             },
-#             {
-#                 "default": None,
-#                 "help": "",
-#                 "id": "colors",
-#                 "label": "",
-#                 "type": ""
-#             }
-#         ],
-#         "type": "animation"
-#     }
-# ]
+import bibliopixel.colors as colors
+rainbow = [colors.Red, colors.Orange, colors.Yellow, colors.Green, colors.Blue, colors.Purple]
+MANIFEST = [
+    {
+        "class": FireFlies,
+        "controller": "strip",
+        "desc": None,
+        "display": "FireFlies",
+        "id": "FireFlies",
+        "params": [
+            {
+                "default": rainbow,
+                "help": "Colors for pixels",
+                "id": "colors",
+                "label": "Colors",
+                "type": "multi",
+                "controls": {
+                    "default": rainbow,
+                    "help": None,
+                    "label": "Color",
+                    "type": "color"
+                }
+            },
+            {
+                "default": 30,
+                "help": "",
+                "id": "count",
+                "label": "Pixels Per Frame",
+                "type": "int"
+            },
+            # {
+            #     "default": -1,
+            #     "help": "",
+            #     "id": "end",
+            #     "label": "",
+            #     "type": "int"
+            # },
+            # {
+            #     "default": 0,
+            #     "help": "",
+            #     "id": "start",
+            #     "label": "",
+            #     "type": "int"
+            # },
+            {
+                "default": 1,
+                "help": "Width of each random pixel",
+                "id": "width",
+                "label": "Width",
+                "type": "int"
+            }
+        ],
+        "type": "animation"
+    }
+]
