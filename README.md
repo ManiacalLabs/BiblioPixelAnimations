@@ -12,6 +12,34 @@ pip install https://github.com/ManiacalLabs/BiblioPixelAnimations/archive/master
 
 This will clone the latest code from GitHub and install it to your python path.
 
+## Using Animations ##
+
+A simple example of how to use the animations in this repo. 
+
+```
+from bibliopixel.drivers.serial_driver import *
+from bibliopixel import LEDStrip
+#import the module you'd like to use
+from BiblioPixelAnimations.strip import Rainbows
+
+#init driver with the type and count of LEDs you're using
+driver = DriverSerial(type=LEDTYPE.WS2812B, num=10)
+
+#init controller
+led = LEDStrip(driver)
+
+#init animation; replace with whichever animation you'd like to use
+anim = Rainbows.RainbowCycle(led)
+
+try:
+    #run the animation
+    anim.run()
+except KeyboardInterrupt:
+    #Ctrl+C will exit the animation and turn the LEDs offs
+    led.all_off()
+    led.update()
+```
+
 ## PixelWeb ##
 
 For information on how to make your animation PixelWeb ready, checkout the PixelWeb wikie: https://github.com/ManiacalLabs/PixelWeb/wiki/Manifests
