@@ -1,17 +1,19 @@
-from distutils.core import setup
+from setuptools import setup
 import BiblioPixelAnimations
 import urllib2, json
-_ver = "BAD_INSTALL"
+import sys
+_ver = "DEV"
 
 try:
-    head = urllib2.urlopen("https://api.github.com/repos/ManiacalLabs/BiblioPixelAnimations/git/refs/head").read()
-    head_data = json.loads(head)
-    if len(head_data) > 0:
-        _ver = head_data[0]["object"]["sha"]
+    if not 'develop' in sys.argv:
+        head = urllib2.urlopen("https://api.github.com/repos/ManiacalLabs/BiblioPixelAnimations/git/refs/head").read()
+        head_data = json.loads(head)
+        if len(head_data) > 0:
+            _ver = head_data[0]["object"]["sha"]
 except:
     pass
 
-if not 'pip' in __file__:
+if not 'pip' in __file__ and not 'develop' in sys.argv:
     print """
     This installer MUST be run from pip!
     Please install using the following command:

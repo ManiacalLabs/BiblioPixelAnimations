@@ -55,3 +55,5 @@ target/
 .remote-sync.json
 .remote-sync.json
 .remote-sync.json
+
+BiblioPixelAnimations.egg*
