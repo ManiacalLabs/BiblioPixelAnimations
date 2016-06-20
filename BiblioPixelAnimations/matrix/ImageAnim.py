@@ -174,7 +174,7 @@ MANIFEST = [
     {
         "class": ImageAnim,
         "controller": "matrix",
-        "desc": "Display animation GIFs",
+        "desc": "Display animated GIFs",
         "display": "ImageAnim",
         "id": "ImageAnim",
         "params": [
@@ -218,6 +218,30 @@ MANIFEST = [
                     "type": "int",
                     "default": 0
                 }]
+            }
+        ],
+        "type": "animation"
+    },
+    {
+        "class": ImageAnimFolder,
+        "controller": "matrix",
+        "desc": "Display folder of animated GIFs",
+        "display": "ImageAnimFolder",
+        "id": "ImageAnimFolder",
+        "params": [
+            {
+                "default": None,
+                "help": "",
+                "id": "folder",
+                "label": "GIF Folder Path",
+                "type": "str"
+            },
+            {
+                "default": 255,
+                "help": "# of times to cycle each GIF",
+                "id": "cycles",
+                "label": "# Cycles",
+                "type": "int"
             }
         ],
         "type": "animation"
