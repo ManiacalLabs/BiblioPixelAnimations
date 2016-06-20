@@ -35,7 +35,6 @@ class GradientClock(BaseMatrixAnim):
             grad += [h_min]
         grad += colors.hue_gradient(h_min, h_sec, self.half)
 
-        print (h_hrs, h_min, h_sec)
         log.debug('{}:{}:{}'.format(hrs, mins, sec))
 
         for x in range(self.cdim):
