@@ -24,7 +24,7 @@ class GradientClock(BaseMatrixAnim):
         mins = t.tm_min
         sec = t.tm_sec
 
-        h_hrs = hrs * (256 // 24)
+        h_hrs = hrs * (256 // 12)
         h_min = mins * (256 // 60)
         h_sec = sec * (256 // 60)
 
