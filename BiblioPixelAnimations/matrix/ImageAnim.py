@@ -237,7 +237,7 @@ MANIFEST = [
                 "type": "str"
             },
             {
-                "default": 255,
+                "default": 1,
                 "help": "# of times to cycle each GIF",
                 "id": "cycles",
                 "label": "# Cycles",
