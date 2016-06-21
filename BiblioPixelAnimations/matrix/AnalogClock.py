@@ -6,7 +6,7 @@ import math
 
 
 class AnalogClock(BaseMatrixAnim):
-    def __init__(self, led, aa=False):
+    def __init__(self, led, aa=True):
         super(AnalogClock, self).__init__(led)
         self._centerX = (self._led.width - 1) / 2
         self._centerY = (self._led.height - 1) / 2
@@ -32,7 +32,7 @@ class AnalogClock(BaseMatrixAnim):
 
 class RGBAnalogClock(BaseMatrixAnim):
 
-    def __init__(self, led, aa=False):
+    def __init__(self, led, aa=True):
         super(RGBAnalogClock, self).__init__(led)
         self._centerX = (self._led.width - 1) / 2
         self._centerY = (self._led.height - 1) / 2
