@@ -32,60 +32,77 @@ import os
 import bibliopixel.colors as colors
 
 
+def _getBufferFromImage(img, led, bgcolor, bright, offset):
+    duration = None
+    if 'duration' in img.info:
+        duration = img.info['duration']
+
+    w = led.width - offset[0]
+    if img.size[0] < w:
+        w = img.size[0]
+
+    h = led.height - offset[1]
+    if img.size[1] < h:
+        h = img.size[1]
+
+    ox = offset[0]
+    oy = offset[1]
+
+    buffer = [0 for x in range(led.bufByteCount)]
+    gamma = led.driver[0].gamma
+    if bgcolor != (0, 0, 0):
+        for i in range(led.numLEDs):
+            buffer[i * 3 + 0] = gamma[bgcolor[0]]
+            buffer[i * 3 + 1] = gamma[bgcolor[1]]
+            buffer[i * 3 + 2] = gamma[bgcolor[2]]
+
+    frame = Image.new("RGBA", img.size)
+    frame.paste(img)
+
+    for x in range(ox, w + ox):
+        for y in range(oy, h + oy):
+            if x < 0 or y < 0:
+                continue
+            pixel = led.matrix_map[y][x]
+            r, g, b, a = frame.getpixel((x - ox, y - oy))
+            if a == 0:
+                r, g, b = bgcolor
+            else:
+                r = (r * a) >> 8
+                g = (g * a) >> 8
+                b = (b * a) >> 8
+            if bright != 255:
+                r, g, b = colors.color_scale((r, g, b), bright)
+
+            buffer[pixel * 3 + 0] = gamma[r]
+            buffer[pixel * 3 + 1] = gamma[g]
+            buffer[pixel * 3 + 2] = gamma[b]
+
+    return (duration, buffer)
+
+
+def _loadGIFSequence(imagePath, led, bgcolor, bright, offset):
+    img = Image.open(imagePath)
+    if offset == (0, 0):
+        w = 0
+        h = 0
+        if img.size[0] < led.width:
+            w = (led.width - img.size[0]) / 2
+        if img.size[1] < led.height:
+            h = (led.height - img.size[1]) / 2
+        offset = (w, h)
+
+    images = []
+    count = 0
+    for frame in ImageSequence.Iterator(img):
+        images.append(
+            _getBufferFromImage(frame, led, bgcolor, bright, offset))
+        count += 1
+
+    return images
+
+
 class ImageAnim(BaseMatrixAnim):
-
-    def _getBufferFromImage(self, img, offset=(0, 0)):
-        duration = None
-        if 'duration' in img.info:
-            duration = img.info['duration']
-
-        w = self._led.width - offset[0]
-        if img.size[0] < w:
-            w = img.size[0]
-
-        h = self._led.height - offset[1]
-        if img.size[1] < h:
-            h = img.size[1]
-
-        ox = offset[0]
-        oy = offset[1]
-
-        buffer = [0 for x in range(self._led.bufByteCount)]
-        gamma = self._led.driver[0].gamma
-        if self._bgcolor != (0, 0, 0):
-            for i in range(self._led.numLEDs):
-                buffer[i * 3 + 0] = gamma[self._bgcolor[0]]
-                buffer[i * 3 + 1] = gamma[self._bgcolor[1]]
-                buffer[i * 3 + 2] = gamma[self._bgcolor[2]]
-
-        frame = Image.new("RGBA", img.size)
-        frame.paste(img)
-
-        for x in range(ox, w + ox):
-            for y in range(oy, h + oy):
-                if x < 0 or y < 0:
-                    continue
-                pixel = self._led.matrix_map[y][x]
-                r, g, b, a = frame.getpixel((x - ox, y - oy))
-                if a == 0:
-                    r, g, b = self._bgcolor
-                else:
-                    r = (r * a) >> 8
-                    g = (g * a) >> 8
-                    b = (b * a) >> 8
-                if self._bright != 255:
-                    r, g, b = colors.color_scale((r, g, b), self._bright)
-
-                buffer[pixel * 3 + 0] = gamma[r]
-                buffer[pixel * 3 + 1] = gamma[g]
-                buffer[pixel * 3 + 2] = gamma[b]
-
-        return (duration, buffer)
-
-    def _getBufferFromPath(self, imagePath, offset=(0, 0)):
-        img = Image.open(imagePath)
-        return self._getBufferFromImage(img, offset)
-
     def __init__(self, led, imagePath, offset=(0, 0), bgcolor=colors.Off, brightness=255):
         """Helper class for displaying image animations for GIF files or a set of bitmaps
 
@@ -104,42 +121,33 @@ class ImageAnim(BaseMatrixAnim):
         self._bgcolor = colors.color_scale(bgcolor, self._bright)
         self._offset = offset
         self._images = []
-        self._count = 0
 
-        if imagePath.endswith(".gif"):
-            log.logger.info("Loading {0} ...".format(imagePath))
-            img = Image.open(imagePath)
-            if self._offset == (0, 0):
-                w = 0
-                h = 0
-                if img.size[0] < self._led.width:
-                    w = (self._led.width - img.size[0]) / 2
-                if img.size[1] < self._led.height:
-                    h = (self._led.height - img.size[1]) / 2
-                self._offset = (w, h)
+        self.folder_mode = os.path.isdir(imagePath)
+        self.gif_files = []
+        self.folder_index = -1
 
-            for frame in ImageSequence.Iterator(img):
-                self._images.append(
-                    self._getBufferFromImage(frame, self._offset))
-                self._count += 1
+        if self.folder_mode:
+            self.gif_files = glob.glob(imagePath + "/*.gif")
+            self.loadNextGIF()
         else:
-            imageList = glob.glob(imagePath + "/*.bmp")
-            imageList.sort()
-
-            self._count = len(imageList)
-            if self._count == 0:
-                raise ValueError("No images found!")
-
-            for img in imageList:
-                if self._offset == (0, 0):
-                    if img.size[0] < self._led.width:
-                        self._offset[0] = (self._led.width - img.size[0]) / 2
-                    if img.size[1] < self._led.height:
-                        self._offset[1] = (self._led.height - img.size[1]) / 2
-
-                self._images.append(self._getBufferFromPath(img, self._offset))
+            self.loadGIFFile(imagePath)
 
         self._curImage = 0
+
+    def loadGIFFile(self, gif):
+        _, ext = os.path.splitext(gif)
+
+        if ext.lower().endswith("gif"):
+            log.logger.info("Loading {0} ...".format(gif))
+            self._images = _loadGIFSequence(gif, self._led, self._bgcolor, self._bright, self._offset)
+        else:
+            raise ValueError('Must be a GIF file!')
+
+    def loadNextGIF(self):
+        self.folder_index += 1
+        if self.folder_index >= len(self.gif_files):
+            self.folder_index = 0
+        self.loadGIFFile(self.gif_files[self.folder_index])
 
     def preRun(self):
         self._curImage = 0
@@ -151,9 +159,10 @@ class ImageAnim(BaseMatrixAnim):
         self._internalDelay = self._images[self._curImage][0]
 
         self._curImage += 1
-        if self._curImage >= self._count:
+        if self._curImage >= len(self._images):
             self._curImage = 0
             self.animComplete = True
+            self.loadNextGIF()
 
         self._step = 0
 

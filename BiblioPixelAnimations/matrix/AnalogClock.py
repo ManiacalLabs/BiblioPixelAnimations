@@ -49,7 +49,7 @@ class RGBAnalogClock(BaseMatrixAnim):
         p_min = pointOnCircle(self._centerX, self._centerY, self._centerX, mins * 6)
         p_sec = pointOnCircle(self._centerX, self._centerY, self._centerX, sec * 6)
 
-        c_hrs = colors.hue2rgb_rainbow(t.tm_hour * (256 / 24))
+        c_hrs = colors.hue2rgb_rainbow(t.tm_hour * (256 / 12))
 
         c_min = colors.hue2rgb_rainbow(mins * (256 / 60))
 
