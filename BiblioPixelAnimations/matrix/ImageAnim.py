@@ -222,7 +222,7 @@ class ImageAnim(BaseMatrixAnim):
         if self._curImage >= len(img):
             self._curImage = 0
             if self.folder_mode:
-                if self.cycle_count < self.cycles:
+                if self.cycle_count < self.cycles - 1:
                     self.cycle_count += 1
                 elif not self.load_thread.loading():  # wait another cycle if still loading
                     self.animComplete = True
