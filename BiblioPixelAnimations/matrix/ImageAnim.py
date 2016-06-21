@@ -160,11 +160,13 @@ class ImageAnim(BaseMatrixAnim):
 
         self.folder_mode = os.path.isdir(imagePath)
         self.gif_files = []
+        self.gif_indices = []
         self.folder_index = -1
         self.load_thread = None
 
         if self.folder_mode:
             self.gif_files = glob.glob(imagePath + "/*.gif")
+            self.gif_indices = range(len(self.gif_files))
             self.loadNextGIF()  # first load is manual
             self.swapbuf()
             self.load_thread = loadnextthread(self)
@@ -191,7 +193,11 @@ class ImageAnim(BaseMatrixAnim):
 
     def loadNextGIF(self):
         if self.random:
-            self.folder_index = rand.randrange(0, len(self.gif_files))
+            if len(self.gif_indices) < 2:
+                self.folder_index = self.gif_indices[0]
+                self.gif_indices = range(len(self.gif_files))
+            else:
+                self.folder_index = self.gif_indices.pop(rand.randrange(0, len(self.gif_indices)))
         else:
             self.folder_index += 1
             if self.folder_index >= len(self.gif_files):
