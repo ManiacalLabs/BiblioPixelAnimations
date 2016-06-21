@@ -30,6 +30,8 @@ except ImportError as e:
 import glob
 import os
 import bibliopixel.colors as colors
+import threading
+import random as rand
 
 
 def _getBufferFromImage(img, led, bgcolor, bright, offset):
@@ -102,17 +104,50 @@ def _loadGIFSequence(imagePath, led, bgcolor, bright, offset):
     return images
 
 
+class loadnextthread(threading.Thread):
+
+    def __init__(self, imganim):
+        super(loadnextthread, self).__init__()
+        self.setDaemon(True)
+        self._stop = threading.Event()
+        self._wait = threading.Event()
+        self.anim = imganim
+
+    def stop(self):
+        self._stop.set()
+
+    def stopped(self):
+        return self._stop.isSet()
+
+    def loading(self):
+        return self._wait.isSet()
+
+    def loadNext(self):
+        self._wait.set()
+
+    def run(self):
+        while not self.stopped():
+            self._wait.wait()
+            self.anim.loadNextGIF()
+            self._wait.clear()
+
+
 class ImageAnim(BaseMatrixAnim):
-    def __init__(self, led, imagePath, offset=(0, 0), bgcolor=colors.Off, brightness=255):
+    def __init__(self, led, imagePath, offset=(0, 0), bgcolor=colors.Off, brightness=255, cycles=1, random=False):
         """Helper class for displaying image animations for GIF files or a set of bitmaps
 
         led - LEDMatrix instance
-        imagePath - Path to either a single animated GIF image or folder of sequential bitmap files
+        imagePath - Path to either a single animated GIF image or folder of GIF files
         offset - X,Y tuple coordinates at which to place the top-left corner of the image
         bgcolor - RGB tuple color to replace any transparent pixels with. Avoids transparent showing as black
         brightness - Brightness value (0-255) to scale the image by. Otherwise uses master brightness at the time of creation
         """
         super(ImageAnim, self).__init__(led)
+
+        self.cycles = cycles
+        self.cycle_count = 0
+
+        self.random = random
 
         self._bright = brightness
         if self._bright == 255 and led.masterBrightness != 255:
@@ -120,63 +155,84 @@ class ImageAnim(BaseMatrixAnim):
 
         self._bgcolor = colors.color_scale(bgcolor, self._bright)
         self._offset = offset
-        self._images = []
+        self._image_buffers = [None, None]
+        self._cur_img_buf = 1  # start here because loadNext swaps it
 
         self.folder_mode = os.path.isdir(imagePath)
         self.gif_files = []
         self.folder_index = -1
+        self.load_thread = None
 
         if self.folder_mode:
             self.gif_files = glob.glob(imagePath + "/*.gif")
-            self.loadNextGIF()
+            self.loadNextGIF()  # first load is manual
+            self.swapbuf()
+            self.load_thread = loadnextthread(self)
+            self.load_thread.start()
+            self.load_thread.loadNext()  # pre-load next image
         else:
             self.loadGIFFile(imagePath)
+            self.swapbuf()
 
         self._curImage = 0
 
+    def _exit(self, type, value, traceback):
+        if self.load_thread:
+            self.load_thread.stop()
+
     def loadGIFFile(self, gif):
         _, ext = os.path.splitext(gif)
-
+        next_buf = self.next_img_buf()
         if ext.lower().endswith("gif"):
             log.logger.info("Loading {0} ...".format(gif))
-            self._images = _loadGIFSequence(gif, self._led, self._bgcolor, self._bright, self._offset)
+            self._image_buffers[next_buf] = _loadGIFSequence(gif, self._led, self._bgcolor, self._bright, self._offset)
         else:
             raise ValueError('Must be a GIF file!')
 
     def loadNextGIF(self):
-        self.folder_index += 1
-        if self.folder_index >= len(self.gif_files):
-            self.folder_index = 0
+        if self.random:
+            self.folder_index = rand.randrange(0, len(self.gif_files))
+        else:
+            self.folder_index += 1
+            if self.folder_index >= len(self.gif_files):
+                self.folder_index = 0
         self.loadGIFFile(self.gif_files[self.folder_index])
+
+    def next_img_buf(self):
+        i = self._cur_img_buf
+        i += 1
+        if i > 1:
+            i = 0
+        return i
+
+    def swapbuf(self):
+        self._cur_img_buf = self.next_img_buf()
 
     def preRun(self):
         self._curImage = 0
 
     def step(self, amt=1):
         self._led.all_off()
+        img = self._image_buffers[self._cur_img_buf]
 
-        self._led.setBuffer(self._images[self._curImage][1])
-        self._internalDelay = self._images[self._curImage][0]
+        self._led.setBuffer(img[self._curImage][1])
+        self._internalDelay = img[self._curImage][0]
 
         self._curImage += 1
-        if self._curImage >= len(self._images):
+        if self._curImage >= len(img):
             self._curImage = 0
-            self.animComplete = True
-            self.loadNextGIF()
+            if self.folder_mode:
+                if self.cycle_count < self.cycles:
+                    self.cycle_count += 1
+                elif not self.load_thread.loading():  # wait another cycle if still loading
+                    self.animComplete = True
+                    self.load_thread.loadNext()
+                    self.swapbuf()
+                    self.cycle_count = 0
+            else:
+                self.animComplete = True
 
         self._step = 0
-
-
-class ImageAnimFolder(AnimationQueue):
-
-    def __init__(self, led, folder, cycles=1):
-        super(ImageAnimFolder, self).__init__(led)
-        self.folder = folder
-        self.gifs = []
-        for g in glob.glob(self.folder + "/*.gif"):
-            anim = ImageAnim(led, g)
-            self.gifs.append(anim)
-            self.addAnim(anim, untilComplete=True, max_cycles=cycles)
 
 
 MANIFEST = [
@@ -189,9 +245,9 @@ MANIFEST = [
         "params": [
             {
                 "default": None,
-                "help": "",
+                "help": "Path to either a single GIF or folder of GIF files",
                 "id": "imagePath",
-                "label": "GIF Path",
+                "label": "GIF/Folder Path",
                 "type": "str"
             },
             {
@@ -227,30 +283,20 @@ MANIFEST = [
                     "type": "int",
                     "default": 0
                 }]
-            }
-        ],
-        "type": "animation"
-    },
-    {
-        "class": ImageAnimFolder,
-        "controller": "matrix",
-        "desc": "Display folder of animated GIFs",
-        "display": "ImageAnimFolder",
-        "id": "ImageAnimFolder",
-        "params": [
-            {
-                "default": None,
-                "help": "",
-                "id": "folder",
-                "label": "GIF Folder Path",
-                "type": "str"
             },
             {
                 "default": 1,
-                "help": "# of times to cycle each GIF",
+                "help": "# of cycles to run before next GIF. Folder mode only.",
                 "id": "cycles",
                 "label": "# Cycles",
                 "type": "int"
+            },
+            {
+                "default": True,
+                "help": "Random GIF selection. Folder mode only.",
+                "id": "random",
+                "label": "Random",
+                "type": "bool"
             }
         ],
         "type": "animation"
