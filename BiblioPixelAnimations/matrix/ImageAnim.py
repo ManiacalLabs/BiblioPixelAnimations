@@ -50,7 +50,7 @@ def _getBufferFromImage(img, led, bgcolor, bright, offset):
     ox = offset[0]
     oy = offset[1]
 
-    buffer = [0 for x in range(led.bufByteCount)]
+    buffer = [0 for x in range(led.numLEDs * 3)]
     gamma = led.driver[0].gamma
     if bgcolor != (0, 0, 0):
         for i in range(led.numLEDs):
