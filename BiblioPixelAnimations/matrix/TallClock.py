@@ -19,6 +19,7 @@ class TallClock(BaseMatrixAnim):
         self._led.drawText(sec, x = 2, y = 34, size = 2)
 
         self._step += amt
+        self._led.setTexture(tex=None)
 
 
 MANIFEST = [
