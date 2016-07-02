@@ -1,24 +1,31 @@
+from __future__ import print_function
 from setuptools import setup
 import BiblioPixelAnimations
-import urllib2, json
+import json
 import sys
-_ver = "DEV"
 
 try:
-    if not 'develop' in sys.argv:
-        head = urllib2.urlopen("https://api.github.com/repos/ManiacalLabs/BiblioPixelAnimations/git/refs/head").read()
+    from urllib2 import urlopen
+except:  # For Py3 support
+    from urllib.request import urlopen
+
+_ver = "0.0.0"
+
+try:
+    if 'develop' not in sys.argv:
+        head = urlopen("https://api.github.com/repos/ManiacalLabs/BiblioPixelAnimations/git/refs/head").read()
         head_data = json.loads(head)
         if len(head_data) > 0:
             _ver = head_data[0]["object"]["sha"]
 except:
     pass
 
-if not 'pip' in __file__ and not 'develop' in sys.argv:
-    print """
+if 'pip' not in __file__ and 'develop' not in sys.argv:
+    print("""
     This installer MUST be run from pip!
     Please install using the following command:
     pip install https://github.com/ManiacalLabs/BiblioPixelAnimations/archive/master.zip --upgrade
-    """
+    """)
 else:
     setup(
         name='BiblioPixelAnimations',
@@ -28,8 +35,9 @@ else:
         author_email='adam@maniacallabs.com',
         url='http://github.com/maniacallabs/BiblioPixelAnimations/',
         license='MIT',
-        packages=['BiblioPixelAnimations', 'BiblioPixelAnimations.matrix', 'BiblioPixelAnimations.strip', 'BiblioPixelAnimations.game'],
-        classifiers = [
+        packages=['BiblioPixelAnimations', 'BiblioPixelAnimations.matrix',
+                  'BiblioPixelAnimations.strip', 'BiblioPixelAnimations.game'],
+        classifiers=[
             'Development Status :: 5 - Production/Stable',
             'License :: OSI Approved :: MIT License',
             'Programming Language :: Python :: 2',
