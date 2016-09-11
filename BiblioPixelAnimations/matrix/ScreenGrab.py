@@ -1,7 +1,39 @@
 from bibliopixel.animation import BaseMatrixAnim
+from bibliopixel import log
 import numpy as np
 import cv2
-from desktopmagic.screengrab_win32 import getRectAsImage, getScreenAsImage
+import os
+
+grab = None
+
+if os.name == 'nt':
+    try:
+        from desktopmagic.screengrab_win32 import getRectAsImage, getScreenAsImage
+        log.info("Using desktopmagic module")
+
+        def nt_grab(bbox=None):
+            if bbox is None:
+                img = getScreenAsImage()
+            else:
+                img = getRectAsImage(bbox)
+            return img
+
+        grab = nt_grab
+    except:
+        pass
+
+if grab is None:
+    try:
+        from pil import ImageGrab
+        log.info("Using PIL ImageGrab module")
+    except:
+        try:
+            import pyscreenshot as ImageGrab
+            log.info("Using pyscreenshot module")
+        except:
+            raise Exception("Unable to find any available screenshot option.")
+
+    grab = ImageGrab.grab
 
 
 class ScreenGrab(BaseMatrixAnim):
@@ -70,10 +102,7 @@ class ScreenGrab(BaseMatrixAnim):
         self.yoff = int(round(self._cropY * yoffset)) - self._cropY
 
     def _capFrame(self):
-        if self.bbox is None:
-            img = getScreenAsImage()
-        else:
-            img = getRectAsImage(self.bbox)
+        img = grab(self.bbox)
         return np.array(img)
 
     def step(self, amt=1):
