@@ -10,6 +10,7 @@ class AnalogClock(BaseMatrixAnim):
         super(AnalogClock, self).__init__(led)
         self._centerX = (self._led.width - 1) / 2
         self._centerY = (self._led.height - 1) / 2
+        self.hand_length = self._centerX if self._centerX <= self._centerY else self._centerY
         self.aa = aa
 
     def step(self, amt=1):
@@ -19,9 +20,9 @@ class AnalogClock(BaseMatrixAnim):
         mins = t.tm_min
         sec = t.tm_sec
 
-        p_hrs = pointOnCircle(self._centerX, self._centerY, int(self._centerX * 0.7), hrs * 30)
-        p_min = pointOnCircle(self._centerX, self._centerY, self._centerX, mins * 6)
-        p_sec = pointOnCircle(self._centerX, self._centerY, self._centerX, sec * 6)
+        p_hrs = pointOnCircle(self._centerX, self._centerY, int(self.hand_length * 0.7), hrs * 30)
+        p_min = pointOnCircle(self._centerX, self._centerY, self.hand_length, mins * 6)
+        p_sec = pointOnCircle(self._centerX, self._centerY, self.hand_length, sec * 6)
 
         self._led.drawLine(self._centerX, self._centerY, p_hrs[0], p_hrs[1], (255, 0, 0), aa=self.aa)
         self._led.drawLine(self._centerX, self._centerY, p_min[0], p_min[1], (0, 255, 0), aa=self.aa)
@@ -36,6 +37,7 @@ class RGBAnalogClock(BaseMatrixAnim):
         super(RGBAnalogClock, self).__init__(led)
         self._centerX = (self._led.width - 1) / 2
         self._centerY = (self._led.height - 1) / 2
+        self.hand_length = self._centerX if self._centerX <= self._centerY else self._centerY
         self.aa = aa
 
     def step(self, amt=1):
@@ -45,9 +47,9 @@ class RGBAnalogClock(BaseMatrixAnim):
         mins = t.tm_min
         sec = t.tm_sec
 
-        p_hrs = pointOnCircle(self._centerX, self._centerY, int(self._centerX * 0.7), hrs * 30)
-        p_min = pointOnCircle(self._centerX, self._centerY, self._centerX, mins * 6)
-        p_sec = pointOnCircle(self._centerX, self._centerY, self._centerX, sec * 6)
+        p_hrs = pointOnCircle(self._centerX, self._centerY, int(self.hand_length * 0.7), hrs * 30)
+        p_min = pointOnCircle(self._centerX, self._centerY, self.hand_length, mins * 6)
+        p_sec = pointOnCircle(self._centerX, self._centerY, self.hand_length, sec * 6)
 
         c_hrs = colors.hue2rgb_rainbow(t.tm_hour * (256 / 12))
 
