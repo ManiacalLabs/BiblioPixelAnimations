@@ -17,7 +17,7 @@
 # anim.run()
 # ```
 
-from bibliopixel.animation import BaseMatrixAnim, AnimationQueue
+from bibliopixel.animation import BaseMatrixAnim
 import bibliopixel.log as log
 
 try:
