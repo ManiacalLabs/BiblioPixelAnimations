@@ -86,7 +86,9 @@ class Kimotion(BaseMatrixAnim):
             self.crop_box[1] = half
             self.crop_box[3] = self.resize_box[1] - half
 
-        self.gradient = [colors.hue2rgb(h) for h in colors.hue_gradient(255, 0, 256)]
+        self.lut = np.array(colors.hue_gradient(255, 0, self.max + 1)).astype(np.uint8)
+        print self.lut
+        print self.lut.shape
         self._ws_thread = ws_thread(self.server)
         self._ws_thread.start()
 
@@ -95,8 +97,7 @@ class Kimotion(BaseMatrixAnim):
 
     def step(self, amt=1):
         d = self._ws_thread.get_frame()
-        d = np.round(255.0 * (d - self.min) /
-                     (self.max - self.min - 1.0)).astype(np.uint8)
+        d = self.lut[d]
         d = d.reshape(WS_FRAME_HEIGHT, WS_FRAME_WIDTH)
 
         if self.mirror:
@@ -113,5 +114,6 @@ class Kimotion(BaseMatrixAnim):
                 if p == 0:
                     c = colors.Black
                 else:
-                    c = self.gradient[p]
+                    c = colors.hue2rgb(p)
+                    # c = self.gradient[p]
                 self._led.set(x, y, c)
