@@ -186,7 +186,7 @@ MANIFEST = [
                 "type": "bool"
             },
             {
-                "default": False,
+                "default": True,
                 "help": "Mirrors image along vertical. Useful for webcam video.",
                 "id": "mirror",
                 "label": "Mirror",

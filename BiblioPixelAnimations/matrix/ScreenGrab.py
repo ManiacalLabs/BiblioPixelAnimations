@@ -9,7 +9,7 @@ grab = None
 if os.name == 'nt':
     try:
         from desktopmagic.screengrab_win32 import getRectAsImage, getScreenAsImage
-        log.info("Using desktopmagic module")
+        log.debug("Using desktopmagic module")
 
         def nt_grab(bbox=None):
             if bbox is None:
