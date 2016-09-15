@@ -133,7 +133,7 @@ class loadnextthread(threading.Thread):
 
 
 class ImageAnim(BaseMatrixAnim):
-    def __init__(self, led, imagePath, offset=(0, 0), bgcolor=colors.Off, brightness=255, cycles=1, random=False):
+    def __init__(self, led, imagePath, offset=(0, 0), bgcolor=colors.Off, brightness=255, cycles=1, random=False, use_file_fps=True):
         """Helper class for displaying image animations for GIF files or a set of bitmaps
 
         led - LEDMatrix instance
@@ -148,6 +148,7 @@ class ImageAnim(BaseMatrixAnim):
         self.cycle_count = 0
 
         self.random = random
+        self.use_file_fps = use_file_fps
 
         self._bright = brightness
         if self._bright == 255 and led.masterBrightness != 255:
@@ -222,7 +223,8 @@ class ImageAnim(BaseMatrixAnim):
         img = self._image_buffers[self._cur_img_buf]
 
         self._led.setBuffer(img[self._curImage][1])
-        self._internalDelay = img[self._curImage][0]
+        if self.use_file_fps:
+            self._internalDelay = img[self._curImage][0]
 
         self._curImage += 1
         if self._curImage >= len(img):
@@ -302,6 +304,13 @@ MANIFEST = [
                 "help": "Random GIF selection. Folder mode only.",
                 "id": "random",
                 "label": "Random",
+                "type": "bool"
+            },
+            {
+                "default": True,
+                "help": "Use framerate stored in GIF",
+                "id": "use_file_fps",
+                "label": "Use File FPS",
                 "type": "bool"
             }
         ],

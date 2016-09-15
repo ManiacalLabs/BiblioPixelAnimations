@@ -1,27 +1,25 @@
 from bibliopixel.animation import BaseMatrixAnim
 import bibliopixel.colors as colors
+from bibliopixel import font
+
 
 class ScrollText(BaseMatrixAnim):
 
-    def __init__(self, led, text, xPos = 0, yPos = 0, color = colors.White, bgcolor = colors.Off, size = 1):
+    def __init__(self, led, text, xPos=0, yPos=0, color=colors.White, bgcolor=colors.Off, font_name=font.default_font, font_scale=1):
         super(ScrollText, self).__init__(led)
         self.bgcolor = bgcolor
         self.color = color
         self._text = text
         self.xPos = xPos
         self.yPos = yPos
-        self._osize = size
-        if size > 0:
-            self._dim = 6, 8
-        else:
-            self._dim = 4, 6
-            size = 1
-        self._size = size
-        self._strW = len(text)*self._dim[0]*size
+        self.font_name = font_name
+        self.font_scale = font_scale
+        self._strW = font.str_dim(text, font_name, font_scale)[0]
 
-    def step(self, amt = 1):
+    def step(self, amt=1):
         self._led.all_off()
-        self._led.drawText(self._text, self.xPos, self.yPos, color = self.color, bg = self.bgcolor, size = self._osize)
+        self._led.drawText(self._text, self.xPos, self.yPos,
+                           color=self.color, bg=self.bgcolor, font=self.font_name, font_scale=self.font_scale)
         self.xPos -= amt
         if self.xPos + self._strW <= 0:
             self.xPos = self.startX + self.width - 1
@@ -29,9 +27,10 @@ class ScrollText(BaseMatrixAnim):
 
         self._step = 0
 
+
 class BounceText(BaseMatrixAnim):
 
-    def __init__(self, led, text, xPos = 0, yPos = 0, buffer = 0, color = colors.White, bgcolor = colors.Off, size = 1):
+    def __init__(self, led, text, xPos=0, yPos=0, buffer=0, color=colors.White, bgcolor=colors.Off, size=1):
         super(BounceText, self).__init__(led)
         self.color = color
         self.bgcolor = bgcolor
@@ -45,22 +44,23 @@ class BounceText(BaseMatrixAnim):
             self._dim = 4, 6
             size = 1
         self._size = size
-        self._strW = len(text)*self._dim[0]*size
+        self._strW = len(text) * self._dim[0] * size
         self._dir = -1
         self._buffer = buffer
 
-    def step(self, amt = 1):
+    def step(self, amt=1):
         self._led.all_off()
-        self._led.drawText(self._text, self.xPos, self.yPos, color = self.color, bg = self.bgcolor, size = self._osize)
+        self._led.drawText(self._text, self.xPos, self.yPos,
+                           color=self.color, bg=self.bgcolor, size=self._osize)
 
         if self._strW < self.width:
             if self.xPos <= 0 + self._buffer and self._dir == -1:
                 self._dir = 1
-            elif self.xPos + self._strW > self.width - self._buffer  and self._dir == 1:
+            elif self.xPos + self._strW > self.width - self._buffer and self._dir == 1:
                 self._dir = -1
                 self.animComplete = True
         else:
-            if self.xPos + self._strW <= self.width - self._buffer  and self._dir == -1:
+            if self.xPos + self._strW <= self.width - self._buffer and self._dir == -1:
                 self._dir = 1
             elif self.xPos >= 0 + self._buffer and self._dir == 1:
                 self._dir = -1
@@ -69,7 +69,6 @@ class BounceText(BaseMatrixAnim):
         self.xPos += amt * self._dir
 
         self._step = 0
-
 
 
 MANIFEST = [
