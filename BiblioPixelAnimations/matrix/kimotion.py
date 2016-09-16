@@ -11,6 +11,7 @@ WS_FRAME_WIDTH = 640
 WS_FRAME_HEIGHT = 480
 WS_FRAME_SIZE = WS_FRAME_WIDTH * WS_FRAME_HEIGHT
 
+
 def clamp(v, _min, _max):
     return max(min(v, _max), _min)
 
@@ -19,52 +20,8 @@ def lerp(n, low, high):
     return clamp((n - low) / (high - low), 0.0, 1.0)
 
 
-MIN_Z = 440.0
-MAX_Z = 1100.0
-
-NEAR_Z = 760.0
-MID_Z = ((MAX_Z + NEAR_Z) / 2.0)
-FAR_Z = MAX_Z
-
-# MIN_Z = 0.0
-# MAX_Z = 65000.0
-#
-# NEAR_Z = 2000.0
-# MID_Z = ((MAX_Z + NEAR_Z) / 2.0)
-# FAR_Z = 60000.0
-
-near_color = np.array([255, 0, 0])  # np.array(colors.hex2rgb('#e56b00'))
-mid_color = np.array([0, 0, 255])  # np.array(colors.hex2rgb('#280072'))
-far_color = np.array([0, 255, 0])  # np.array(colors.hex2rgb('#02020c'))
-
-near_color = np.array(colors.hex2rgb('#e56b00'))
-mid_color = np.array(colors.hex2rgb('#280072'))
-far_color = np.array(colors.hex2rgb('#02020c'))
-# far_color = np.array([0, 0, 255])
-
-def z_color(z):
-    z = float(z)
-    alpha = 1.0
-
-    if z <= MID_Z:
-        ns = lerp(z, NEAR_Z, MID_Z)
-        color = (1.0 - ns) * near_color + ns * mid_color
-    else:  # z must be between MID_Z and FAR_Z
-        fs = lerp(z, MID_Z, FAR_Z)
-        color = (1.0 - fs) * mid_color + fs * far_color
-
-    alpha = 1.0 - lerp(z, MIN_Z, MAX_Z)
-
-    if z <= -MIN_Z:
-        alpha = 0.0
-
-    # gl_FragColor = vec4(color, alpha) * texture2D( texture, gl_PointCoord )
-
-    return (color * alpha).astype(np.uint8).tolist()
-
-
 def rebin(a, shape):
-    sh = shape[0],a.shape[0]//shape[0],shape[1],a.shape[1]//shape[1]
+    sh = shape[0], a.shape[0] // shape[0], shape[1], a.shape[1] // shape[1]
     return a.reshape(sh).mean(-1).mean(1)
 
 
@@ -114,20 +71,127 @@ class ws_thread(threading.Thread):
         self.ws.close()
 
 
-class Kimotion(BaseMatrixAnim):
+class KimotionShader(object):
+    def __init__(self, anim):
+        self.anim = anim
+        self.width = self.anim.width
+        self.height = self.anim.height
+        self.led = self.anim._led
 
-    def __init__(self, led, server="localhost:1337", mirror=True, crop=True):
+
+class SandStorm(KimotionShader):
+    PixelWebParams = [
+        {
+            "id": "near_color",
+            "label": "Near Color",
+            "type": "color",
+            "default": (229, 107, 0)
+        },
+        {
+            "id": "mid_color",
+            "label": "Mid Color",
+            "type": "color",
+            "default": (40, 0, 114)
+        },
+        {
+            "id": "far_color",
+            "label": "Far Color",
+            "type": "color",
+            "default": (2, 2, 12)
+        },
+        {
+            "id": "min_z",
+            "label": "MIN_Z",
+            "type": "int",
+            "default": 440,
+            "help": "Min depth value"
+        },
+        {
+            "id": "max_z",
+            "label": "MAX_Z",
+            "type": "int",
+            "default": 1100,
+            "help": "Max depth value"
+        },
+
+        {
+            "id": "near_z",
+            "label": "NEAR_Z",
+            "type": "int",
+            "default": 760,
+            "help": "Near depth value"
+        },
+        {
+            "id": "far_z",
+            "label": "FAR_Z",
+            "type": "int",
+            "default": 1100,
+            "help": "Far depth value"
+        }
+    ]
+
+    def __init__(self, anim, min_z=440, max_z=1100,
+                 near_color=[229, 107, 0], near_z=760,
+                 mid_color=[40, 0, 114],
+                 far_color=[2, 2, 12], far_z=1100):
+
+        super(SandStorm, self).__init__(anim)
+
+        self.min_z = float(min_z)
+        self.max_z = float(max_z)
+        self.near_color = np.array(near_color)
+        self.near_z = float(near_z)
+        self.mid_color = np.array(mid_color)
+        self.mid_z = ((self.max_z + self.near_z) / 2.0)
+        self.far_color = np.array(far_color)
+        self.far_z = float(far_z)
+
+        self.z_colors = np.array([self.z_color(z) for z in range(0, int(Kimotion.max_depth) + 1)]).tolist()
+
+    def z_color(self, z):
+        z = float(z)
+        alpha = 1.0
+
+        if z <= self.mid_z:
+            ns = lerp(z, self.near_z, self.mid_z)
+            color = (1.0 - ns) * self.near_color + ns * self.mid_color
+        else:  # z must be between self.mid_z and FAR_Z
+            fs = lerp(z, self.mid_z, self.far_z)
+            color = (1.0 - fs) * self.mid_color + fs * self.far_color
+
+        alpha = 1.0 - lerp(z, self.min_z, self.max_z)
+
+        if z <= -self.min_z:
+            alpha = 0.0
+
+        # gl_FragColor = vec4(color, alpha) * texture2D( texture, gl_PointCoord )
+
+        return (color * alpha).astype(np.uint8).tolist()
+
+    def render(self, frame):
+        for y in range(self.height):
+            for x in range(self.width):
+                c = self.z_colors[frame[y][x]]
+                self.led.set(x, y, c)
+
+
+class Kimotion(BaseMatrixAnim):
+    max_depth = 1200.0
+    shaders = {
+        "Sandstorm": SandStorm
+    }
+
+    def __init__(self, led, server="localhost:1337", mirror=True, crop=True, shader="Sandstorm", **kwargs):
         super(Kimotion, self).__init__(led)
-        self.max_depth = 1200
         self.server = server
         self.mirror = mirror
         self.crop = crop
-        self.min = np.iinfo(np.uint16).min
-        self.max = np.iinfo(np.uint16).max
 
         self.fw = WS_FRAME_WIDTH
         self.fh = WS_FRAME_HEIGHT
 
+        # TODO: Implement something to actually use this
+        # Right now needs 4:3 aspect display
         self.frame_aspect = (float(WS_FRAME_WIDTH) / float(WS_FRAME_HEIGHT))
         self.aspect = (float(self.width) / float(self.height))
         self.resize_box = (self.width, self.height)
@@ -143,7 +207,8 @@ class Kimotion(BaseMatrixAnim):
             self.crop_box[1] = half
             self.crop_box[3] = self.resize_box[1] - half
 
-        self.z_colors = np.array([z_color(z) for z in range(0, self.max_depth + 1)]).tolist()
+        self.shader = Kimotion.shaders[shader](self, **kwargs)
+
         self._ws_thread = ws_thread(self.server)
         self._ws_thread.start()
 
@@ -157,42 +222,52 @@ class Kimotion(BaseMatrixAnim):
             d = np.fliplr(d)
 
         d = rebin(d, (self.height, self.width)).astype(np.uint16)
-        for y in range(self.height):
-            for x in range(self.width):
-                c = self.z_colors[d[y][x]]
-                self._led.set(x, y, c)
 
+        self.shader.render(d)
+
+
+def gen_params(shader_params):
+    basic = [
+        {
+            "default": "localhost:1337",
+            "help": "Kimotion server address (minus the ws://)",
+            "id": "server",
+            "label": "Server",
+            "type": "str"
+        },
+        {
+            "default": True,
+            "help": "Crop input video to display size.",
+            "id": "crop",
+            "label": "Crop",
+            "type": "bool"
+        },
+        {
+            "default": True,
+            "help": "Mirrors image along vertical. Useful for webcam video.",
+            "id": "mirror",
+            "label": "Mirror",
+            "type": "bool"
+        }
+    ]
+
+    for v in shader_params:
+        if 'group' not in v:
+            v['group'] = "Shader"
+    basic.extend(shader_params)
+    return basic
 
 MANIFEST = [
     {
         "class": Kimotion,
         "controller": "matrix",
         "desc": "Pull Kinect data from Michael Clayton's Kimotion server",
-        "display": "Kimotion",
-        "id": "Kimotion",
-        "params": [
-            {
-                "default": "localhost:1337",
-                "help": "Kimotion server address (minus the ws://)",
-                "id": "server",
-                "label": "Server",
-                "type": "str"
-            },
-            {
-                "default": True,
-                "help": "Crop input video to display size.",
-                "id": "crop",
-                "label": "Crop",
-                "type": "bool"
-            },
-            {
-                "default": True,
-                "help": "Mirrors image along vertical. Useful for webcam video.",
-                "id": "mirror",
-                "label": "Mirror",
-                "type": "bool"
-            }
-        ],
+        "display": "Kimotion: Sandstorm",
+        "id": "KimotionSandstorm",
+        "params": gen_params(SandStorm.PixelWebParams),
+        "preconfig": {
+            "shader": "Sandstorm"
+        },
         "type": "animation"
     }
 ]

@@ -14,7 +14,7 @@ class ScrollText(BaseMatrixAnim):
         self.yPos = yPos
         self.font_name = font_name
         self.font_scale = font_scale
-        self._strW = font.str_dim(text, font_name, font_scale)[0]
+        self._strW = font.str_dim(text, font_name, font_scale, True)[0]
 
     def step(self, amt=1):
         self._led.all_off()
@@ -30,28 +30,24 @@ class ScrollText(BaseMatrixAnim):
 
 class BounceText(BaseMatrixAnim):
 
-    def __init__(self, led, text, xPos=0, yPos=0, buffer=0, color=colors.White, bgcolor=colors.Off, size=1):
+    def __init__(self, led, text, xPos=0, yPos=0, buffer=0, color=colors.White, bgcolor=colors.Off, font_name=font.default_font, font_scale=1):
         super(BounceText, self).__init__(led)
         self.color = color
         self.bgcolor = bgcolor
         self._text = text
         self.xPos = xPos
         self.yPos = yPos
-        self._osize = size
-        if size > 0:
-            self._dim = 6, 8
-        else:
-            self._dim = 4, 6
-            size = 1
-        self._size = size
-        self._strW = len(text) * self._dim[0] * size
+        self.font_name = font_name
+        self.font_scale = font_scale
+        self._strW = font.str_dim(text, font_name, font_scale, True)[0]
         self._dir = -1
         self._buffer = buffer
 
     def step(self, amt=1):
         self._led.all_off()
         self._led.drawText(self._text, self.xPos, self.yPos,
-                           color=self.color, bg=self.bgcolor, size=self._osize)
+                           color=self.color, bg=self.bgcolor,
+                           font=self.font_name, font_scale=self.font_scale)
 
         if self._strW < self.width:
             if self.xPos <= 0 + self._buffer and self._dir == -1:
@@ -87,10 +83,19 @@ MANIFEST = [
                 "type": "str"
             },
             {
+                "help": "Font to use",
+                "id": "font_name",
+                "label": "Font",
+                "type": "combo",
+                "options": font.get_font_menu_options()[0],
+                "options_map": font.get_font_menu_options()[1],
+                "default": 0
+            },
+            {
                 "default": 1,
-                "help": "8x5 Font multipled by this value",
-                "id": "size",
-                "label": "Text Size",
+                "help": "Scale font by this amount",
+                "id": "font_scale",
+                "label": "Scale",
                 "type": "int"
             },
             {
@@ -155,10 +160,19 @@ MANIFEST = [
                 "type": "str"
             },
             {
+                "help": "Font to use",
+                "id": "font_name",
+                "label": "Font",
+                "type": "combo",
+                "options": font.get_font_menu_options()[0],
+                "options_map": font.get_font_menu_options()[1],
+                "default": 0
+            },
+            {
                 "default": 1,
-                "help": "8x5 Font multipled by this value",
-                "id": "size",
-                "label": "Text Size",
+                "help": "Scale font by this amount",
+                "id": "font_scale",
+                "label": "Scale",
                 "type": "int"
             },
             {

@@ -69,7 +69,6 @@ class CirclePop(BaseMatrixAnim):
         posx = random.randint(3, self._led.width - 3)
         posy = random.randint(3, self._led.height - 3)
         color = random.randint(1, 359)
-        print color
         # choose between 2 speeds fps/1 and fps/2.
         frameratio = random.choice([1, 2])
         radius = 1

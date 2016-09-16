@@ -202,6 +202,7 @@ class GameOfLifeRGB(BaseMatrixAnim):
 
 
 class GameOfLifeClock(BaseMatrixAnim):
+
     def __init__(self, led, font_name='16x8', mil_time=False):
         super(GameOfLifeClock, self).__init__(led)
         self.font_name = font_name
@@ -215,7 +216,8 @@ class GameOfLifeClock(BaseMatrixAnim):
 
         # Find the text size
         while True:
-            x, y = font.str_dim('00:00', font=self.font_name, font_scale=self.scale, final_sep=False)
+            x, y = font.str_dim('00:00', font=self.font_name,
+                                font_scale=self.scale, final_sep=False)
             if x > self.width or y > self.height:
                 self.scale -= 1
                 break
@@ -227,22 +229,25 @@ class GameOfLifeClock(BaseMatrixAnim):
     def create_time_table(self, t):
         t = time.localtime(t)
         hr = t.tm_hour
-        if not self.mil_time and hr > 12:
-            hr -= 12
+        if not self.mil_time:
+            hr = hr % 12
         hrs = str(hr).zfill(2)
         mins = str(t.tm_min).zfill(2)
         val = hrs + ":" + mins
-        w, h = font.str_dim(val, font=self.font_name, font_scale=self.scale, final_sep=False)
+        w, h = font.str_dim(val, font=self.font_name,
+                            font_scale=self.scale, final_sep=False)
         x = (self.width - w) / 2
         y = (self.height - h) / 2
+        old_buf = copy.copy(self._led.buffer)
         self._led.all_off()
-        self._led.drawText(val, x, y, color=colors.Red, font=self.font_name, font_scale=self.scale)
+        self._led.drawText(val, x, y, color=colors.Red,
+                           font=self.font_name, font_scale=self.scale)
         table = []
         for y in range(self.height):
             table.append([0] * self.width)
             for x in range(self.width):
                 table[y][x] = int(any(self._led.get(x, y)))
-        self._led.all_off()
+        self._led.setBuffer(old_buf)
         return table
 
     def generate_history(self, t, steps):
@@ -325,6 +330,30 @@ MANIFEST = [
             "type": "bool",
             "default": False,
             "help": "Wrap similation around edges like a toroid (donut shape)."
+        }, ]
+    },
+    {
+        "id": "GameOfLifeClock",
+        "class": GameOfLifeClock,
+        "type": "animation",
+        "display": "Game of Life Clock",
+        "controller": "matrix",
+        "desc": "Conway's Game of Life Tells Time",
+        "params": [{
+            "help": "Font to use",
+            "id": "font_name",
+            "label": "Font",
+            "type": "combo",
+            "options": font.get_font_menu_options()[0],
+            "options_map": font.get_font_menu_options()[1],
+            "default": 1
+        },
+            {
+            "id": "mil_time",
+            "label": "24h",
+            "type": "bool",
+            "default": False,
+            "help": "True to show 24 hour time"
         }, ]
     },
     {
