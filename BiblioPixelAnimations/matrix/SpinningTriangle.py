@@ -3,9 +3,9 @@ import bibliopixel.colors as colors
 from bibliopixel.util import pointOnCircle
 
 
-class SpiningTriangle(BaseMatrixAnim):
+class SpinningTriangle(BaseMatrixAnim):
     def __init__(self, led, cx, cy, radius, aa=True):
-        super(SpiningTriangle, self).__init__(led)
+        super(SpinningTriangle, self).__init__(led)
         self._cx = cx
         self._cy = cy
         self._radius = radius
@@ -40,11 +40,11 @@ class SpiningTriangle(BaseMatrixAnim):
 
 MANIFEST = [
     {
-        "class": SpiningTriangle,
+        "class": SpinningTriangle,
         "controller": "matrix",
         "desc": None,
-        "display": "SpiningTriangle",
-        "id": "SpiningTriangle",
+        "display": "SpinningTriangle",
+        "id": "SpinningTriangle",
         "params": [
             {
                 "default": None,
