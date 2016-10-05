@@ -144,7 +144,7 @@ MANIFEST = [
     {
         "class": EQ,
         "controller": "matrix",
-        "desc": "Reads system audio output and displays VU meter.", 
+        "desc": "Reads system audio output and displays VU meter.",
         "display": "EQ",
         "id": "EQ",
         "params": [],

@@ -6,6 +6,8 @@
 # pyaudio: for audio input/output - http://pyalsaaudio.sourceforge.net/
 # numpy: for FFT calcuation - http://www.numpy.org/
 
+from __future__ import division
+
 import argparse
 import numpy
 import struct
@@ -196,7 +198,7 @@ class BassPulse(BaseMatrixAnim):
 
         for y in range(self.height):
             if y < int(numPix):
-                self._led.drawCircle(self.width/2, self.height/2, y, self.colors[y*2])
+                self._led.drawCircle(self.width//2, self.height//2, y, self.colors[y*2])
 
         self._step += amt
 

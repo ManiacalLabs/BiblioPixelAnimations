@@ -1,3 +1,5 @@
+from __future__ import division
+
 from bibliopixel.animation import BaseStripAnim
 import bibliopixel.colors as colors
 
@@ -19,7 +21,7 @@ class ColorFade(BaseStripAnim):
         if self._step > self._level_count * self._color_count:
             self._step = 0
 
-        c_index = (self._step / self._level_count) % self._color_count
+        c_index = (self._step // self._level_count) % self._color_count
         l_index = (self._step % self._level_count)
         color = self._colors[c_index];
         self._led.fill(colors.color_scale(color, self._levels[l_index]), self._start, self._end)
@@ -67,7 +69,7 @@ MANIFEST = [
             {
                 "default": 5,
                 "min": 1,
-                "max": 50, 
+                "max": 50,
                 "help": "",
                 "id": "step",
                 "label": "Brightness Step",

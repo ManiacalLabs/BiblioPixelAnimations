@@ -1,3 +1,5 @@
+from __future__ import division
+
 import bibliopixel.colors as colors
 from bibliopixel.animation import BaseGameAnim
 import math
@@ -69,7 +71,7 @@ class Snake(BaseGameAnim):
     def resetBody(self):
         dx, dy = self._dir = self._directions[0]  # randint(0,3)]
         dx, dy = dx * -1, dy * -1
-        x, y = self._pos = (self._led.width / 2, self._led.height / 2)
+        x, y = self._pos = (self._led.width // 2, self._led.height // 2)
         self._body = []
         for i in range(self._growLen):
             self._body.append(((x + (i * dx)), (y + (i * dy))))
@@ -168,10 +170,10 @@ class Snake(BaseGameAnim):
 
         if self._gameOver:
             self._led.all_off()
-            self._led.drawText("GAME", self.width / 2 - 11,
-                               self.height / 2 - 8, color=colors.Red)
-            self._led.drawText("OVER", self.width / 2 - 11,
-                               self.height / 2 + 1, color=colors.Red)
+            self._led.drawText("GAME", self.width // 2 - 11,
+                               self.height // 2 - 8, color=colors.Red)
+            self._led.drawText("OVER", self.width // 2 - 11,
+                               self.height // 2 + 1, color=colors.Red)
             # self._gameOverCount += 1
             # if self._gameOverCount > 45:
             #     self.resetBody()
@@ -179,13 +181,13 @@ class Snake(BaseGameAnim):
             #     self._gameOver = False
         elif self._levelUp:
             self._led.all_off()
-            self._led.drawText("LVL", self.width / 2 - 8,
-                               self.height / 2 - 8, color=colors.Red)
+            self._led.drawText("LVL", self.width // 2 - 8,
+                               self.height // 2 - 8, color=colors.Red)
             lvl = "{}".format(self._level)
             w = len(lvl) * 6
 
-            self._led.drawText(lvl, self.width / 2 - (w / 2),
-                               self.height / 2 + 1, color=colors.Red)
+            self._led.drawText(lvl, self.width // 2 - (w // 2),
+                               self.height // 2 + 1, color=colors.Red)
             # if self._keys.FIRE:#any(v > 0 for v in self._keys.itervalues()):
             #     self._levelUp = False
             #     self.resetBody()

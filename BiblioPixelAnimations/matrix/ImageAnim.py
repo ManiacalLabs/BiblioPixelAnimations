@@ -17,6 +17,8 @@
 # anim.run()
 # ```
 
+from __future__ import division
+
 from bibliopixel.animation import BaseMatrixAnim
 import bibliopixel.log as log
 
@@ -89,9 +91,9 @@ def _loadGIFSequence(imagePath, led, bgcolor, bright, offset):
         w = 0
         h = 0
         if img.size[0] < led.width:
-            w = (led.width - img.size[0]) / 2
+            w = (led.width - img.size[0]) // 2
         if img.size[1] < led.height:
-            h = (led.height - img.size[1]) / 2
+            h = (led.height - img.size[1]) // 2
         offset = (w, h)
 
     images = []

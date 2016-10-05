@@ -1,4 +1,7 @@
+from __future__ import division
+
 from bibliopixel.animation import BaseStripAnim
+
 class ColorPattern(BaseStripAnim):
     """Fill the dots progressively along the strip with alternating colors."""
 
@@ -12,7 +15,7 @@ class ColorPattern(BaseStripAnim):
 
     def step(self, amt = 1):
         for i in range(self._size):
-            cIndex = ((i+self._step) % self._total_width) / self._width;
+            cIndex = ((i+self._step) % self._total_width) // self._width;
             self._led.set(self._start + i, self._colors[cIndex])
         if self._dir:
             self._step += amt
@@ -72,7 +75,7 @@ MANIFEST = [
             {
                 "default": 1,
                 "help": "",
-                "id": "width", 
+                "id": "width",
                 "label": "Color Width",
                 "type": "int"
             }

@@ -1,6 +1,6 @@
 # Based on: https://gist.github.com/kch42/565419
 
-
+from __future__ import division
 from random import randrange as rand
 
 import bibliopixel.colors as colors
@@ -169,7 +169,7 @@ class Tetris(BaseGameAnim):
     def new_stone(self):
         self.stone = self.next_stone[:]
         self.next_stone = self._getNextPiece()
-        self.stone_x = int(cols / 2 - len(self.stone[0]) / 2)
+        self.stone_x = int(cols // 2 - len(self.stone[0]) // 2)
         self.stone_y = 0
 
         if check_collision(self.board,
@@ -296,41 +296,41 @@ class Tetris(BaseGameAnim):
         self._led.all_off()
         if self.gameover:
             self._led.all_off()
-            self._led.drawText("GAME", self.width / 2 - 11,
-                               self.height / 2 - 8, color=colors.Green)
-            self._led.drawText("OVER", self.width / 2 - 11,
-                               self.height / 2 + 1, color=colors.Green)
+            self._led.drawText("GAME", self.width // 2 - 11,
+                               self.height // 2 - 8, color=colors.Green)
+            self._led.drawText("OVER", self.width // 2 - 11,
+                               self.height // 2 + 1, color=colors.Green)
             s = "{}".format(self.score)
-            self._led.drawText(s, self.width / 2 - (len(s) * 4) /
-                               2 + 1, self.height / 2 + 9, font_scale=1, font='6x4', color=colors.Green)
+            self._led.drawText(s, self.width // 2 - (len(s) * 4) //
+                               2 + 1, self.height // 2 + 9, font_scale=1, font='6x4', color=colors.Green)
         elif self.win:
             for x in range(self.width):
                 c = colors.hue_helper(
                     self.width - x, self.width, self._speedStep * 2)
-                self._led.drawLine(self.width / 2, self.height / 2, x, 0, c)
-                self._led.drawLine(self.width / 2, self.height / 2,
+                self._led.drawLine(self.width // 2, self.height // 2, x, 0, c)
+                self._led.drawLine(self.width // 2, self.height // 2,
                                    self.width - 1 - x, self.height - 1, c)
             for y in range(self.height):
                 c = colors.hue_helper(y, self.height, self._speedStep * 2)
-                self._led.drawLine(self.width / 2, self.height / 2, 0, y, c)
-                self._led.drawLine(self.width / 2, self.height / 2,
+                self._led.drawLine(self.width // 2, self.height // 2, 0, y, c)
+                self._led.drawLine(self.width // 2, self.height // 2,
                                    self.width - 1, self.height - 1 - y, c)
 
-            self._led.drawText("YOU", self.width / 2 - 9,
-                               self.height / 2 - 8, color=colors.Black, bg=None)
-            self._led.drawText("WIN!", self.width / 2 - 10,
-                               self.height / 2 + 1, color=colors.Black, bg=None)
+            self._led.drawText("YOU", self.width // 2 - 9,
+                               self.height // 2 - 8, color=colors.Black, bg=None)
+            self._led.drawText("WIN!", self.width // 2 - 10,
+                               self.height // 2 + 1, color=colors.Black, bg=None)
         else:
             if self.paused:
                 self._led.all_off()
                 if self.levelUp:
                     self._led.drawText(
-                        "LVL", self.width / 2 - 8, self.height / 2 - 8, color=colors.Green)
+                        "LVL", self.width // 2 - 8, self.height // 2 - 8, color=colors.Green)
                     l = "{}".format(self.level)
                     self._led.drawText(
-                        l, self.width / 2 - (len(l) * 6) / 2 + 1, self.height / 2 + 1, color=colors.Green)
+                        l, self.width // 2 - (len(l) * 6) // 2 + 1, self.height // 2 + 1, color=colors.Green)
                 else:
-                    x = self.width / 2 - 2
+                    x = self.width // 2 - 2
                     y = 1
                     self._led.drawText("P", x, y + 0, color=colors.White)
                     self._led.drawText("A", x, y + 8, color=colors.White)

@@ -1,3 +1,5 @@
+from __future__ import division
+
 import random
 import copy
 from collections import deque
@@ -236,8 +238,8 @@ class GameOfLifeClock(BaseMatrixAnim):
         val = hrs + ":" + mins
         w, h = font.str_dim(val, font=self.font_name,
                             font_scale=self.scale, final_sep=False)
-        x = (self.width - w) / 2
-        y = (self.height - h) / 2
+        x = (self.width - w) // 2
+        y = (self.height - h) // 2
         old_buf = copy.copy(self._led.buffer)
         self._led.all_off()
         self._led.drawText(val, x, y, color=colors.Red,
@@ -253,7 +255,7 @@ class GameOfLifeClock(BaseMatrixAnim):
     def generate_history(self, t, steps):
         history = []
         start = self.create_time_table(t)
-        steady_frames = int(self.steady_time / self._sleep)
+        steady_frames = int(self.steady_time // self._sleep)
         steady = steps if steps <= steady_frames else steady_frames
         for _ in range(steady):
             history.append(start)
@@ -268,7 +270,7 @@ class GameOfLifeClock(BaseMatrixAnim):
         start = self._msTime()
         t = int(time.time())
         assert self._sleep, "GameOfLifeClock requires a set FPS!"
-        self.next_history = self.generate_history(t + 60, 60000 / self._sleep)
+        self.next_history = self.generate_history(t + 60, 60000 // self._sleep)
         self.next_ready = True
         log.debug("History Generate Time: {}".format(self._msTime() - start))
 
