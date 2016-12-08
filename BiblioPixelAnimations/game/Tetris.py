@@ -1,4 +1,4 @@
-#Based on: https://gist.github.com/kch42/565419
+# Based on: https://gist.github.com/kch42/565419
 
 
 from random import randrange as rand
@@ -11,27 +11,27 @@ import bibliopixel.util as util
 
 
 # The configuration
-cols =		19
-rows =		40
-maxfps = 	30
+cols = 19
+rows = 40
+maxfps = 30
 
 color_map = [
-(0,   0,   0  ),
-colors.Red,
-colors.Orange,
-colors.Yellow,
-colors.Green,
-colors.Blue,
-colors.Purple,
-colors.Violet,
+    (0,   0,   0),
+    colors.Red,
+    colors.Orange,
+    colors.Yellow,
+    colors.Green,
+    colors.Blue,
+    colors.Purple,
+    colors.Violet,
 
-colors.Cyan,
-colors.SeaGreen,
-colors.Navy,
-colors.YellowGreen,
-colors.DarkRed,
-colors.Teal,
-colors.MediumVioletRed,
+    colors.Cyan,
+    colors.SeaGreen,
+    colors.Navy,
+    colors.YellowGreen,
+    colors.DarkRed,
+    colors.Teal,
+    colors.MediumVioletRed,
 ]
 
 # Define the shapes of the single parts
@@ -58,88 +58,96 @@ tetris_shapes = [
 
     [[8]],
 
-    [[9,0,0],
-     [9,9,0],
-     [9,9,9]],
+    [[9, 0, 0],
+     [9, 9, 0],
+     [9, 9, 9]],
 
     [[10, 0, 10],
      [10, 10, 10]],
 
-    [[0 ,11, 0],
-     [11,11,11],
-     [0 ,11, 0]],
+    [[0, 11, 0],
+     [11, 11, 11],
+     [0, 11, 0]],
 
     [[12, 0, 0],
-     [12,12,12],
-     [0 , 0,12]],
+     [12, 12, 12],
+     [0, 0, 12]],
 
-    [[13 ,13, 13],
-     [13 ,0 , 13],
+    [[13, 13, 13],
+     [13, 0, 13],
      [13, 13, 13]],
 
-    [[14,0,0],
-     [14,0,0],
-     [14,14,14]],
+    [[14, 0, 0],
+     [14, 0, 0],
+     [14, 14, 14]],
 ]
 
+
 def rotate_clockwise(shape):
-    return [ [ shape[y][x]
-            for y in xrange(len(shape)) ]
-        for x in xrange(len(shape[0]) - 1, -1, -1) ]
+    return [[shape[y][x]
+             for y in xrange(len(shape))]
+            for x in xrange(len(shape[0]) - 1, -1, -1)]
+
 
 def check_collision(board, shape, offset):
     off_x, off_y = offset
     for cy, row in enumerate(shape):
         for cx, cell in enumerate(row):
             try:
-                if cell and board[ cy + off_y ][ cx + off_x ]:
+                if cell and board[cy + off_y][cx + off_x]:
                     return True
             except IndexError:
                 return True
     return False
 
+
 def remove_row(board, row):
     del board[row]
     return [[0 for i in xrange(cols)]] + board
+
 
 def join_matrixes(mat1, mat2, mat2_off):
     off_x, off_y = mat2_off
     for cy, row in enumerate(mat2):
         for cx, val in enumerate(row):
-            mat1[cy+off_y-1	][cx+off_x] += val
+            mat1[cy + off_y - 1	][cx + off_x] += val
     return mat1
 
+
 def new_board():
-    board =  [[ 0 for x in xrange(cols) ] for y in xrange(rows)]
+    board = [[0 for x in xrange(cols)] for y in xrange(rows)]
     return board
 
+
 class Tetris(BaseGameAnim):
+
     def __init__(self, led, inputDev, evil=False):
         super(Tetris, self).__init__(led, inputDev)
 
-        if (self.width, self.height) != (25,50):
-            raise Exception("Sorry, this was lazily written to only work on a 25x50 display :(")
+        if (self.width, self.height) != (25, 50):
+            raise Exception(
+                "Sorry, this was lazily written to only work on a 25x50 display :(")
 
         if hasattr(self._input_dev, "setLights") and hasattr(self._input_dev, "setLightsOff"):
             self._input_dev.setLightsOff(5)
             lights = {
-                "Y": (0,255,0),
-                "B": (0,0,0),
-                "X": (0,0,0),
-                "A": (255,0,0),
-                "SELECT":(255,0,0)
+                "Y": (0, 255, 0),
+                "B": (0, 0, 0),
+                "X": (0, 0, 0),
+                "A": (255, 0, 0),
+                "SELECT": (255, 0, 0)
             }
             self._input_dev.setLights(lights)
 
         self.setSpeed("drop", 5)
         self.rlim = cols
-        self._evilMode = evil;
-        self._doEvil = False;
+        self._evilMode = evil
+        self._doEvil = False
         self.next_stone = self._getNextPiece()
 
-        self.addKeyFunc("LEFT", lambda:self.move(-1), speed=3, hold=True)
-        self.addKeyFunc("RIGHT", lambda:self.move(+1), speed=3, hold=True)
-        self.addKeyFunc("DOWN", lambda:self.drop(True), speed=1, hold=True)
+        self.addKeyFunc("LEFT", lambda: self.move(-1), speed=3, hold=True)
+        self.addKeyFunc("RIGHT", lambda: self.move(+1), speed=3, hold=True)
+        self.addKeyFunc("DOWN", lambda: self.drop(True), speed=1, hold=True)
         self.addKeyFunc(["A"], self.rotate_stone, speed=1, hold=False)
         self.addKeyFunc(["B", "SELECT"], self.insta_drop, speed=1, hold=False)
         self.addKeyFunc("START", self.togglePause, speed=1, hold=False)
@@ -161,7 +169,7 @@ class Tetris(BaseGameAnim):
     def new_stone(self):
         self.stone = self.next_stone[:]
         self.next_stone = self._getNextPiece()
-        self.stone_x = int(cols / 2 - len(self.stone[0])/2)
+        self.stone_x = int(cols / 2 - len(self.stone[0]) / 2)
         self.stone_y = 0
 
         if check_collision(self.board,
@@ -183,14 +191,15 @@ class Tetris(BaseGameAnim):
         self.lines = 0
 
     def disp_msg(self, msg, x, y):
-        self._led.drawText(msg, x, y, size=0, color=colors.White)
+        self._led.drawText(msg, x, y, font_scale=1,
+                           font='6x4', color=colors.White)
 
     def draw_matrix(self, matrix, offset):
-        off_x, off_y  = offset
+        off_x, off_y = offset
         for y, row in enumerate(matrix):
             for x, val in enumerate(row):
                 if val:
-                    self._led.set(off_x+x,off_y+y,color_map[val])
+                    self._led.set(off_x + x, off_y + y, color_map[val])
 
     def add_cl_lines(self, n):
         linescores = [0, 40, 100, 300, 1200]
@@ -198,7 +207,7 @@ class Tetris(BaseGameAnim):
             self._doEvil = True
         self.lines += n
         self.score += linescores[n] * self.level
-        if self.lines >= self.level*self.lines_per_level:
+        if self.lines >= self.level * self.lines_per_level:
             self.level += 1
             self.levelUp = True
             self.paused = True
@@ -229,16 +238,16 @@ class Tetris(BaseGameAnim):
                                self.stone,
                                (self.stone_x, self.stone_y)):
                 self.board = join_matrixes(
-                  self.board,
-                  self.stone,
-                  (self.stone_x, self.stone_y))
+                    self.board,
+                    self.stone,
+                    (self.stone_x, self.stone_y))
                 self.new_stone()
                 cleared_rows = 0
                 while True:
                     for i, row in enumerate(self.board):
                         if 0 not in row:
                             self.board = remove_row(
-                              self.board, i)
+                                self.board, i)
                             cleared_rows += 1
                             break
                     else:
@@ -287,63 +296,74 @@ class Tetris(BaseGameAnim):
         self._led.all_off()
         if self.gameover:
             self._led.all_off()
-            self._led.drawText("GAME", self.width/2-11, self.height/2-8, color=colors.Green)
-            self._led.drawText("OVER", self.width/2-11, self.height/2+1, color=colors.Green)
+            self._led.drawText("GAME", self.width / 2 - 11,
+                               self.height / 2 - 8, color=colors.Green)
+            self._led.drawText("OVER", self.width / 2 - 11,
+                               self.height / 2 + 1, color=colors.Green)
             s = "{}".format(self.score)
-            self._led.drawText(s, self.width/2-(len(s)*4)/2+1, self.height/2+9, size=0, color=colors.Green)
+            self._led.drawText(s, self.width / 2 - (len(s) * 4) /
+                               2 + 1, self.height / 2 + 9, size=0, color=colors.Green)
         elif self.win:
             for x in range(self.width):
-                c = colors.hue_helper(self.width-x, self.width, self._speedStep*2)
-                self._led.drawLine(self.width/2, self.height/2, x, 0, c)
-                self._led.drawLine(self.width/2, self.height/2, self.width-1-x, self.height-1, c)
+                c = colors.hue_helper(
+                    self.width - x, self.width, self._speedStep * 2)
+                self._led.drawLine(self.width / 2, self.height / 2, x, 0, c)
+                self._led.drawLine(self.width / 2, self.height / 2,
+                                   self.width - 1 - x, self.height - 1, c)
             for y in range(self.height):
-                c = colors.hue_helper(y, self.height, self._speedStep*2)
-                self._led.drawLine(self.width/2, self.height/2, 0, y, c)
-                self._led.drawLine(self.width/2, self.height/2, self.width-1, self.height-1-y, c)
+                c = colors.hue_helper(y, self.height, self._speedStep * 2)
+                self._led.drawLine(self.width / 2, self.height / 2, 0, y, c)
+                self._led.drawLine(self.width / 2, self.height / 2,
+                                   self.width - 1, self.height - 1 - y, c)
 
-            self._led.drawText("YOU", self.width/2-9, self.height/2-8, color=colors.Black, bg=None)
-            self._led.drawText("WIN!", self.width/2-10, self.height/2+1, color=colors.Black, bg=None)
+            self._led.drawText("YOU", self.width / 2 - 9,
+                               self.height / 2 - 8, color=colors.Black, bg=None)
+            self._led.drawText("WIN!", self.width / 2 - 10,
+                               self.height / 2 + 1, color=colors.Black, bg=None)
         else:
             if self.paused:
                 self._led.all_off()
                 if self.levelUp:
-                    self._led.drawText("LVL", self.width/2-8, self.height/2-8, color=colors.Green)
+                    self._led.drawText(
+                        "LVL", self.width / 2 - 8, self.height / 2 - 8, color=colors.Green)
                     l = "{}".format(self.level)
-                    self._led.drawText(l, self.width/2-(len(l)*6)/2+1, self.height/2+1, color=colors.Green)
+                    self._led.drawText(
+                        l, self.width / 2 - (len(l) * 6) / 2 + 1, self.height / 2 + 1, color=colors.Green)
                 else:
-                    x = self.width/2-2
+                    x = self.width / 2 - 2
                     y = 1
-                    self._led.drawText("P", x, y+0, color=colors.White)
-                    self._led.drawText("A", x, y+8, color=colors.White)
-                    self._led.drawText("U", x, y+16, color=colors.White)
-                    self._led.drawText("S", x, y+24, color=colors.White)
-                    self._led.drawText("E", x, y+32, color=colors.White)
-                    self._led.drawText("D", x, y+40, color=colors.White)
+                    self._led.drawText("P", x, y + 0, color=colors.White)
+                    self._led.drawText("A", x, y + 8, color=colors.White)
+                    self._led.drawText("U", x, y + 16, color=colors.White)
+                    self._led.drawText("S", x, y + 24, color=colors.White)
+                    self._led.drawText("E", x, y + 32, color=colors.White)
+                    self._led.drawText("D", x, y + 40, color=colors.White)
 
             else:
                 self.disp_msg("{}".format(self.score), 1, 1)
 
-                lines_left = self.level*self.lines_per_level - self.lines
+                lines_left = self.level * self.lines_per_level - self.lines
                 for l in range(lines_left):
-                    self._led.set(0, self.height-1-l*2, colors.Red)
+                    self._led.set(0, self.height - 1 - l * 2, colors.Red)
 
-                #draw rainbow border
-                self._led.drawLine(2,8, cols+3, 8,
-                    colorFunc=lambda pos: colors.hue_helper(pos, cols+2, self._speedStep*2))
-                self._led.drawLine(2,self.height-1, cols+3, self.height-1,
-                    colorFunc=lambda pos: colors.hue_helper(cols+2-pos, cols+2, self._speedStep*2))
-                self._led.drawLine(2,9, 2, self.height-2,
-                    colorFunc=lambda pos: colors.hue_helper(rows+2-pos, rows, self._speedStep*2))
-                self._led.drawLine(cols+3,9, cols+3, self.height-2,
-                    colorFunc=lambda pos: colors.hue_helper(pos, rows, self._speedStep*2))
+                # draw rainbow border
+                self._led.drawLine(2, 8, cols + 3, 8,
+                                   colorFunc=lambda pos: colors.hue_helper(pos, cols + 2, self._speedStep * 2))
+                self._led.drawLine(2, self.height - 1, cols + 3, self.height - 1,
+                                   colorFunc=lambda pos: colors.hue_helper(cols + 2 - pos, cols + 2, self._speedStep * 2))
+                self._led.drawLine(2, 9, 2, self.height - 2,
+                                   colorFunc=lambda pos: colors.hue_helper(rows + 2 - pos, rows, self._speedStep * 2))
+                self._led.drawLine(cols + 3, 9, cols + 3, self.height - 2,
+                                   colorFunc=lambda pos: colors.hue_helper(pos, rows, self._speedStep * 2))
 
-                #draw current board state
-                self.draw_matrix(self.board, (3,9))
-                #draw current block
-                self.draw_matrix(self.stone, (self.stone_x + 3, self.stone_y+9))
-                #draw next block
-                self.draw_matrix(self.next_stone, (self.width-6, 1))
-                #drop block
+                # draw current board state
+                self.draw_matrix(self.board, (3, 9))
+                # draw current block
+                self.draw_matrix(
+                    self.stone, (self.stone_x + 3, self.stone_y + 9))
+                # draw next block
+                self.draw_matrix(self.next_stone, (self.width - 6, 1))
+                # drop block
                 if self.checkSpeed("drop"):
                     self.drop(False)
 
