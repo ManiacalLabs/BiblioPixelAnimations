@@ -158,7 +158,7 @@ class Flappy(BaseGameAnim):
                                self.height / 2 + 1, color=colors.Blue)
             s = "{}".format(self.score)
             self._led.drawText(s, self.width / 2 - (len(s) * 4) /
-                               2 + 1, self.height / 2 + 9, size=0, color=colors.Blue)
+                               2 + 1, self.height / 2 + 9, font_scale=1, font='6x4', color=colors.Blue)
         else:
             if self.paused:
                 self._led.all_off()
