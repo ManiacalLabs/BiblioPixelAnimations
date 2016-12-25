@@ -1,9 +1,10 @@
 from bibliopixel import colors
-from . arc_rotate import ArcRotate
-from . bloom import Bloom
-from . fireflies import FireFlies
-from . pinwheel import PinWheel
-from . swirl import Swirl
+from arc_rotate import ArcRotate
+from bloom import Bloom
+from fireflies import FireFlies
+from pinwheel import PinWheel
+from swirl import Swirl
+from diag import Diag
 
 rainbow = [colors.Red, colors.Orange, colors.Yellow,
            colors.Green, colors.Blue, colors.Purple]
@@ -118,6 +119,30 @@ MANIFEST = [
         "params": [
             {
                 "default": 12,
+                "help": "Degrees change per frame",
+                "id": "angle",
+                "label": "Angle Change",
+                "type": "int"
+            }
+        ],
+        "type": "animation"
+    },
+    {
+        "class": Diag,
+        "controller": "circle",
+        "desc": None,
+        "display": "Diagonal Rainbow",
+        "id": "Diag",
+        "params": [
+            {
+                "default": 1,
+                "help": "Total turns",
+                "id": "turns",
+                "label": "Turns",
+                "type": "int"
+            },
+            {
+                "default": 6,
                 "help": "Degrees change per frame",
                 "id": "angle",
                 "label": "Angle Change",
