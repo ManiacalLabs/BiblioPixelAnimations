@@ -3,26 +3,26 @@ from bibliopixel import colors
 import time
 
 
-class ArcClock(BaseCircleAnim):
+class CircleClock(BaseCircleAnim):
 
     def __init__(self, led):
-        super(ArcClock, self).__init__(led)
+        super(CircleClock, self).__init__(led)
         last = self.lastRing
         self.hands = [
             {
-                'rings': [last - 0, last - 1],
+                'radius': last - 0,
                 'color': colors.Red,
                 'segments': 60,
                 'key': 'tm_sec'
             },
             {
-                'rings': [last - 2, last - 3],
+                'radius': last - 2,
                 'color': colors.Green,
                 'segments': 60,
                 'key': 'tm_min'
             },
             {
-                'rings': [last - 4, last - 5],
+                'radius': last - 4,
                 'color': colors.Blue,
                 'segments': 12,
                 'key': 'tm_hour'
@@ -32,18 +32,16 @@ class ArcClock(BaseCircleAnim):
     def step(self, amt=1):
         self._led.all_off()
         t = time.localtime()
+
         for h in self.hands:
             segs = h['segments']
-            end = (360 / segs) * (getattr(t, h['key']) % segs)
-            if end:
-                for i in h['rings']:
-                    self._led.fillRing(i, h['color'],
-                                       startAngle=0, endAngle=end)
+            angle = (360 / segs) * (getattr(t, h['key']) % h['segments'])
+            self._led.drawRadius(angle, h['color'], endRing=h['radius'])
 
 
 MANIFEST = [
     {
-        "class": ArcClock,
+        "class": CircleClock,
         "controller": "circle",
         "desc": None,
         "display": "ArcClock",
