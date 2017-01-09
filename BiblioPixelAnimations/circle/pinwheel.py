@@ -1,4 +1,5 @@
 from bibliopixel.animation import BaseCircleAnim
+from bibliopixel import colors
 
 
 class PinWheel(BaseCircleAnim):
@@ -18,3 +19,33 @@ class PinWheel(BaseCircleAnim):
 
         self._step += amt
         self._step %= 360
+
+
+rainbow = [colors.Red, colors.Orange, colors.Yellow,
+           colors.Green, colors.Blue, colors.Purple]
+
+
+MANIFEST = [
+    {
+        "class": PinWheel,
+        "controller": "circle",
+        "desc": None,
+        "display": "PinWheel",
+        "id": "PinWheel",
+        "params": [
+            {
+                "default": rainbow,
+                "help": "",
+                "id": "colors",
+                "label": "Colors",
+                "type": "multi",
+                "controls": {
+                    "help": None,
+                    "label": "Color",
+                    "type": "color"
+                }
+            }
+        ],
+        "type": "animation"
+    }
+]

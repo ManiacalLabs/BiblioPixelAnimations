@@ -17,3 +17,26 @@ class Bloom(BaseCircleAnim):
         self._step += amt
         if(self._step >= 255):
             self._step = 0
+
+
+MANIFEST = [
+    {
+        "class": Bloom,
+        "controller": "circle",
+        "desc": None,
+        "display": "Bloom",
+        "id": "Bloom",
+        "params": [
+            {
+                "default": 1,
+                "help": "",
+                "id": "spread",
+                "label": "Spread",
+                "type": "int",
+                "min": 1,
+                "max": 32
+            }
+        ],
+        "type": "animation"
+    }
+]

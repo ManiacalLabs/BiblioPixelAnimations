@@ -15,3 +15,24 @@ class Swirl(BaseCircleAnim):
                 self._led.set(i, a, c)
 
         self._step += amt
+
+
+MANIFEST = [
+    {
+        "class": Swirl,
+        "controller": "circle",
+        "desc": None,
+        "display": "Swirl",
+        "id": "Swirl",
+        "params": [
+            {
+                "default": 12,
+                "help": "Degrees change per frame",
+                "id": "angle",
+                "label": "Angle Change",
+                "type": "int"
+            }
+        ],
+        "type": "animation"
+    }
+]

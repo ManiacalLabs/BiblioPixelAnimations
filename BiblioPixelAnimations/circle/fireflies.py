@@ -1,4 +1,5 @@
 from bibliopixel.animation import BaseCircleAnim
+from bibliopixel import colors
 import random
 
 
@@ -23,3 +24,40 @@ class FireFlies(BaseCircleAnim):
             self._led._set_base(pixel, color)
 
         self._step += amt
+
+
+rainbow = [colors.Red, colors.Orange, colors.Yellow,
+           colors.Green, colors.Blue, colors.Purple]
+
+
+MANIFEST = [
+    {
+        "class": FireFlies,
+        "controller": "circle",
+        "desc": None,
+        "display": "FireFlies",
+        "id": "FireFlies",
+        "params": [
+            {
+                "default": rainbow,
+                "help": "",
+                "id": "colors",
+                "label": "Colors",
+                "type": "multi",
+                "controls": {
+                    "help": None,
+                    "label": "Color",
+                    "type": "color"
+                }
+            },
+            {
+                "default": 10,
+                "help": "Total lit pixels in each frame",
+                "id": "count",
+                "label": "Pixel Count",
+                "type": "int"
+            }
+        ],
+        "type": "animation"
+    }
+]

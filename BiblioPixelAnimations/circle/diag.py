@@ -19,3 +19,31 @@ class Diag(BaseCircleAnim):
                 self._led.set(i, ap, c)
 
         self._step += amt if self.direction else (amt * -1)
+
+
+MANIFEST = [
+    {
+        "class": Diag,
+        "controller": "circle",
+        "desc": None,
+        "display": "Diagonal Rainbow",
+        "id": "Diag",
+        "params": [
+            {
+                "default": 1,
+                "help": "Total turns",
+                "id": "turns",
+                "label": "Turns",
+                "type": "int"
+            },
+            {
+                "default": 6,
+                "help": "Degrees change per frame",
+                "id": "angle",
+                "label": "Angle Change",
+                "type": "int"
+            }
+        ],
+        "type": "animation"
+    }
+]

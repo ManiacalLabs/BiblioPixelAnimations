@@ -1,4 +1,5 @@
 from bibliopixel.animation import BaseCircleAnim
+from bibliopixel import colors
 
 
 class ArcRotate(BaseCircleAnim):
@@ -22,3 +23,41 @@ class ArcRotate(BaseCircleAnim):
                                self.arc, endAngle=self._step + self.arc)
         self._step += amt
         self._step %= 360
+
+
+rainbow = [colors.Red, colors.Orange, colors.Yellow,
+           colors.Green, colors.Blue, colors.Purple]
+
+MANIFEST = [
+    {
+        "class": ArcRotate,
+        "controller": "circle",
+        "desc": None,
+        "display": "ArcRotate",
+        "id": "ArcRotate",
+        "params": [
+            {
+                "default": rainbow,
+                "help": "",
+                "id": "colors",
+                "label": "Colors",
+                "type": "multi",
+                "controls": {
+                    "help": None,
+                    "label": "Color",
+                    "type": "color"
+                }
+            },
+            {
+                "default": 180,
+                "help": "Arc Angle to light up",
+                "id": "arc",
+                "label": "Arc Angle",
+                "type": "int",
+                "min": 1,
+                "max": 359
+            }
+        ],
+        "type": "animation"
+    }
+]
