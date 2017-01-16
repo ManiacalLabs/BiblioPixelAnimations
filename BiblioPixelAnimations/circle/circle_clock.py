@@ -44,8 +44,8 @@ MANIFEST = [
         "class": CircleClock,
         "controller": "circle",
         "desc": None,
-        "display": "ArcClock",
-        "id": "ArcClock",
+        "display": "CircleClock",
+        "id": "CircleClock",
         "params": [],
         "type": "animation"
     }
