@@ -10,7 +10,7 @@ class TallCountdown(BaseMatrixAnim):
         super(TallCountdown, self).__init__(led)
         try:
             self.target = datetime.strptime(target, "%H:%M:%S").time()
-        except Exception, e:
+        except Exception as e:
             raise Exception("Unable to parse target time!\n" + str(e))
 
     def getRemaining(self):

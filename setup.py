@@ -12,14 +12,16 @@ _ver = "0.0.0"
 
 try:
     if 'develop' not in sys.argv:
-        head = urlopen("https://api.github.com/repos/ManiacalLabs/BiblioPixelAnimations/git/refs/head").read()
+        head = urlopen(
+            "https://api.github.com/repos/ManiacalLabs/BiblioPixelAnimations/git/refs/head").read()
         head_data = json.loads(head)
         if len(head_data) > 0:
             _ver = head_data[0]["object"]["sha"]
 except:
     pass
 
-if 'pip' not in __file__ and 'develop' not in sys.argv:
+print(__file__)
+if ('pip' not in __file__ and 'easy_install' not in __file__) and 'develop' not in sys.argv:
     print("""
     This installer MUST be run from pip!
     Please install using the following command:
