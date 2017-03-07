@@ -2,10 +2,10 @@ from bibliopixel.animation import BaseCircleAnim
 from bibliopixel import colors
 
 
-class Bloom(BaseCircleAnim):
+class CircleBloom(BaseCircleAnim):
 
     def __init__(self, led, spread=1):
-        super(Bloom, self).__init__(led)
+        super(CircleBloom, self).__init__(led)
         self.spread = spread
 
     def step(self, amt=8):
@@ -21,11 +21,11 @@ class Bloom(BaseCircleAnim):
 
 MANIFEST = [
     {
-        "class": Bloom,
+        "class": CircleBloom,
         "controller": "circle",
         "desc": None,
         "display": "Bloom",
-        "id": "Bloom",
+        "id": "CircleBloom",
         "params": [
             {
                 "default": 1,
