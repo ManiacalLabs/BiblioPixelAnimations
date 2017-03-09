@@ -24,16 +24,33 @@ if os.name == 'nt':
 
 if grab is None:
     try:
-        from pil import ImageGrab
-        log.info("Using PIL ImageGrab module")
+        from mss.linux import MSS as mss
+        from PIL import Image
+        log.info('Using mss module')
+
+        sct = mss()
+        monitor = sct.enum_display_monitors()[0]
+
+        def mss_grab(bbox):
+            sct.get_pixels(monitor)
+            img = Image.frombytes('RGB',
+                                  (sct.width, sct.height),
+                                  sct.image).crop(bbox)
+            return img
+
+        grab = mss_grab
     except:
         try:
-            import pyscreenshot as ImageGrab
-            log.info("Using pyscreenshot module")
+            from pil import ImageGrab
+            log.info("Using PIL ImageGrab module")
         except:
-            raise Exception("Unable to find any available screenshot option.")
+            try:
+                import pyscreenshot as ImageGrab
+                log.info("Using pyscreenshot module")
+            except:
+                raise Exception("Unable to find any available screenshot option.")
 
-    grab = ImageGrab.grab
+        grab = ImageGrab.grab
 
 
 class ScreenGrab(BaseMatrixAnim):
