@@ -1,3 +1,4 @@
+from __future__ import division
 from bibliopixel.animation import BaseCircleAnim
 import bibliopixel.colors as colors
 import random
@@ -17,7 +18,7 @@ class Hyperspace(BaseCircleAnim):
     def _drawTail(self, angle, ring, color):
         for i in range(self._tail):
             if ring - i >= 0 and ring - i <= self.lastRing:
-                level = 255 - ((255 / self._tail) * i)
+                level = 255 - ((255 // self._tail) * i)
                 self._led.set(ring - i, angle, colors.color_scale(color, level))
 
     def step(self, amt=1):
@@ -59,7 +60,7 @@ class HyperspaceRainbow(BaseCircleAnim):
     def _drawTail(self, angle, ring, color):
         for i in range(self._tail):
             if ring - i >= 0 and ring - i <= self.lastRing:
-                level = 255 - ((255 / self._tail) * i)
+                level = 255 - ((255 // self._tail) * i)
                 self._led.set(ring - i, angle, colors.color_scale(color, level))
 
     def step(self, amt=1):
@@ -76,9 +77,9 @@ class HyperspaceRainbow(BaseCircleAnim):
                 for r in range(len(angle)):
                     tail = angle[r]
                     if tail <= self.lastRing:
-                        c = colors.hue2rgb(tail * (255 / self.lastRing))
+                        c = colors.hue2rgb(tail * (255 // self.lastRing))
                         self._drawTail(a, tail, c)
-                        colors.hue2rgb(tail * (255 / self.lastRing))
+                        colors.hue2rgb(tail * (255 // self.lastRing))
                     if tail - (self._tail - 1) <= self.lastRing:
                         tail = tail + amt
                         self._tails[a][r] = tail

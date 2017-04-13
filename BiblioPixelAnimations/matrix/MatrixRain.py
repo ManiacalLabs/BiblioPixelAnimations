@@ -1,3 +1,4 @@
+from __future__ import division
 from bibliopixel.animation import BaseMatrixAnim
 import bibliopixel.colors as colors
 import random
@@ -18,7 +19,7 @@ class MatrixRain(BaseMatrixAnim):
     def _drawDrop(self, x, y, color):
         for i in range(self._tail):
             if y - i >= 0 and y - i < self._led.height:
-                level = 255 - ((255 / self._tail) * i)
+                level = 255 - ((255 // self._tail) * i)
                 self._led.set(x, y - i, colors.color_scale(color, level))
 
     def step(self, amt=1):
@@ -59,7 +60,7 @@ class MatrixRainBow(BaseMatrixAnim):
     def _drawDrop(self, x, y, color):
         for i in range(self._tail):
             if y - i >= 0 and y - i < self._led.height:
-                level = 255 - ((255 / self._tail) * i)
+                level = 255 - ((255 // self._tail) * i)
                 self._led.set(x, y - i, colors.color_scale(color, level))
 
     def step(self, amt=1):
@@ -77,7 +78,7 @@ class MatrixRainBow(BaseMatrixAnim):
                     drop = col[y]
                     if drop < self._led.height:
                         self._drawDrop(x, drop, colors.hue2rgb(
-                            drop * (255 / self._led.height)))
+                            drop * (255 // self._led.height)))
                     if drop - (self._tail - 1) < self._led.height:
                         drop = drop + 1
                         self._drops[x][y] = drop
