@@ -26,10 +26,10 @@ def genCubeVector(x, y, z, x_mult=1, y_mult=1, z_mult=1):
     return [[[vect(_x, _y, _z) for _z in range(z)] for _y in range(y)] for _x in range(x)]
 
 
-class Bloom(BaseCubeAnim):
+class CubeBloom(BaseCubeAnim):
 
     def __init__(self, led, dir=True):
-        super(Bloom, self).__init__(led)
+        super(CubeBloom, self).__init__(led)
         self._vector = genCubeVector(self.x, self.y, self.z)
         self._dir = dir
 
