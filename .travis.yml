@@ -4,7 +4,7 @@ python:
 install:
 - pip install -r requirements.txt
 script:
-- python --version # basically do nothing for now. Will add tests
+- python -c "import datetime; print(datetime.datetime.utcnow().strftime('3.%Y%m%d.%H%M%S'))" > $TRAVIS_BUILD_DIR/VERSION
 deploy:
   provider: pypi
   user: ManiacalLabs

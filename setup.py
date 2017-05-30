@@ -5,9 +5,15 @@ import sys
 import datetime
 
 
+def _get_version():
+    from os.path import abspath, dirname, join
+    filename = join(dirname(abspath(__file__)), 'VERSION')
+    return open(filename).read().strip()
+
+
 setup(
     name='BiblioPixelAnimations',
-    version=datetime.datetime.utcnow().strftime('3.%Y%m%d.%H%M%S'),
+    version=_get_version(),
     description='BiblioPixelAnimations is an animation repository for animation classes that work with BiblioPixel: http://github.com/maniacallabs/BiblioPixel',
     author='Adam Haile',
     author_email='adam@maniacallabs.com',
