@@ -1,5 +1,5 @@
 from __future__ import print_function
-from setuptools import setup
+from setuptools import setup, find_packages
 import json
 import sys
 import datetime
@@ -22,8 +22,8 @@ setup(
     author_email='adam@maniacallabs.com',
     url='http://github.com/maniacallabs/BiblioPixelAnimations/',
     license='MIT',
-    packages=['BiblioPixelAnimations', 'BiblioPixelAnimations.matrix',
-              'BiblioPixelAnimations.strip', 'BiblioPixelAnimations.game'],
+    packages=find_packages(),
+    include_package_data=True,
     classifiers=[
         'Development Status :: 5 - Production/Stable',
         'License :: OSI Approved :: MIT License',
