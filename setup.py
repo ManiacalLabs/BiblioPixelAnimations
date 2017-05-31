@@ -9,7 +9,9 @@ def _get_version():
     from os.path import abspath, dirname, join
     filename = join(dirname(abspath(__file__)), 'VERSION')
     print('Reading version from {}'.format(filename))
-    return open(filename).read().strip()
+    version = open(filename).read().strip()
+    print('Version: {}'.format(version))
+    return version
 
 
 setup(
