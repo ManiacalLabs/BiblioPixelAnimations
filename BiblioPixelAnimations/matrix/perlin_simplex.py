@@ -22,7 +22,7 @@ class PerlinSimplex(BaseMatrixAnim):
         for y in range(self.height):
             for x in range(self.width):
                 v = int(self.func(x / self._freq, y / self._freq, self._step / self._freq, octaves=self._octaves) * 127.0 + 128.0)
-                c = colors.hue2rgb_rainbow(v)
+                c = colors.hue2rgb(v)
                 self._led.set(x,y, c)
 
         self._step += amt
