@@ -1,3 +1,5 @@
+from __future__ import division
+
 from bibliopixel import *
 from bibliopixel.animation import *
 
@@ -15,7 +17,7 @@ class CPUUsage(BaseMatrixAnim):
         self._internalDelay = 500
         self._led.all_off()
         usage = psutil.cpu_percent()
-        self._usage.append(int(usage/100.0*self.height))
+        self._usage.append(int(usage//100.0*self.height))
 
         for x in range(self.width):
             if self._usage[x] > 0:
@@ -33,7 +35,7 @@ MANIFEST = [
         "params": [
             {
                 "default": [255, 0, 0],
-                "help": "", 
+                "help": "",
                 "id": "onColor",
                 "label": "Graph Color",
                 "type": "color"

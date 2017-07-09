@@ -1,4 +1,5 @@
 from __future__ import division
+
 from bibliopixel.animation import BaseMatrixAnim
 import bibliopixel.colors as colors
 from bibliopixel.util import pointOnCircle

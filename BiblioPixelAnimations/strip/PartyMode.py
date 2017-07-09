@@ -1,3 +1,5 @@
+from __future__ import division
+
 from bibliopixel.animation import BaseStripAnim
 
 class PartyMode(BaseStripAnim):
@@ -14,7 +16,7 @@ class PartyMode(BaseStripAnim):
             self._step = 0
 
         if self._step % 2 == 0:
-            self._led.fill(self._colors[self._step / 2], self._start, self._end)
+            self._led.fill(self._colors[self._step // 2], self._start, self._end)
         else:
             self._led.all_off()
 

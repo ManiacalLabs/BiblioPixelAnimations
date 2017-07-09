@@ -1,3 +1,5 @@
+from __future__ import division
+
 from bibliopixel.animation import BaseMatrixAnim
 import bibliopixel.colors as colors
 import bibliopixel.log as log
@@ -11,9 +13,9 @@ class BaseSpectrumDraw(object):
         self.width = anim.width
         self.height = anim.height
         self.led = anim._led
-        self.height_map = [((i * (self.height - 1)) / (1023))
+        self.height_map = [((i * (self.height - 1)) // (1023))
                            for i in range(1024)]
-        self.width_map = [((i * (self.width - 1)) / (1023))
+        self.width_map = [((i * (self.width - 1)) // (1023))
                           for i in range(1024)]
 
     def draw(self, data):
@@ -29,7 +31,7 @@ class BaseSpectrumDraw(object):
             self.led._drawFastVLine(x, y, h, c)
 
     def color_map(self, width, offset=0):
-        return [colors.hue2rgb((((i * (255)) / (width - 1)) + offset) % 256) for i in range(width)]
+        return [colors.hue2rgb((((i * (255)) // (width - 1)) + offset) % 256) for i in range(width)]
 
 
 class PeakLineGraph(BaseSpectrumDraw):
@@ -42,7 +44,7 @@ class PeakLineGraph(BaseSpectrumDraw):
     def draw(self, data, amt=1):
         chan = len(data)
         bar_w = int(self.width / chan)
-        pos = (self.width - (bar_w * chan)) / 2
+        pos = (self.width - (bar_w * chan)) // 2
 
         color_list = self.color_map(chan)
 
@@ -80,7 +82,7 @@ class Spread(BaseSpectrumDraw):
 
     def __init__(self, anim):
         super(Spread, self).__init__(anim)
-        self.center_line = self.height / 2
+        self.center_line = self.height // 2
         self.offset = 0
         self.color_offset = 0
         self.inverse = False
@@ -90,7 +92,7 @@ class Spread(BaseSpectrumDraw):
         chan = len(data)
         color_list = self.color_map(chan, self.color_offset)
         bar_w = int(self.width / chan)
-        pos = (self.width - (bar_w * chan)) / 2
+        pos = (self.width - (bar_w * chan)) // 2
         for i in range(chan):
             h = self.height_map[data[(i + self.offset) % len(data)]]
             c = color_list[i]

@@ -1,3 +1,5 @@
+from __future__ import division
+
 #much of the code below borrowed from http://cwoebker.com/posts/tic-tac-toe
 import random
 from bibliopixel.animation import BaseMatrixAnim
@@ -111,7 +113,7 @@ class Tic(object):
                     alpha = val
                 if alpha >= beta:
                     return beta
-            else: 
+            else:
                 if val < beta:
                     beta = val
                 if beta <= alpha:
@@ -150,7 +152,7 @@ class TicTacToe(BaseMatrixAnim):
 
     def drawMove(self, index, player):
         x = index % 3
-        y = index / 3
+        y = index // 3
         cx = 3 + (x * 8)
         cy = 3 + (y * 8)
 
@@ -184,10 +186,10 @@ class TicTacToe(BaseMatrixAnim):
         if winCombo:
             i = winCombo[0]
             x1 = ((i % 3) * 8) + 3
-            y1 = ((i / 3) * 8) + 3
+            y1 = ((i // 3) * 8) + 3
             i = winCombo[2]
             x2 = ((i % 3) * 8) + 3
-            y2 = ((i / 3) * 8) + 3
+            y2 = ((i // 3) * 8) + 3
             self._led.drawLine(x1, y1, x2, y2, colors.White)
 
         self._step = 0
@@ -209,12 +211,12 @@ class TicTacToe(BaseMatrixAnim):
 
 MANIFEST = [
     {
-        "class": TicTacToe, 
-        "controller": "matrix", 
-        "desc": "Plays Tic Tac Toe against itself. Designed for 24x24 display.", 
-        "display": "TicTacToe", 
-        "id": "TicTacToe", 
-        "params": [], 
+        "class": TicTacToe,
+        "controller": "matrix",
+        "desc": "Plays Tic Tac Toe against itself. Designed for 24x24 display.",
+        "display": "TicTacToe",
+        "id": "TicTacToe",
+        "params": [],
         "type": "animation"
     }
 ]

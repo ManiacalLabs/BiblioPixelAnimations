@@ -1,3 +1,5 @@
+from __future__ import division
+
 from bibliopixel.animation import BaseMatrixAnim
 from bibliopixel import log
 import numpy as np
@@ -72,7 +74,7 @@ class ScreenGrab(BaseMatrixAnim):
         self.width = led.width
         self.height = led.height
 
-        # self._scale = (self.height*1.0/self._ih)
+        # self._scale = (self.height*1.0//self._ih)
         self._cropY = 0
         self._cropX = 0
 
@@ -106,8 +108,8 @@ class ScreenGrab(BaseMatrixAnim):
         scaleW = int(self.width / scale)
         scaleH = int(self.height / scale)
 
-        padTB = (scaleH - self._ih) / 2
-        padLR = (scaleW - self._iw) / 2
+        padTB = (scaleH - self._ih) // 2
+        padLR = (scaleW - self._iw) // 2
 
         padYoff = int(round(padTB * yoffset)) - padTB
         padXoff = int(round(padLR * xoffset)) - padLR

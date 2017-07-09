@@ -1,3 +1,5 @@
+from __future__ import division
+
 from bibliopixel import LEDStrip
 import bibliopixel.colors as colors
 from bibliopixel.animation import BaseStripAnim
@@ -14,11 +16,13 @@ class LarsonScanner(BaseStripAnim):
         self._color = color
 
         self._tail = tail + 1  # makes tail math later easier
-        if self._tail >= self._size / 2:
-            self._tail = (self._size / 2) - 1
+        if self._tail >= self._size // 2:
+            self._tail = (self._size // 2) - 1
 
         self._direction = -1
         self._last = 0
+        if self._tail == 0:
+            self._tail = 1
         self._fadeAmt = 256 / self._tail
 
     def step(self, amt = 1):
