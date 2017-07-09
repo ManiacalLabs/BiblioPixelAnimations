@@ -11,7 +11,7 @@ class Mainframe(BaseMatrixAnim):
         self.color = color
         self.bgcolor = bgcolor
         self.scroll = scroll
-        self.rand_bytes_rows = (self.height / 8) + 1
+        self.rand_bytes_rows = (self.height // 8) + 1
         self.__genBytes()
 
     def __genBytes(self):
@@ -19,7 +19,7 @@ class Mainframe(BaseMatrixAnim):
                       for y in range(self.rand_bytes_rows)]
 
     def __getBit(self, x, y):
-        b = self.bytes[y / 8][x]
+        b = self.bytes[y // 8][x]
         return bool(b & (1 << (y % 8)))
 
     def step(self, amt=8):
