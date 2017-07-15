@@ -166,7 +166,7 @@ class Flappy(BaseGameAnim):
                 self._led.all_off()
                 if self.levelUp:
                     self.drawPipes()
-1`                    self._led.drawText(
+                    self._led.drawText(
                         "LVL", self.width // 2 - 8, self.height // 2 - 8, color=colors.Blue)
                     l = "{}".format(self.level)
                     self._led.drawText(
