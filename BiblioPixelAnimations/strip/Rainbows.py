@@ -11,7 +11,7 @@ class Rainbow(BaseStripAnim):
     def __init__(self, layout, start=0, end=-1):
         super(Rainbow, self).__init__(layout, start, end)
 
-    def preRun(self):
+    def pre_run(self):
         self._step = 0
 
     def step(self, amt=1):
@@ -31,7 +31,7 @@ class RainbowCycle(BaseStripAnim):
     def __init__(self, layout, start=0, end=-1):
         super(RainbowCycle, self).__init__(layout, start, end)
 
-    def preRun(self):
+    def pre_run(self):
         self._step = 0
 
     def step(self, amt=1):

@@ -36,7 +36,7 @@ class PixelPingPong(BaseStripAnim):
         self._fade_delay = fade_delay if fade_delay >= 1 else 1
         self._fade_increment = tuple(x / self._fade_delay for x in self._color)
 
-    def preRun(self):
+    def pre_run(self):
         self._step = 0
 
     def step(self, amt=1):

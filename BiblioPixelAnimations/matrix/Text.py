@@ -17,7 +17,7 @@ class ScrollText(BaseMatrixAnim):
         self.font_scale = font_scale
         self._strW = font.str_dim(text, font_name, font_scale, True)[0]
 
-    def preRun(self):
+    def pre_run(self):
         self.xPos = self.orig_xPos
 
     def step(self, amt=1):

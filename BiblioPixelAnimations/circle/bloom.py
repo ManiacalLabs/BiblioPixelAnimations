@@ -8,7 +8,7 @@ class CircleBloom(BaseCircleAnim):
         super(CircleBloom, self).__init__(layout)
         self.spread = spread
 
-    def preRun(self):
+    def pre_run(self):
         self._step = 0
 
     def step(self, amt=8):

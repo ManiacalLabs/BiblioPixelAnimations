@@ -13,7 +13,7 @@ class LinearRainbow(BaseStripAnim):
 
         self._individualPixel = individual_pixel
 
-    def preRun(self):
+    def pre_run(self):
         self._current = 0
         self._step = 0
 

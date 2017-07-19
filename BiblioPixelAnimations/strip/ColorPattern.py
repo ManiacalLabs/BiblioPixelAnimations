@@ -16,7 +16,7 @@ class ColorPattern(BaseStripAnim):
         self._total_width = self._width * self._colorCount
         self._dir = dir
 
-    def preRun(self):
+    def pre_run(self):
         self._step = 0
 
     def step(self, amt=1):

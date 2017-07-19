@@ -18,7 +18,7 @@ class Searchlights(BaseStripAnim):
         if self._tail >= self._size // 2:
             self._tail = (self._size // 2) - 1
 
-    def preRun(self):
+    def pre_run(self):
         self._direction = [1, 1, 1]
         self._currentpos = [0, 0, 0]
         self._steps = [1, 1, 1]

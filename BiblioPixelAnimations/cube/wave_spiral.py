@@ -23,7 +23,7 @@ class WaveSpiral(BaseCubeAnim):
 
         self.spiral = spiralOrder(self.matrix)
 
-    def preRun(self):
+    def pre_run(self):
         self._step = 0
 
     def step(self, amt=1):

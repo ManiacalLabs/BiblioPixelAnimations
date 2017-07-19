@@ -11,7 +11,7 @@ class Diag(BaseCircleAnim):
         self.slice = 360 / self.ringCount * self.turns
         self.direction = direction
 
-    def preRun(self):
+    def pre_run(self):
         self._step = 0
 
     def step(self, amt=1):

@@ -8,7 +8,7 @@ class Swirl(BaseCircleAnim):
         super(Swirl, self).__init__(layout)
         self.angle = angle
 
-    def preRun(self):
+    def pre_run(self):
         self._step = 0
 
     def step(self, amt=1):

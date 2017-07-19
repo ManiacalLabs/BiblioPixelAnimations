@@ -13,7 +13,7 @@ class MatrixRain(BaseMatrixAnim):
         self._tail = tail
         self._growthRate = growthRate
 
-    def preRun(self):
+    def pre_run(self):
         self._drops = [[] for x in range(self.layout.width)]
 
     def _drawDrop(self, x, y, color):
@@ -56,7 +56,7 @@ class MatrixRainBow(BaseMatrixAnim):
         self._tail = tail
         self._growthRate = growthRate
 
-    def preRun(self):
+    def pre_run(self):
         self._drops = [[] for x in range(self.layout.width)]
 
     def _drawDrop(self, x, y, color):

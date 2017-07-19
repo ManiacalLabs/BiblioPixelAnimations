@@ -12,7 +12,7 @@ class LangtonsAnt(BaseMatrixAnim):
         self.offColor = colors.Off
         self.curColor = self.offColor
 
-    def preRun(self):
+    def pre_run(self):
         self.x = random.randrange(self.width)
         self.y = random.randrange(self.height)
         self.d = random.randrange(4)
@@ -70,7 +70,7 @@ class LangtonsAntRainbow(BaseMatrixAnim):
         self.curColor = self.offColor
         self.curColorIndex = -1
 
-    def preRun(self):
+    def pre_run(self):
         self.x = random.randrange(self.width)
         self.y = random.randrange(self.height)
         self.d = random.randrange(4)

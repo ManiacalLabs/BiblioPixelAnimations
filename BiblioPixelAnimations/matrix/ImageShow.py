@@ -13,7 +13,7 @@ class ImageShow(BaseMatrixAnim):
         self.img = imagePath
         self.offset = offset
 
-    def preRun(self):
+    def pre_run(self):
         self.layout.setTexture(loadImage(self.layout, imagePath=self.img, offset=self.offset))
 
     def step(self, amt):

@@ -12,7 +12,7 @@ class Simplex(BaseCubeAnim):
         self._freq = float(freq)
         self._octaves = octaves
 
-    def preRun(self):
+    def pre_run(self):
         self._step = 0
 
     def step(self, amt):

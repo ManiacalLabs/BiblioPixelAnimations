@@ -11,7 +11,7 @@ class Wave(BaseStripAnim):
         self._color = color
         self._cycles = cycles
 
-    def preRun(self):
+    def pre_run(self):
         self._step = 0
 
     def step(self, amt=1):

@@ -13,7 +13,7 @@ class ArcRotate(BaseCircleAnim):
         self.arcCount = len(self.colors)
         self.arc = arc / 2
 
-    def preRun(self):
+    def pre_run(self):
         self._step = 0
 
     def step(self, amt=1):

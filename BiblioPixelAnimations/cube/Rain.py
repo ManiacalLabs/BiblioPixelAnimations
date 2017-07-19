@@ -11,7 +11,7 @@ class RainBow(BaseCubeAnim):
         self._drops = [[[] for z in range(self.z)] for x in range(self.x)]
         self._growthRate = growthRate
 
-    def preRun(self):
+    def pre_run(self):
         self._step = 0
 
     def _drawDrop(self, x, y, z, color):

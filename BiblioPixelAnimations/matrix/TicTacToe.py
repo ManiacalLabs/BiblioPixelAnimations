@@ -131,7 +131,7 @@ class TicTacToe(BaseMatrixAnim):
 
         self._showWinCount = 0
 
-    def preRun(self):
+    def pre_run(self):
         self._board = Tic()
         self._player = 'O'
         self._nextPlayer = 'O'

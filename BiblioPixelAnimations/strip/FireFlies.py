@@ -13,7 +13,7 @@ class FireFlies(BaseStripAnim):
         self._width = width
         self._count = count
 
-    def preRun(self):
+    def pre_run(self):
         self._step = 0
 
     def step(self, amt=1):

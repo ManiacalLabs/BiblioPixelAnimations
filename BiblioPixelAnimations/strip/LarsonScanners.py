@@ -19,7 +19,7 @@ class LarsonScanner(BaseStripAnim):
             self._tail = 1
         self._fadeAmt = 256 // self._tail
 
-    def preRun(self):
+    def pre_run(self):
         self._direction = -1
         self._last = 0
         self._step = 0

@@ -38,7 +38,7 @@ class CirclePop(BaseMatrixAnim):
         self.prob_circ = 8
         self.bgcolor = bgcolor
 
-    def preRun(self):
+    def pre_run(self):
         self.cont = []
         self.addCircle()  # add a first circle to our list
 

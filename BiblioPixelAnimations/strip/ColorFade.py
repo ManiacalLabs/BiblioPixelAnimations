@@ -18,7 +18,7 @@ class ColorFade(BaseStripAnim):
         self._level_count = len(self._levels)
         self._color_count = len(colors)
 
-    def preRun(self):
+    def pre_run(self):
         self._step = 0
 
     def step(self, amt=1):

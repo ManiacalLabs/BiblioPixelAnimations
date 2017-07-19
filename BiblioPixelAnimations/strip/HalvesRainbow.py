@@ -18,7 +18,7 @@ class HalvesRainbow(BaseStripAnim):
         self._centerOut = centre_out
         self._rainbowInc = rainbow_inc
 
-    def preRun(self):
+    def pre_run(self):
         self._current = 0
         self._step = 0
 

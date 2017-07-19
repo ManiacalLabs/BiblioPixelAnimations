@@ -19,7 +19,7 @@ class ImageDissolve(BaseMatrixAnim):
         self.waitFrames = waitFrames
         self.waitCount = 0
 
-    def preRun(self):
+    def pre_run(self):
         self.resetAndLoad()
         self.imgIndex = 0
         self.waitCount = 0

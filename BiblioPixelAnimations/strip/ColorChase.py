@@ -9,7 +9,7 @@ class ColorChase(BaseStripAnim):
         self._color = color
         self._width = width
 
-    def preRun(self):
+    def pre_run(self):
         self._step = 0
 
     def step(self, amt=1):

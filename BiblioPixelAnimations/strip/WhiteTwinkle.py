@@ -48,7 +48,7 @@ class WhiteTwinkle(BaseStripAnim):
         self.max_bright = min(self.max_bright, 255)
         self.max_bright = max(self.max_bright, 5)
 
-    def preRun(self):
+    def pre_run(self):
         self._step = 0
 
     def qadd8(self, color, inc):

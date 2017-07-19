@@ -34,7 +34,7 @@ class Alternates(BaseStripAnim):
         self._color1 = color1
         self._color2 = color2
 
-    def preRun(self):
+    def pre_run(self):
         self._step = 0
 
     def step(self, amt=1):

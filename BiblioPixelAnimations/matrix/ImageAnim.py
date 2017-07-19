@@ -202,7 +202,7 @@ class ImageAnim(BaseMatrixAnim):
     def swapbuf(self):
         self._cur_img_buf = self.next_img_buf()
 
-    def preRun(self):
+    def pre_run(self):
         self._curImage = 0
 
     def step(self, amt=1):

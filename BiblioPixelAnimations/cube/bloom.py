@@ -32,7 +32,7 @@ class CubeBloom(BaseCubeAnim):
         self._vector = genCubeVector(self.x, self.y, self.z)
         self._dir = dir
 
-    def preRun(self):
+    def pre_run(self):
         self._step = 0
 
     def step(self, amt=8):

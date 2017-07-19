@@ -15,7 +15,7 @@ class Hyperspace(BaseCircleAnim):
         self._growthRate = growthRate
         self._angleDiff = angleDiff
 
-    def preRun(self):
+    def pre_run(self):
         self._step = 0
 
     def _drawTail(self, angle, ring, color):
@@ -60,7 +60,7 @@ class HyperspaceRainbow(BaseCircleAnim):
         self._growthRate = growthRate
         self._angleDiff = angleDiff
 
-    def preRun(self):
+    def pre_run(self):
         self._step = 0
 
     def _drawTail(self, angle, ring, color):

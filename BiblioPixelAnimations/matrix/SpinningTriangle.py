@@ -19,7 +19,7 @@ class SpinningTriangle(BaseMatrixAnim):
         if self._radius is None:
             self._radius = (self.width // 2) - 2
 
-    def preRun(self):
+    def pre_run(self):
         self._step = 0
 
     def _stepAngle(self, a, step):
