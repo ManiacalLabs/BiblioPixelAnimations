@@ -158,14 +158,14 @@ class FrameDraw(object):
 
 class Spectrum(BaseCubeAnim):
 
-    def __init__(self, led, vis_list=None, steps_per_vis=None,
+    def __init__(self, layout, vis_list=None, steps_per_vis=None,
                  bins=64, max_freq=4000, log_scale=True, auto_gain=False, gain=3):
 
-        super(Spectrum, self).__init__(led)
+        super(Spectrum, self).__init__(layout)
         self.source = EQ(bins=bins, max_freq=max_freq,
                          log_scale=log_scale, auto_gain=auto_gain, gain=gain)
 
-        self.x, self.y, self.z = led.x, led.y, led.z
+        self.x, self.y, self.z = layout.x, layout.y, layout.z
 
         self.frames = [[[(0, 0, 0)] * self.x] * self.y] * self.z
         self.frame = FrameDraw(self)
@@ -184,7 +184,7 @@ class Spectrum(BaseCubeAnim):
         self.cur_vis = len(self.vis_list)
         self.next_draw_obj()
 
-    def preRun(self, amt=1):
+    def preRun(self):
         self.source.start()
 
     def _exit(self, type, value, traceback):
@@ -202,7 +202,7 @@ class Spectrum(BaseCubeAnim):
 
     def step(self, amt=1):
         assert self.draw_obj, "No loaded visualizers!"
-        self._led.all_off()
+        self.layout.all_off()
         data = self.source.get_audio_data()
         self.draw_obj.draw(data, amt)
 
@@ -212,7 +212,7 @@ class Spectrum(BaseCubeAnim):
         for z in range(1):
             for y in range(self.y):
                 for x in range(self.x):
-                    self._led.set(x, y, z, self.frames[z][y][x])
+                    self.layout.set(x, y, z, self.frames[z][y][x])
 
         if self.steps_per_vis:
             self._step += 1

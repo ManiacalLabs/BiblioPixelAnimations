@@ -27,14 +27,13 @@
 
 # Load driver for your hardware, visualizer just for example
 from bibliopixel.animation import BaseMatrixAnim
-import numpy as np
 import cv2
 
 
 class OpenCVVideo(BaseMatrixAnim):
 
-    def __init__(self, led, videoSource=None, mirror=True, offset=0.0, crop=True, useVidFPS=False):
-        super(OpenCVVideo, self).__init__(led)
+    def __init__(self, layout, videoSource=None, mirror=True, offset=0.0, crop=True, useVidFPS=False):
+        super(OpenCVVideo, self).__init__(layout)
 
         self.crop = crop
         self.mirror = mirror
@@ -57,7 +56,7 @@ class OpenCVVideo(BaseMatrixAnim):
                 self._vid.set(1, 0)  # CV_CAP_PROP_POS_FRAMES
                 self._vidfps = int(self._vid.get(5))  # CV_CAP_PROP_FPS
                 if useVidFPS:
-                    self._internalDelay = (1000 / self._vidfps)
+                    self.internal_delay = (1000 / (self._vidfps * 1000))
                 # CV_CAP_PROP_FRAME_COUNT
                 self._frameTotal = int(self._vid.get(7))
             except:
@@ -68,9 +67,6 @@ class OpenCVVideo(BaseMatrixAnim):
 
         self._iw = i.shape[1]
         self._ih = i.shape[0]
-
-        self.width = led.width
-        self.height = led.height
 
         # self._scale = (self.height*1.0/self._ih)
         self._cropY = 0
@@ -142,7 +138,7 @@ class OpenCVVideo(BaseMatrixAnim):
 
         for y in range(self.height):
             for x in range(self.width):
-                self._led.set(x, y, tuple(resized[y, x][0:3]))
+                self.layout.set(x, y, tuple(resized[y, x][0:3]))
 
         if not isinstance(self.videoSource, int):
             self._frameCount += 1
@@ -150,53 +146,3 @@ class OpenCVVideo(BaseMatrixAnim):
                 self._vid.set(1, 0)  # CV_CAP_PROP_POS_FRAMES
                 self._frameCount = 0
                 self.animComplete = True
-
-
-MANIFEST = [
-    {
-        "class": OpenCVVideo,
-        "controller": "matrix",
-        "desc": None,
-        "display": "OpenCVVideo",
-        "id": "OpenCVVideo",
-        "params": [
-            {
-                "default": False,
-                "help": "Run at framerate of source video",
-                "id": "useVidFPS",
-                "label": "Use Source FPS",
-                "type": "bool"
-            },
-            {
-                "default": True,
-                "help": "Crop input video to display size.",
-                "id": "crop",
-                "label": "Crop",
-                "type": "bool"
-            },
-            # Requires float value input in UI
-            # {
-            #     "default": 0.0,
-            #     "help": "",
-            #     "id": "offset",
-            #     "label": "",
-            #     "type": ""
-            # },
-            {
-                "default": False,
-                "help": "Mirrors image along vertical. Useful for webcam video.",
-                "id": "mirror",
-                "label": "Mirror",
-                "type": "bool"
-            },
-            {
-                "default": None,
-                "help": "Leave blank of use default system camera. Otherwise give path to AVI video file.",
-                "id": "videoSource",
-                "label": "Source",
-                "type": "str"
-            }
-        ],
-        "type": "animation"
-    }
-]

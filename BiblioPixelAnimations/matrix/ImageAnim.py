@@ -1,22 +1,3 @@
-# Usage
-# Run the animation in "pacman.gif" for 5 total cycles. When loading from an animated GIF file, the timing of each frame is automatically loaded from the file but if a different, constant time is needed the "fps" or "sleep" parameters of run() can be used.
-#
-# ```python
-# import bibliopixel.image as image
-# anim = image.ImageAnim(led, "./anims/pacman.gif")
-# anim.run(untilComplete = True, max_cycles = 5)
-# ```
-#
-# Run the animation from sequential files stored in "./anim/supermario". Files are loaded in alpha/numeric order. To ensure files load in the same order on all systems, best practice is to name the files as: 001.bmp, 002.bmp, 003.bmp, 004.bmp, etc...
-#
-# Note that when loading static files as a sequence, the "fps" or "sleep" parameters of run() are required to control the timing between each frame. Like above, untilComplete and max_cycles are still valid when using static sequences.
-#
-# ```python
-# import bibliopixel.image as image
-# anim = image.ImageAnim(led, "./anims/supermario/")
-# anim.run()
-# ```
-
 from __future__ import division
 
 from bibliopixel.animation import BaseMatrixAnim
@@ -36,29 +17,29 @@ import threading
 import random as rand
 
 
-def _getBufferFromImage(img, led, bgcolor, bright, offset):
+def _getBufferFromImage(img, layout, bgcolor, bright, offset):
     duration = None
     if 'duration' in img.info:
         duration = img.info['duration']
 
-    w = led.width - offset[0]
+    w = layout.width - offset[0]
     if img.size[0] < w:
         w = img.size[0]
 
-    h = led.height - offset[1]
+    h = layout.height - offset[1]
     if img.size[1] < h:
         h = img.size[1]
 
     ox = offset[0]
     oy = offset[1]
 
-    buffer = [0 for x in range(led.numLEDs * 3)]
-    gamma = led.driver[0].gamma
+    buffer = [0 for x in range(layout.numLEDs * 3)]
+    gamma = layout.drivers[0].gamma
     if bgcolor != (0, 0, 0):
-        for i in range(led.numLEDs):
-            buffer[i * 3 + 0] = gamma[bgcolor[0]]
-            buffer[i * 3 + 1] = gamma[bgcolor[1]]
-            buffer[i * 3 + 2] = gamma[bgcolor[2]]
+        for i in range(layout.numLEDs):
+            buffer[i * 3 + 0] = gamma.get(bgcolor[0])
+            buffer[i * 3 + 1] = gamma.get(bgcolor[1])
+            buffer[i * 3 + 2] = gamma.get(bgcolor[2])
 
     frame = Image.new("RGBA", img.size)
     frame.paste(img)
@@ -67,7 +48,7 @@ def _getBufferFromImage(img, led, bgcolor, bright, offset):
         for y in range(oy, h + oy):
             if x < 0 or y < 0:
                 continue
-            pixel = led.matrix_map[y][x]
+            pixel = layout.matrix_map[y][x]
             r, g, b, a = frame.getpixel((x - ox, y - oy))
             if a == 0:
                 r, g, b = bgcolor
@@ -78,29 +59,28 @@ def _getBufferFromImage(img, led, bgcolor, bright, offset):
             if bright != 255:
                 r, g, b = colors.color_scale((r, g, b), bright)
 
-            buffer[pixel * 3 + 0] = gamma[r]
-            buffer[pixel * 3 + 1] = gamma[g]
-            buffer[pixel * 3 + 2] = gamma[b]
+            buffer[pixel * 3 + 0] = gamma.get(r)
+            buffer[pixel * 3 + 1] = gamma.get(g)
+            buffer[pixel * 3 + 2] = gamma.get(b)
 
     return (duration, buffer)
 
 
-def _loadGIFSequence(imagePath, led, bgcolor, bright, offset):
+def _loadGIFSequence(imagePath, layout, bgcolor, bright, offset):
     img = Image.open(imagePath)
     if offset == (0, 0):
         w = 0
         h = 0
-        if img.size[0] < led.width:
-            w = (led.width - img.size[0]) // 2
-        if img.size[1] < led.height:
-            h = (led.height - img.size[1]) // 2
+        if img.size[0] < layout.width:
+            w = (layout.width - img.size[0]) // 2
+        if img.size[1] < layout.height:
+            h = (layout.height - img.size[1]) // 2
         offset = (w, h)
 
     images = []
     count = 0
     for frame in ImageSequence.Iterator(img):
-        images.append(
-            _getBufferFromImage(frame, led, bgcolor, bright, offset))
+        images.append(_getBufferFromImage(frame, layout, bgcolor, bright, offset))
         count += 1
 
     return images
@@ -135,16 +115,17 @@ class loadnextthread(threading.Thread):
 
 
 class ImageAnim(BaseMatrixAnim):
-    def __init__(self, led, imagePath, offset=(0, 0), bgcolor=colors.Off, brightness=255, cycles=1, random=False, use_file_fps=True):
+    def __init__(self, layout, imagePath=None, offset=(0, 0), bgcolor=colors.Off,
+                 brightness=255, cycles=1, random=False, use_file_fps=True):
         """Helper class for displaying image animations for GIF files or a set of bitmaps
 
-        led - LEDMatrix instance
+        layout - layoutMatrix instance
         imagePath - Path to either a single animated GIF image or folder of GIF files
         offset - X,Y tuple coordinates at which to place the top-left corner of the image
         bgcolor - RGB tuple color to replace any transparent pixels with. Avoids transparent showing as black
         brightness - Brightness value (0-255) to scale the image by. Otherwise uses master brightness at the time of creation
         """
-        super(ImageAnim, self).__init__(led)
+        super(ImageAnim, self).__init__(layout)
 
         self.cycles = cycles
         self.cycle_count = 0
@@ -153,13 +134,17 @@ class ImageAnim(BaseMatrixAnim):
         self.use_file_fps = use_file_fps
 
         self._bright = brightness
-        if self._bright == 255 and led.masterBrightness != 255:
-            self._bright = led.masterBrightness
+        # if self._bright == 255 and layout.brightness != 255:
+        #     self._bright = layout.brightness
 
         self._bgcolor = colors.color_scale(bgcolor, self._bright)
         self._offset = offset
         self._image_buffers = [None, None]
         self._cur_img_buf = 1  # start here because loadNext swaps it
+
+        if imagePath is None:
+            cur_dir = os.path.dirname(os.path.realpath(__file__))
+            imagePath = os.path.abspath(os.path.join(cur_dir, '../../Graphics/MarioRotating.gif'))
 
         self.folder_mode = os.path.isdir(imagePath)
         self.gif_files = []
@@ -190,7 +175,7 @@ class ImageAnim(BaseMatrixAnim):
         next_buf = self.next_img_buf()
         if ext.lower().endswith("gif"):
             log.logger.info("Loading {0} ...".format(gif))
-            self._image_buffers[next_buf] = _loadGIFSequence(gif, self._led, self._bgcolor, self._bright, self._offset)
+            self._image_buffers[next_buf] = _loadGIFSequence(gif, self.layout, self._bgcolor, self._bright, self._offset)
         else:
             raise ValueError('Must be a GIF file!')
 
@@ -221,12 +206,13 @@ class ImageAnim(BaseMatrixAnim):
         self._curImage = 0
 
     def step(self, amt=1):
-        self._led.all_off()
+        self.layout.all_off()
         img = self._image_buffers[self._cur_img_buf]
 
-        self._led.setBuffer(img[self._curImage][1])
+        self.layout.setBuffer(img[self._curImage][1])
         if self.use_file_fps:
-            self._internalDelay = img[self._curImage][0]
+            # print(img[self._curImage][0])
+            self.internal_delay = img[self._curImage][0] / 1000.0
 
         self._curImage += 1
         if self._curImage >= len(img):
@@ -243,79 +229,3 @@ class ImageAnim(BaseMatrixAnim):
                 self.animComplete = True
 
         self._step = 0
-
-
-MANIFEST = [
-    {
-        "class": ImageAnim,
-        "controller": "matrix",
-        "desc": "Display animated GIFs",
-        "display": "ImageAnim",
-        "id": "ImageAnim",
-        "params": [
-            {
-                "default": None,
-                "help": "Path to either a single GIF or folder of GIF files",
-                "id": "imagePath",
-                "label": "GIF/Folder Path",
-                "type": "str"
-            },
-            {
-                "default": [
-                    0,
-                    0,
-                    0
-                ],
-                "help": "",
-                "id": "bgcolor",
-                "label": "Background",
-                "type": "color"
-            },
-            {
-                "default": 255,
-                "help": "",
-                "id": "brightness",
-                "label": "Brightness",
-                "type": "int"
-            },
-            {
-                "default": [0, 0],
-                "help": "Image placement offset",
-                "id": "offset",
-                "label": "Offset",
-                "type": "multi_tuple",
-                "controls": [{
-                    "label": "X",
-                    "type": "int",
-                    "default": 0
-                }, {
-                    "label": "Y",
-                    "type": "int",
-                    "default": 0
-                }]
-            },
-            {
-                "default": 1,
-                "help": "# of cycles to run before next GIF. Folder mode only.",
-                "id": "cycles",
-                "label": "# Cycles",
-                "type": "int"
-            },
-            {
-                "default": True,
-                "help": "Random GIF selection. Folder mode only.",
-                "id": "random",
-                "label": "Random",
-                "type": "bool"
-            },
-            {
-                "default": True,
-                "help": "Use framerate stored in GIF",
-                "id": "use_file_fps",
-                "label": "Use File FPS",
-                "type": "bool"
-            }
-        ],
-        "type": "animation"
-    }
-]

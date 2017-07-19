@@ -1,9 +1,10 @@
 from __future__ import division
 
-#much of the code below borrowed from http://cwoebker.com/posts/tic-tac-toe
+# much of the code below borrowed from http://cwoebker.com/posts/tic-tac-toe
 import random
 from bibliopixel.animation import BaseMatrixAnim
 import bibliopixel.colors as colors
+
 
 class Tic(object):
     winning_combos = (
@@ -20,7 +21,7 @@ class Tic(object):
             self.squares = squares
 
     def clearBoard(self):
-        self.squares = [None for i in range(9)];
+        self.squares = [None for i in range(9)]
 
     def available_moves(self):
         """what spots are left empty?"""
@@ -34,7 +35,7 @@ class Tic(object):
         """is the game over?"""
         if None not in [v for v in self.squares]:
             return True
-        if self.winner() != None:
+        if self.winner() is not None:
             return True
         return False
 
@@ -45,7 +46,7 @@ class Tic(object):
         return self.winner() == 'O'
 
     def tied(self):
-        return self.complete() == True and self.winner() is None
+        return self.complete() and self.winner() is None
 
     def winner(self):
         for player in ('X', 'O'):
@@ -75,7 +76,7 @@ class Tic(object):
 
         return winCombo
 
-    def get_squares(self, player = None):
+    def get_squares(self, player=None):
         """squares that belong to a player"""
         if player:
             return [k for k, v in enumerate(self.squares) if v == player]
@@ -123,22 +124,23 @@ class Tic(object):
         else:
             return beta
 
+
 class TicTacToe(BaseMatrixAnim):
-    def __init__(self, led):
-        super(TicTacToe, self).__init__(led)
-
-        self._board = Tic()
-
-        self._player = 'O'
-        self._nextPlayer = 'O'
+    def __init__(self, layout):
+        super(TicTacToe, self).__init__(layout)
 
         self._showWinCount = 0
+
+    def preRun(self):
+        self._board = Tic()
+        self._player = 'O'
+        self._nextPlayer = 'O'
 
     def determine(self, board, player):
         a = -2
         choices = []
         if len(board.available_moves()) == 9:
-            return random.randint(0,8)
+            return random.randint(0, 8)
         for move in board.available_moves():
             board.make_move(move, player)
             val = board.alphabeta(board, self._board.get_enemy(player), -2, 2)
@@ -157,12 +159,12 @@ class TicTacToe(BaseMatrixAnim):
         cy = 3 + (y * 8)
 
         if player == 'X':
-            self._led.drawLine(cx - 2, cy - 2, cx + 2, cy + 2, colors.Green)
-            self._led.drawLine(cx - 2, cy + 2, cx + 2, cy - 2, colors.Green)
+            self.layout.drawLine(cx - 2, cy - 2, cx + 2, cy + 2, colors.Green)
+            self.layout.drawLine(cx - 2, cy + 2, cx + 2, cy - 2, colors.Green)
         elif player == 'O':
-            self._led.drawCircle(cx, cy, 2, colors.Blue)
+            self.layout.drawCircle(cx, cy, 2, colors.Blue)
 
-    def step(self, amt = 1):
+    def step(self, amt=1):
         winner = None
         winCombo = None
         complete = self._board.complete()
@@ -172,13 +174,13 @@ class TicTacToe(BaseMatrixAnim):
             if winner:
                 winCombo = self._board.winningCombo(winner)
 
-        self._led.all_off()
+        self.layout.all_off()
 
-        #right now just assuming 24x24, don't feel like doing the math for dynamic
-        self._led.drawLine(7, 0, 7, 22, colors.Red)
-        self._led.drawLine(15, 0, 15, 22, colors.Red)
-        self._led.drawLine(0, 7, 22, 7, colors.Red)
-        self._led.drawLine(0, 15, 22, 15, colors.Red)
+        # right now just assuming 24x24, don't feel like doing the math for dynamic
+        self.layout.drawLine(7, 0, 7, 22, colors.Red)
+        self.layout.drawLine(15, 0, 15, 22, colors.Red)
+        self.layout.drawLine(0, 7, 22, 7, colors.Red)
+        self.layout.drawLine(0, 15, 22, 15, colors.Red)
 
         for i in range(9):
             self.drawMove(i, self._board.get_squares()[i])
@@ -190,7 +192,7 @@ class TicTacToe(BaseMatrixAnim):
             i = winCombo[2]
             x2 = ((i % 3) * 8) + 3
             y2 = ((i // 3) * 8) + 3
-            self._led.drawLine(x1, y1, x2, y2, colors.White)
+            self.layout.drawLine(x1, y1, x2, y2, colors.White)
 
         self._step = 0
 
@@ -207,16 +209,3 @@ class TicTacToe(BaseMatrixAnim):
             new_move = self.determine(self._board, self._player)
             self._board.make_move(new_move, self._player)
             self._player = self._board.get_enemy(self._player)
-
-
-MANIFEST = [
-    {
-        "class": TicTacToe,
-        "controller": "matrix",
-        "desc": "Plays Tic Tac Toe against itself. Designed for 24x24 display.",
-        "display": "TicTacToe",
-        "id": "TicTacToe",
-        "params": [],
-        "type": "animation"
-    }
-]

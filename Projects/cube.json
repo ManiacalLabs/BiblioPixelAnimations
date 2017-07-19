@@ -1,0 +1,57 @@
+{
+    "remote": {
+        "title": "cube Demo",
+        "animations": [
+            {
+                "animation": {
+                    "typename": "BiblioPixelAnimations.cube.Rain.RainBow"
+                },
+                "name": "RainBow",
+                "run": {
+                    "fps": 30
+                }
+            },
+            {
+                "animation": {
+                    "typename": "BiblioPixelAnimations.cube.bloom.CubeBloom"
+                },
+                "name": "CubeBloom",
+                "run": {
+                    "fps": 30
+                }
+            },
+            {
+                "animation": {
+                    "typename": "BiblioPixelAnimations.cube.simplex.Simplex"
+                },
+                "name": "Simplex",
+                "run": {
+                    "fps": 30
+                }
+            },
+            {
+                "animation": {
+                    "typename": "BiblioPixelAnimations.cube.wave_spiral.WaveSpiral"
+                },
+                "name": "WaveSpiral",
+                "run": {
+                    "fps": 30
+                }
+            }
+        ],
+        "default": null,
+        "bgcolor": "black",
+        "external_access": true,
+        "port": 5000
+    },
+    "driver": {
+        "num": 512,
+        "typename": "simpixel"
+    },
+    "layout": {
+        "typename": "cube",
+        "x": 8,
+        "y": 8,
+        "z": 8
+    }
+}

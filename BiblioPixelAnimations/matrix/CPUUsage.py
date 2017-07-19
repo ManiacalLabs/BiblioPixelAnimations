@@ -1,46 +1,26 @@
 from __future__ import division
 
-from bibliopixel import *
-from bibliopixel.animation import *
+from bibliopixel.animation import BaseMatrixAnim
+from bibliopixel import colors
 
 import psutil
 from collections import deque
+
+
 class CPUUsage(BaseMatrixAnim):
 
-    def __init__(self, led, onColor):
-        super(CPUUsage, self).__init__(led)
+    def __init__(self, layout, onColor=colors.Red):
+        super(CPUUsage, self).__init__(layout)
         self._onColor = onColor
 
-        self._usage = deque(iterable=[0]*self.width, maxlen=self.width)
+        self._usage = deque(iterable=[0] * self.width, maxlen=self.width)
 
-    def step(self, amt = 1):
-        self._internalDelay = 500
-        self._led.all_off()
+    def step(self, amt=1):
+        self.internal_delay = 0.5
+        self.layout.all_off()
         usage = psutil.cpu_percent()
-        self._usage.append(int(usage//100.0*self.height))
+        self._usage.append(int(usage // 100.0 * self.height))
 
         for x in range(self.width):
             if self._usage[x] > 0:
-                self._led.drawLine(x, self.height, x, self.height-1-self._usage[x], self._onColor)
-
-
-
-MANIFEST = [
-    {
-        "class": CPUUsage,
-        "controller": "matrix",
-        "desc": "Displays scrolling CPU usage graph.",
-        "display": "CPUUsage",
-        "id": "CPUUsage",
-        "params": [
-            {
-                "default": [255, 0, 0],
-                "help": "",
-                "id": "onColor",
-                "label": "Graph Color",
-                "type": "color"
-            }
-        ],
-        "type": "animation"
-    }
-]
+                self.layout.drawLine(x, self.height, x, self.height - 1 - self._usage[x], self._onColor)

@@ -5,8 +5,8 @@ import random
 
 
 class Hyperspace(BaseCircleAnim):
-    def __init__(self, led, colors=[colors.Green], tail=4, growthRate=4, angleDiff=6):
-        super(Hyperspace, self).__init__(led)
+    def __init__(self, layout, colors=[colors.Green], tail=4, growthRate=4, angleDiff=6):
+        super(Hyperspace, self).__init__(layout)
         if not isinstance(colors, list):
             colors = [colors]
         self._colors = colors
@@ -15,14 +15,17 @@ class Hyperspace(BaseCircleAnim):
         self._growthRate = growthRate
         self._angleDiff = angleDiff
 
+    def preRun(self):
+        self._step = 0
+
     def _drawTail(self, angle, ring, color):
         for i in range(self._tail):
             if ring - i >= 0 and ring - i <= self.lastRing:
                 level = 255 - ((255 // self._tail) * i)
-                self._led.set(ring - i, angle, colors.color_scale(color, level))
+                self.layout.set(ring - i, angle, colors.color_scale(color, level))
 
     def step(self, amt=1):
-        self._led.all_off()
+        self.layout.all_off()
 
         for i in range(self._growthRate):
             newTail = random.randrange(0, 360, self._angleDiff)
@@ -49,22 +52,25 @@ class Hyperspace(BaseCircleAnim):
 
 
 class HyperspaceRainbow(BaseCircleAnim):
-    def __init__(self, led, tail=4, growthRate=4, angleDiff=6):
-        super(HyperspaceRainbow, self).__init__(led)
+    def __init__(self, layout, tail=4, growthRate=4, angleDiff=6):
+        super(HyperspaceRainbow, self).__init__(layout)
 
         self._tail = tail
         self._tails = [[] for x in range(360)]
         self._growthRate = growthRate
         self._angleDiff = angleDiff
 
+    def preRun(self):
+        self._step = 0
+
     def _drawTail(self, angle, ring, color):
         for i in range(self._tail):
             if ring - i >= 0 and ring - i <= self.lastRing:
                 level = 255 - ((255 // self._tail) * i)
-                self._led.set(ring - i, angle, colors.color_scale(color, level))
+                self.layout.set(ring - i, angle, colors.color_scale(color, level))
 
     def step(self, amt=1):
-        self._led.all_off()
+        self.layout.all_off()
 
         for i in range(self._growthRate):
             newTail = random.randrange(0, 360, self._angleDiff)
@@ -89,80 +95,3 @@ class HyperspaceRainbow(BaseCircleAnim):
                     self._tails[a].remove(r)
 
         self._step = 0
-
-
-MANIFEST = [
-    {
-        "class": Hyperspace,
-        "controller": "circle",
-        "desc": None,
-        "display": "Hyperspace",
-        "id": "Hyperspace",
-        "params": [
-            {
-                "default": 4,
-                "help": "Number of new tails per frame",
-                "id": "growthRate",
-                "label": "Growth Rate",
-                "type": "int"
-            },
-            {
-                "default": 4,
-                "help": "Length of tail",
-                "id": "tail",
-                "label": "Length",
-                "type": "int"
-            },
-            {
-                "default": [
-                    [
-                        0,
-                        255,
-                        0
-                    ]
-                ],
-                "help": "Colors of tails",
-                "id": "colors",
-                "label": "Colors",
-                "type": "multi",
-                "controls": {
-                    "default": [
-                        [
-                            0,
-                            255,
-                            0
-                        ]
-                    ],
-                    "help": "Tail color",
-                    "label": "Color",
-                    "type": "color"
-                }
-            }
-        ],
-        "type": "animation"
-    },
-    {
-        "class": HyperspaceRainbow,
-        "controller": "circle",
-        "desc": None,
-        "display": "HyperspaceRainbow",
-        "id": "HyperspaceRainbow",
-        "params": [
-            {
-                "default": 4,
-                "help": "Number of new tails per frame",
-                "id": "growthRate",
-                "label": "Growth Rate",
-                "type": "int"
-            },
-            {
-                "default": 4,
-                "help": "Length of tail",
-                "id": "tail",
-                "label": "Length",
-                "type": "int"
-            }
-        ],
-        "type": "animation"
-    }
-]

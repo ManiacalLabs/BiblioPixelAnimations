@@ -1,0 +1,207 @@
+{
+    "remote": {
+        "title": "strip Demo",
+        "animations": [
+            {
+                "animation": {
+                    "typename": "BiblioPixelAnimations.strip.Alternates.Alternates"
+                },
+                "name": "Alternates",
+                "run": {
+                    "fps": 30
+                }
+            },
+            {
+                "animation": {
+                    "typename": "BiblioPixelAnimations.strip.BinaryEpochClock.BEClock"
+                },
+                "name": "BEClock",
+                "run": {
+                    "fps": 30
+                }
+            },
+            {
+                "animation": {
+                    "typename": "BiblioPixelAnimations.strip.ColorChase.ColorChase"
+                },
+                "name": "ColorChase",
+                "run": {
+                    "fps": 30
+                }
+            },
+            {
+                "animation": {
+                    "typename": "BiblioPixelAnimations.strip.ColorFade.ColorFade"
+                },
+                "name": "ColorFade",
+                "run": {
+                    "fps": 30
+                }
+            },
+            {
+                "animation": {
+                    "typename": "BiblioPixelAnimations.strip.ColorPattern.ColorPattern"
+                },
+                "name": "ColorPattern",
+                "run": {
+                    "fps": 30
+                }
+            },
+            {
+                "animation": {
+                    "typename": "BiblioPixelAnimations.strip.ColorWipe.ColorWipe"
+                },
+                "name": "ColorWipe",
+                "run": {
+                    "fps": 30
+                }
+            },
+            {
+                "animation": {
+                    "typename": "BiblioPixelAnimations.strip.FireFlies.FireFlies"
+                },
+                "name": "FireFlies",
+                "run": {
+                    "fps": 30
+                }
+            },
+            {
+                "animation": {
+                    "typename": "BiblioPixelAnimations.strip.HalvesRainbow.HalvesRainbow"
+                },
+                "name": "HalvesRainbow",
+                "run": {
+                    "fps": 30
+                }
+            },
+            {
+                "animation": {
+                    "typename": "BiblioPixelAnimations.strip.LarsonScanners.LarsonRainbow"
+                },
+                "name": "LarsonRainbow",
+                "run": {
+                    "fps": 30
+                }
+            },
+            {
+                "animation": {
+                    "typename": "BiblioPixelAnimations.strip.LarsonScanners.LarsonScanner"
+                },
+                "name": "LarsonScanner",
+                "run": {
+                    "fps": 30
+                }
+            },
+            {
+                "animation": {
+                    "typename": "BiblioPixelAnimations.strip.LinearRainbow.LinearRainbow"
+                },
+                "name": "LinearRainbow",
+                "run": {
+                    "fps": 30
+                }
+            },
+            {
+                "animation": {
+                    "typename": "BiblioPixelAnimations.strip.PartyMode.PartyMode"
+                },
+                "name": "PartyMode",
+                "run": {
+                    "fps": 30
+                }
+            },
+            {
+                "animation": {
+                    "typename": "BiblioPixelAnimations.strip.PixelPingPong.PixelPingPong"
+                },
+                "name": "PixelPingPong",
+                "run": {
+                    "fps": 30
+                }
+            },
+            {
+                "animation": {
+                    "typename": "BiblioPixelAnimations.strip.RGBClock.RGBClock"
+                },
+                "name": "RGBClock",
+                "run": {
+                    "fps": 30
+                }
+            },
+            {
+                "animation": {
+                    "typename": "BiblioPixelAnimations.strip.Rainbows.Rainbow"
+                },
+                "name": "Rainbow",
+                "run": {
+                    "fps": 30
+                }
+            },
+            {
+                "animation": {
+                    "typename": "BiblioPixelAnimations.strip.Rainbows.RainbowCycle"
+                },
+                "name": "RainbowCycle",
+                "run": {
+                    "fps": 30
+                }
+            },
+            {
+                "animation": {
+                    "typename": "BiblioPixelAnimations.strip.Searchlights.Searchlights"
+                },
+                "name": "Searchlights",
+                "run": {
+                    "fps": 30
+                }
+            },
+            {
+                "animation": {
+                    "typename": "BiblioPixelAnimations.strip.Wave.Wave"
+                },
+                "name": "Wave",
+                "run": {
+                    "fps": 30
+                }
+            },
+            {
+                "animation": {
+                    "typename": "BiblioPixelAnimations.strip.Wave.WaveMove"
+                },
+                "name": "WaveMove",
+                "run": {
+                    "fps": 30
+                }
+            },
+            {
+                "animation": {
+                    "typename": "BiblioPixelAnimations.strip.WhiteTwinkle.WhiteTwinkle"
+                },
+                "name": "WhiteTwinkle",
+                "run": {
+                    "fps": 30
+                }
+            },
+            {
+                "animation": {
+                    "typename": "BiblioPixelAnimations.strip.hexclock.HEXClock"
+                },
+                "name": "HEXClock",
+                "run": {
+                    "fps": 30
+                }
+            }
+        ],
+        "default": null,
+        "bgcolor": "black",
+        "external_access": true,
+        "port": 5000
+    },
+    "driver": {
+        "num": 50,
+        "typename": "simpixel"
+    },
+    "layout": {
+        "typename": "strip"
+    }
+}

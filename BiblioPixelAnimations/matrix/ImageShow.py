@@ -1,51 +1,20 @@
 from bibliopixel.animation import BaseMatrixAnim
-import bibliopixel.colors as colors
 from bibliopixel.image import loadImage
+import os
+
 
 class ImageShow(BaseMatrixAnim):
 
-    def __init__(self, led, imagePath, offset = (0,0)):
-        super(ImageShow, self).__init__(led)
+    def __init__(self, layout, imagePath=None, offset=(0, 0)):
+        super(ImageShow, self).__init__(layout)
+        if imagePath is None:
+            cur_dir = os.path.dirname(os.path.realpath(__file__))
+            imagePath = os.path.abspath(os.path.join(cur_dir, '../../Graphics/ml_logo.bmp'))
         self.img = imagePath
         self.offset = offset
 
     def preRun(self):
-        self._led.setTexture(loadImage(self._led, imagePath=self.img, offset=self.offset))
+        self.layout.setTexture(loadImage(self.layout, imagePath=self.img, offset=self.offset))
 
     def step(self, amt):
-        self._led.fillScreen()
-
-
-MANIFEST = [
-    {
-        "class": ImageShow,
-        "controller": "matrix",
-        "desc": "Show static image",
-        "display": "Image Show",
-        "id": "ImageShow",
-        "params": [{
-            "id": "imagePath",
-            "label": "Image File",
-            "type": "str",
-            "default": [],
-            "help":"Image file to load.",
-            "replace": {"\\":"/"}
-        },{
-            "default": [0,0],
-            "help": "Image placement offset",
-            "id": "offset",
-            "label": "Offset",
-            "type": "multi_tuple",
-            "controls": [{
-                "label": "X",
-                "type": "int",
-                "default": 0
-            },{
-                "label": "Y",
-                "type": "int",
-                "default": 0
-            }]
-        }],
-        "type": "animation"
-    }
-]
+        self.layout.fillScreen()

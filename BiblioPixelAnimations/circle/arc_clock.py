@@ -5,8 +5,8 @@ import time
 
 class ArcClock(BaseCircleAnim):
 
-    def __init__(self, led):
-        super(ArcClock, self).__init__(led)
+    def __init__(self, layout):
+        super(ArcClock, self).__init__(layout)
         last = self.lastRing
         self.hands = [
             {
@@ -30,25 +30,11 @@ class ArcClock(BaseCircleAnim):
         ]
 
     def step(self, amt=1):
-        self._led.all_off()
+        self.layout.all_off()
         t = time.localtime()
         for h in self.hands:
             segs = h['segments']
             end = (360 / segs) * (getattr(t, h['key']) % segs)
             if end:
                 for i in h['rings']:
-                    self._led.fillRing(i, h['color'],
-                                       startAngle=0, endAngle=end)
-
-
-MANIFEST = [
-    {
-        "class": ArcClock,
-        "controller": "circle",
-        "desc": None,
-        "display": "ArcClock",
-        "id": "ArcClock",
-        "params": [],
-        "type": "animation"
-    }
-]
+                    self.layout.fillRing(i, h['color'], startAngle=0, endAngle=end)

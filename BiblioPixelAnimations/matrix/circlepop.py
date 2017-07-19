@@ -30,26 +30,28 @@ class Circle():
 
 class CirclePop(BaseMatrixAnim):
 
-    def __init__(self, led, bgcolor=colors.Off):
-        super(CirclePop, self).__init__(led)
-        self.cont = []  # list for storing Circle objects
+    def __init__(self, layout, bgcolor=colors.Off):
+        super(CirclePop, self).__init__(layout)
         self.max_circ = 3  # max number of cirles in the list
         # probability for adding a new Circle to the list. higher values make
         # it less probable.
         self.prob_circ = 8
         self.bgcolor = bgcolor
+
+    def preRun(self):
+        self.cont = []
         self.addCircle()  # add a first circle to our list
 
     def step(self, amt=1):
-        self._led.fillScreen(self.bgcolor)  # background color
+        self.layout.fillScreen(self.bgcolor)  # background color
         # check if we may add a new circle to the list
         if not random.randrange(self.prob_circ) and len(self.cont) <= self.max_circ:
             self.addCircle()
 
         # loop through our circles, draw and update them
         for circ in self.cont:
-            self._led.drawCircle(circ._x, circ._y, circ._radius,
-                                 colors.hue2rgb_360(circ._color))
+            self.layout.drawCircle(circ._x, circ._y, circ._radius,
+                                   colors.hue2rgb_360(circ._color))
 
             if not self._step % circ.frameratio:
                 circ.grow()
@@ -62,39 +64,14 @@ class CirclePop(BaseMatrixAnim):
 
         # remove circles that have grown bigger than our matrix
         self.cont = [c for c in self.cont if c._radius !=
-                     max(self._led.height, self._led.width) + 1]
+                     max(self.layout.height, self.layout.width) + 1]
 
     def addCircle(self):
         # let's add some randomness. You can play with these values.
-        posx = random.randint(3, self._led.width - 3)
-        posy = random.randint(3, self._led.height - 3)
+        posx = random.randint(3, self.layout.width - 3)
+        posy = random.randint(3, self.layout.height - 3)
         color = random.randint(1, 359)
         # choose between 2 speeds fps/1 and fps/2.
         frameratio = random.choice([1, 2])
         radius = 1
         self.cont.append(Circle(posy, posx, color, frameratio, radius))
-
-
-MANIFEST = [
-    {
-        "class": CirclePop,
-        "controller": "matrix",
-        "desc": "Growing random circles",
-        "display": "CirclePop",
-        "id": "CirclePop",
-        "params": [
-            {
-                "default": [
-                    0,
-                    0,
-                    0
-                ],
-                "help": "",
-                "id": "bgcolor",
-                "label": "Background Color",
-                "type": "color"
-            }
-        ],
-        "type": "animation"
-    }
-]

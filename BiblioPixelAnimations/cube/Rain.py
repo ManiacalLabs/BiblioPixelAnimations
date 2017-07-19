@@ -5,20 +5,23 @@ import random
 
 class RainBow(BaseCubeAnim):
 
-    def __init__(self, led, tail=4, growthRate=12):
-        super(RainBow, self).__init__(led)
+    def __init__(self, layout, tail=4, growthRate=12):
+        super(RainBow, self).__init__(layout)
         self._tail = tail
         self._drops = [[[] for z in range(self.z)] for x in range(self.x)]
         self._growthRate = growthRate
+
+    def preRun(self):
+        self._step = 0
 
     def _drawDrop(self, x, y, z, color):
         for i in range(self._tail):
             if y - i >= 0 and y - i < self.y:
                 level = 255 - ((255 // self._tail) * i)
-                self._led.set(x, y - i, z, colors.color_scale(color, level))
+                self.layout.set(x, y - i, z, colors.color_scale(color, level))
 
     def step(self, amt=1):
-        self._led.all_off()
+        self.layout.all_off()
 
         for i in range(self._growthRate):
             x = random.randint(0, self.x - 1)

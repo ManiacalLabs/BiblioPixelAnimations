@@ -1,20 +1,18 @@
-import time
 from bibliopixel.animation import BaseMatrixAnim
 from bibliopixel import colors
-
 import random
-
-# animation class
 
 
 class LangtonsAnt(BaseMatrixAnim):
 
-    def __init__(self, led, antColor=colors.Green, pathColor=colors.Red):
-        super(LangtonsAnt, self).__init__(led)
+    def __init__(self, layout, antColor=colors.Green, pathColor=colors.Red):
+        super(LangtonsAnt, self).__init__(layout)
         self.antColor = tuple(antColor)
         self.pathColor = tuple(pathColor)
         self.offColor = colors.Off
         self.curColor = self.offColor
+
+    def preRun(self):
         self.x = random.randrange(self.width)
         self.y = random.randrange(self.height)
         self.d = random.randrange(4)
@@ -46,27 +44,24 @@ class LangtonsAnt(BaseMatrixAnim):
         elif self.d == 3:
             self.x = self.__rollValue(self.x, -1, 0, self.width - 1)
 
-        self.curColor = self._led.get(self.x, self.y)
-        self._led.set(self.x, self.y, self.antColor)
-
-    def preRun(self, amt=1):
-        self._led.all_off()
+        self.curColor = self.layout.get(self.x, self.y)
+        self.layout.set(self.x, self.y, self.antColor)
 
     def step(self, amt=1):
         if self.curColor == self.pathColor:
-            self._led.set(self.x, self.y, self.offColor)
+            self.layout.set(self.x, self.y, self.offColor)
             self.__changeDir(False)
             self.__moveAnt()
         else:
-            self._led.set(self.x, self.y, self.pathColor)
+            self.layout.set(self.x, self.y, self.pathColor)
             self.__changeDir(True)
             self.__moveAnt()
 
 
 class LangtonsAntRainbow(BaseMatrixAnim):
 
-    def __init__(self, led, antColor=colors.White):
-        super(LangtonsAntRainbow, self).__init__(led)
+    def __init__(self, layout, antColor=colors.White):
+        super(LangtonsAntRainbow, self).__init__(layout)
         self.color_cycle = [colors.Red, colors.Orange,
                             colors.Yellow, colors.Green,
                             colors.Blue, colors.Violet]
@@ -74,6 +69,8 @@ class LangtonsAntRainbow(BaseMatrixAnim):
         self.offColor = colors.Off
         self.curColor = self.offColor
         self.curColorIndex = -1
+
+    def preRun(self):
         self.x = random.randrange(self.width)
         self.y = random.randrange(self.height)
         self.d = random.randrange(4)
@@ -105,7 +102,7 @@ class LangtonsAntRainbow(BaseMatrixAnim):
         elif self.d == 3:
             self.x = self.__rollValue(self.x, -1, 0, self.width - 1)
 
-        self.curColor = self._led.get(self.x, self.y)
+        self.curColor = self.layout.get(self.x, self.y)
         if self.curColor == self.offColor:
             i = 0
         else:
@@ -115,91 +112,13 @@ class LangtonsAntRainbow(BaseMatrixAnim):
 
         self.curColor = self.color_cycle[i]
         self.curColorIndex = i
-        self._led.set(self.x, self.y, self.antColor)
-
-    def preRun(self, amt=1):
-        self._led.all_off()
+        self.layout.set(self.x, self.y, self.antColor)
 
     def step(self, amt=1):
-        self._led.set(self.x, self.y, self.curColor)
+        self.layout.set(self.x, self.y, self.curColor)
         if self.curColorIndex % 2 == 0:
             self.__changeDir(False)
             self.__moveAnt()
         else:
             self.__changeDir(True)
             self.__moveAnt()
-
-MANIFEST = [
-    {
-        "class": LangtonsAnt,
-        "controller": "matrix",
-        "desc": "Langton's ant is a two-dimensional Turing machine with a very simple set of rules but complex emergent behavior.",
-        "display": "LangtonsAnt",
-        "id": "LangtonsAnt",
-        "params": [
-            {
-                "default": [
-                    255,
-                    0,
-                    0
-                ],
-                "help": "",
-                "id": "pathColor",
-                "label": "Path Color",
-                "type": "color"
-            },
-            {
-                "default": [
-                    0,
-                    255,
-                    0
-                ],
-                "help": "",
-                "id": "antColor",
-                "label": "Ant Color",
-                "type": "color"
-            }
-        ],
-        "presets": [
-            {
-                "display": "Blue Path, Orange Ant",
-                "desc": "Demo Built-In Preset",
-                "config": {
-                    "pathColor": [0, 0, 255],
-                    "antColor": [255, 143, 0]
-                },
-                "run": {
-                    "amt": 1,
-                    "fps": 30,
-                    "max_cycles": 1,
-                    "max_steps": 0,
-                    "untilComplete": False
-                }
-
-            }
-        ],
-        "type": "animation"
-    },
-    {
-        "class": LangtonsAntRainbow,
-        "controller": "matrix",
-        "desc": "Langton's ant is a two-dimensional Turing machine with a very simple set of rules but complex emergent behavior.",
-        "display": "LangtonsAntRainbow",
-        "id": "LangtonsAntRainbow",
-        "params": [
-            {
-                "default": [
-                    255,
-                    255,
-                    255
-                ],
-                "help": "",
-                "id": "antColor",
-                "label": "Ant Color",
-                "type": "color"
-            }
-        ],
-        "type": "animation"
-    }
-
-]

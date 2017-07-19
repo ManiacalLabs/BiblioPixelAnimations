@@ -1,0 +1,109 @@
+{
+    "remote": {
+        "title": "circle Demo",
+        "animations": [
+            {
+                "animation": {
+                    "typename": "BiblioPixelAnimations.circle.arc_clock.ArcClock"
+                },
+                "name": "ArcClock",
+                "run": {
+                    "fps": 30
+                }
+            },
+            {
+                "animation": {
+                    "typename": "BiblioPixelAnimations.circle.arc_rotate.ArcRotate"
+                },
+                "name": "ArcRotate",
+                "run": {
+                    "fps": 30
+                }
+            },
+            {
+                "animation": {
+                    "typename": "BiblioPixelAnimations.circle.bloom.CircleBloom"
+                },
+                "name": "CircleBloom",
+                "run": {
+                    "fps": 30
+                }
+            },
+            {
+                "animation": {
+                    "typename": "BiblioPixelAnimations.circle.circle_clock.CircleClock"
+                },
+                "name": "CircleClock",
+                "run": {
+                    "fps": 30
+                }
+            },
+            {
+                "animation": {
+                    "typename": "BiblioPixelAnimations.circle.diag.Diag"
+                },
+                "name": "Diag",
+                "run": {
+                    "fps": 30
+                }
+            },
+            {
+                "animation": {
+                    "typename": "BiblioPixelAnimations.circle.fireflies.FireFlies"
+                },
+                "name": "FireFlies",
+                "run": {
+                    "fps": 30
+                }
+            },
+            {
+                "animation": {
+                    "typename": "BiblioPixelAnimations.circle.hyperspace.Hyperspace"
+                },
+                "name": "Hyperspace",
+                "run": {
+                    "fps": 30
+                }
+            },
+            {
+                "animation": {
+                    "typename": "BiblioPixelAnimations.circle.hyperspace.HyperspaceRainbow"
+                },
+                "name": "HyperspaceRainbow",
+                "run": {
+                    "fps": 30
+                }
+            },
+            {
+                "animation": {
+                    "typename": "BiblioPixelAnimations.circle.pinwheel.PinWheel"
+                },
+                "name": "PinWheel",
+                "run": {
+                    "fps": 30
+                }
+            },
+            {
+                "animation": {
+                    "typename": "BiblioPixelAnimations.circle.swirl.Swirl"
+                },
+                "name": "Swirl",
+                "run": {
+                    "fps": 30
+                }
+            }
+        ],
+        "default": null,
+        "bgcolor": "black",
+        "external_access": true,
+        "port": 5000
+    },
+    "driver": {
+        "num": 99,
+        "typename": "simpixel"
+    },
+    "layout": {
+        "typename": "circle",
+        "pixels_per": [1, 4, 8, 12, 18, 24, 32]
+    }
+}

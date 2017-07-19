@@ -4,7 +4,6 @@ from collections import deque
 import random
 import copy
 import time
-import math
 import itertools
 
 
@@ -104,8 +103,8 @@ class Table:
 
 class CubeGameOfLife(BaseCubeAnim):
 
-    def __init__(self, led, color=colors.Red, bg=colors.Off, toroidal=False):
-        super().__init__(led)
+    def __init__(self, layout, color=colors.Red, bg=colors.Off, toroidal=False):
+        super().__init__(layout)
 
         self._color = color
         self._bg = bg
@@ -120,9 +119,9 @@ class CubeGameOfLife(BaseCubeAnim):
             for t_y in t_z:
                 for t_x in t_y:
                     if t_x == 0:
-                        self._led.set(x, y, z, self._bg)
+                        self.layout.set(x, y, z, self._bg)
                     else:
-                        self._led.set(x, y, z, self._color)
+                        self.layout.set(x, y, z, self._color)
                     # print(x, y, z)
                     x = x + 1
                 y = y + 1

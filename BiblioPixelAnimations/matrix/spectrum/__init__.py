@@ -3,7 +3,7 @@ from __future__ import division
 from bibliopixel.animation import BaseMatrixAnim
 import bibliopixel.colors as colors
 import bibliopixel.log as log
-from system_eq import EQ
+from . system_eq import EQ
 
 
 class BaseSpectrumDraw(object):
@@ -140,10 +140,10 @@ DEFAULT_VIS_LIST = [
 
 class Spectrum(BaseMatrixAnim):
 
-    def __init__(self, led, vis_list=None, steps_per_vis=None,
+    def __init__(self, layout, vis_list=None, steps_per_vis=None,
                  bins=64, max_freq=4000, log_scale=True, auto_gain=False, gain=3):
 
-        super(Spectrum, self).__init__(led)
+        super(Spectrum, self).__init__(layout)
         self.source = EQ(bins=bins, max_freq=max_freq,
                          log_scale=log_scale, auto_gain=auto_gain, gain=gain)
         self.draw_obj = None
@@ -160,7 +160,7 @@ class Spectrum(BaseMatrixAnim):
         self.cur_vis = len(self.vis_list)
         self.next_draw_obj()
 
-    def preRun(self, amt=1):
+    def preRun(self):
         self.source.start()
 
     def _exit(self, type, value, traceback):
@@ -178,7 +178,7 @@ class Spectrum(BaseMatrixAnim):
 
     def step(self, amt=1):
         assert self.draw_obj, "No loaded visualizers!"
-        self._led.all_off()
+        self.layout.all_off()
         data = self.source.get_audio_data()
         self.draw_obj.draw(data, amt)
 
@@ -197,79 +197,3 @@ def get_vis_options():
         count += 1
 
     return (options, options_map)
-
-MANIFEST = [
-    {
-        "class": Spectrum,
-        "controller": "matrix",
-        "desc": "Audio Spectrum Visualizer",
-        "display": "Spectrum",
-        "id": "Spectrum",
-        "params": [
-            {
-                "default": 100,
-                "help": "Frames per visualizer. 0 for no change.",
-                "id": "steps_per_vis",
-                "label": "Steps per",
-                "type": "int",
-                "min": 0
-            },
-            {
-                "help": "Visualizers to run",
-                "id": "vis_list",
-                "label": "Visualizers",
-                "type": "multi",
-                "controls": {
-                    "label": "Visualizer",
-                    "type": "combo",
-                    "options": get_vis_options()[0],
-                    # "options_map": get_vis_options()[1]
-                },
-                "default": get_vis_options()[1]
-            },
-            {
-                "default": 64,
-                "help": "Divide frequency range into N bands",
-                "id": "bins",
-                "label": "Bands",
-                "type": "int",
-                "min": 8,
-                "max": 1024
-            },
-            {
-                "default": 4000,
-                "help": "Max spectrum frequency (Hz)",
-                "id": "max_freq",
-                "label": "Max Freq",
-                "type": "int",
-                "min": 500,
-                "max": 16000
-            },
-            {
-                "default": True,
-                "help": "",
-                "id": "log_scale",
-                "label": "Use Log Scale",
-                "type": "bool"
-            },
-            {
-                "default": False,
-                "help": "",
-                "id": "auto_gain",
-                "label": "Auto Gain",
-                "type": "bool"
-            },
-            {
-                "default": 2,
-                "help": "",
-                "id": "gain",
-                "label": "Gain",
-                "type": "int",
-                "min": 0,
-                "max": 32
-            },
-        ],
-        "type": "animation",
-        "preset_type": "animation"
-    }
-]

@@ -5,8 +5,8 @@ import time
 
 class CircleClock(BaseCircleAnim):
 
-    def __init__(self, led):
-        super(CircleClock, self).__init__(led)
+    def __init__(self, layout):
+        super(CircleClock, self).__init__(layout)
         last = self.lastRing
         self.hands = [
             {
@@ -30,23 +30,10 @@ class CircleClock(BaseCircleAnim):
         ]
 
     def step(self, amt=1):
-        self._led.all_off()
+        self.layout.all_off()
         t = time.localtime()
 
         for h in self.hands:
             segs = h['segments']
             angle = (360 / segs) * (getattr(t, h['key']) % h['segments'])
-            self._led.drawRadius(angle, h['color'], endRing=h['radius'])
-
-
-MANIFEST = [
-    {
-        "class": CircleClock,
-        "controller": "circle",
-        "desc": None,
-        "display": "CircleClock",
-        "id": "CircleClock",
-        "params": [],
-        "type": "animation"
-    }
-]
+            self.layout.drawRadius(angle, h['color'], endRing=h['radius'])

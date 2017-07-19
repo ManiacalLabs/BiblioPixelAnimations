@@ -1,11 +1,7 @@
 from bibliopixel.animation import BaseMatrixAnim
-from bibliopixel import colors
 from websocket import create_connection
 import threading
 import numpy as np
-import PIL
-from PIL import Image
-import cv2
 
 WS_FRAME_WIDTH = 640
 WS_FRAME_HEIGHT = 480
@@ -80,56 +76,6 @@ class KimotionShader(object):
 
 
 class SandStorm(KimotionShader):
-    PixelWebParams = [
-        {
-            "id": "near_color",
-            "label": "Near Color",
-            "type": "color",
-            "default": (229, 107, 0)
-        },
-        {
-            "id": "mid_color",
-            "label": "Mid Color",
-            "type": "color",
-            "default": (40, 0, 114)
-        },
-        {
-            "id": "far_color",
-            "label": "Far Color",
-            "type": "color",
-            "default": (2, 2, 12)
-        },
-        {
-            "id": "min_z",
-            "label": "MIN_Z",
-            "type": "int",
-            "default": 440,
-            "help": "Min depth value"
-        },
-        {
-            "id": "max_z",
-            "label": "MAX_Z",
-            "type": "int",
-            "default": 1100,
-            "help": "Max depth value"
-        },
-
-        {
-            "id": "near_z",
-            "label": "NEAR_Z",
-            "type": "int",
-            "default": 760,
-            "help": "Near depth value"
-        },
-        {
-            "id": "far_z",
-            "label": "FAR_Z",
-            "type": "int",
-            "default": 1100,
-            "help": "Far depth value"
-        }
-    ]
-
     def __init__(self, anim, min_z=440, max_z=1100,
                  near_color=[229, 107, 0], near_z=760,
                  mid_color=[40, 0, 114],
@@ -181,8 +127,8 @@ class Kimotion(BaseMatrixAnim):
         "Sandstorm": SandStorm
     }
 
-    def __init__(self, led, server="localhost:1337", mirror=True, crop=True, shader="Sandstorm", **kwargs):
-        super(Kimotion, self).__init__(led)
+    def __init__(self, layout, server="localhost:1337", mirror=True, crop=True, shader="Sandstorm", **kwargs):
+        super(Kimotion, self).__init__(layout)
         self.server = server
         self.mirror = mirror
         self.crop = crop
@@ -224,50 +170,3 @@ class Kimotion(BaseMatrixAnim):
         d = rebin(d, (self.height, self.width)).astype(np.uint16)
 
         self.shader.render(d)
-
-
-def gen_params(shader_params):
-    basic = [
-        {
-            "default": "localhost:1337",
-            "help": "Kimotion server address (minus the ws://)",
-            "id": "server",
-            "label": "Server",
-            "type": "str"
-        },
-        {
-            "default": True,
-            "help": "Crop input video to display size.",
-            "id": "crop",
-            "label": "Crop",
-            "type": "bool"
-        },
-        {
-            "default": True,
-            "help": "Mirrors image along vertical. Useful for webcam video.",
-            "id": "mirror",
-            "label": "Mirror",
-            "type": "bool"
-        }
-    ]
-
-    for v in shader_params:
-        if 'group' not in v:
-            v['group'] = "Shader"
-    basic.extend(shader_params)
-    return basic
-
-MANIFEST = [
-    {
-        "class": Kimotion,
-        "controller": "matrix",
-        "desc": "Pull Kinect data from Michael Clayton's Kimotion server",
-        "display": "Kimotion: Sandstorm",
-        "id": "KimotionSandstorm",
-        "params": gen_params(SandStorm.PixelWebParams),
-        "preconfig": {
-            "shader": "Sandstorm"
-        },
-        "type": "animation"
-    }
-]

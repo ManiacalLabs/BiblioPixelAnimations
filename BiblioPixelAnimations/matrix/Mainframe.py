@@ -2,14 +2,13 @@ from __future__ import division
 
 from bibliopixel.animation import BaseMatrixAnim
 import bibliopixel.colors as colors
-
 import os
 
 
 class Mainframe(BaseMatrixAnim):
 
-    def __init__(self, led, scroll=True, color=colors.Red, bgcolor=colors.Off):
-        super(Mainframe, self).__init__(led)
+    def __init__(self, layout, scroll=True, color=colors.Red, bgcolor=colors.Off):
+        super(Mainframe, self).__init__(layout)
         self.color = color
         self.bgcolor = bgcolor
         self.scroll = scroll
@@ -36,48 +35,5 @@ class Mainframe(BaseMatrixAnim):
 
         for y in range(self.height):
             for x in range(self.width):
-                self._led.set(self.width - x - 1, y,
-                              self.color if self.__getBit(x, y) else self.bgcolor)
-
-
-MANIFEST = [
-    {
-        "class": Mainframe,
-        "controller": "matrix",
-        "desc": "90's Computer Mainframe random blinking lights",
-        "display": "Mainframe",
-        "id": "Mainframe",
-        "params": [
-            {
-                "default": True,
-                "help": "Move and random",
-                "id": "scroll",
-                "label": "Scroll",
-                "type": "bool"
-            },
-            {
-                "default": [
-                    0,
-                    0,
-                    0
-                ],
-                "help": "",
-                "id": "bgcolor",
-                "label": "Background",
-                "type": "color"
-            },
-            {
-                "default": [
-                    255,
-                    0,
-                    0
-                ],
-                "help": "Random pixel color",
-                "id": "color",
-                "label": "Color",
-                "type": "color"
-            }
-        ],
-        "type": "animation"
-    }
-]
+                self.layout.set(self.width - x - 1, y,
+                                self.color if self.__getBit(x, y) else self.bgcolor)

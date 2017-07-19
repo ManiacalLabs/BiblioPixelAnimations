@@ -28,19 +28,19 @@ if grab is None:
     try:
         from mss.linux import MSS as mss
         from PIL import Image
-        log.info('Using mss module')
 
         sct = mss()
-        monitor = sct.enum_display_monitors()[0]
+        monitor = sct.monitors[0]
 
         def mss_grab(bbox):
-            sct.get_pixels(monitor)
-            img = Image.frombytes('RGB',
-                                  (sct.width, sct.height),
-                                  sct.image).crop(bbox)
+            sct_img = sct.grab(monitor)
+            img = Image.frombytes('RGBA', sct_img.size, bytes(sct_img.raw), 'raw', 'BGRA').crop(bbox)
+            img = img.convert('RGB')
+
             return img
 
         grab = mss_grab
+        log.info('Using mss module')
     except:
         try:
             from pil import ImageGrab
@@ -57,8 +57,8 @@ if grab is None:
 
 class ScreenGrab(BaseMatrixAnim):
 
-    def __init__(self, led, bbox=None, mirror=True, offset=0.0, crop=True):
-        super(ScreenGrab, self).__init__(led)
+    def __init__(self, layout, bbox=(300, 300, 332, 332), mirror=False, offset=0.0, crop=True):
+        super(ScreenGrab, self).__init__(layout)
 
         if not sum(bbox):
             bbox = None
@@ -71,8 +71,8 @@ class ScreenGrab(BaseMatrixAnim):
         self._iw = frame.shape[1]
         self._ih = frame.shape[0]
 
-        self.width = led.width
-        self.height = led.height
+        self.width = self.width
+        self.height = self.height
 
         # self._scale = (self.height*1.0//self._ih)
         self._cropY = 0
@@ -91,19 +91,17 @@ class ScreenGrab(BaseMatrixAnim):
         yoffset += 1.0
 
         if self.height >= self.width:
-            self._cropX = (self._iw - int(self.width /
-                                          (self.height / float(self._ih)))) / 2
+            self._cropX = (self._iw - int(self.width / (self.height / float(self._ih)))) // 2
             if self._ih >= self._iw:
-                scale = (self.height * 1.0) / self._ih
+                scale = (self.height * 1.0) // self._ih
             else:
-                scale = (self.width * 1.0) / self._iw
+                scale = (self.width * 1.0) // self._iw
         else:
-            self._cropY = (self._ih - int(self.height /
-                                          (self.width / float(self._iw)))) / 2
+            self._cropY = (self._ih - int(self.height / (self.width / float(self._iw)))) // 2
             if self._ih >= self._iw:
-                scale = (self.width * 1.0) / self._iw
+                scale = (self.width * 1.0) // self._iw
             else:
-                scale = (self.height * 1.0) / self._ih
+                scale = (self.height * 1.0) // self._ih
 
         scaleW = int(self.width / scale)
         scaleH = int(self.height / scale)
@@ -142,56 +140,4 @@ class ScreenGrab(BaseMatrixAnim):
 
         for y in range(self.height):
             for x in range(self.width):
-                self._led.set(x, y, tuple(resized[y, x][0:3]))
-
-
-MANIFEST = [
-    {
-        "class": ScreenGrab,
-        "controller": "matrix",
-        "desc": None,
-        "display": "ScreenGrab",
-        "id": "ScreenGrab",
-        "params": [
-            {
-                "default": (0, 0, 0, 0),
-                "help": "Bounding box of screen area to capture. Leave all 0 to capture whole screen.",
-                "id": "bbox",
-                "label": "Bounding Box",
-                "type": "multi_tuple",
-                "controls": [{
-                    "label": "Top-Left X",
-                    "type": "int",
-                    "default": 0
-                }, {
-                    "label": "Top-Left Y",
-                    "type": "int",
-                    "default": 0
-                }, {
-                    "label": "Bottom-Left X",
-                    "type": "int",
-                    "default": 0
-                }, {
-                    "label": "Bottom-Left Y",
-                    "type": "int",
-                    "default": 0
-                }]
-            },
-            {
-                "default": False,
-                "help": "True crops image to matrix aspect. False resizes input to fit.",
-                "id": "crop",
-                "label": "Crop",
-                "type": "bool"
-            },
-            {
-                "default": False,
-                "help": "Mirror output",
-                "id": "mirror",
-                "label": "Mirror",
-                "type": "bool"
-            }
-        ],
-        "type": "animation"
-    }
-]
+                self.layout.set(x, y, tuple(resized[y, x][0:3]))

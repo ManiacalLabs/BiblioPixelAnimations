@@ -5,9 +5,6 @@ from random import randrange as rand
 
 import bibliopixel.colors as colors
 from bibliopixel.animation import BaseGameAnim
-import math
-from random import randint
-import bibliopixel.util as util
 
 
 # The configuration
@@ -16,7 +13,7 @@ rows = 40
 maxfps = 30
 
 color_map = [
-    (0,   0,   0),
+    (0, 0, 0),
     colors.Red,
     colors.Orange,
     colors.Yellow,
@@ -85,8 +82,8 @@ tetris_shapes = [
 
 def rotate_clockwise(shape):
     return [[shape[y][x]
-             for y in xrange(len(shape))]
-            for x in xrange(len(shape[0]) - 1, -1, -1)]
+             for y in range(len(shape))]
+            for x in range(len(shape[0]) - 1, -1, -1)]
 
 
 def check_collision(board, shape, offset):
@@ -103,7 +100,7 @@ def check_collision(board, shape, offset):
 
 def remove_row(board, row):
     del board[row]
-    return [[0 for i in xrange(cols)]] + board
+    return [[0 for i in range(cols)]] + board
 
 
 def join_matrixes(mat1, mat2, mat2_off):
@@ -115,14 +112,14 @@ def join_matrixes(mat1, mat2, mat2_off):
 
 
 def new_board():
-    board = [[0 for x in xrange(cols)] for y in xrange(rows)]
+    board = [[0 for x in range(cols)] for y in range(rows)]
     return board
 
 
 class Tetris(BaseGameAnim):
 
-    def __init__(self, led, inputDev, evil=False):
-        super(Tetris, self).__init__(led, inputDev)
+    def __init__(self, layout, inputDev, evil=False):
+        super(Tetris, self).__init__(layout, inputDev)
 
         if (self.width, self.height) != (25, 50):
             raise Exception(
@@ -191,15 +188,15 @@ class Tetris(BaseGameAnim):
         self.lines = 0
 
     def disp_msg(self, msg, x, y):
-        self._led.drawText(msg, x, y, font_scale=1,
-                           font='6x4', color=colors.White)
+        self.layout.drawText(msg, x, y, font_scale=1,
+                             font='6x4', color=colors.White)
 
     def draw_matrix(self, matrix, offset):
         off_x, off_y = offset
         for y, row in enumerate(matrix):
             for x, val in enumerate(row):
                 if val:
-                    self._led.set(off_x + x, off_y + y, color_map[val])
+                    self.layout.set(off_x + x, off_y + y, color_map[val])
 
     def add_cl_lines(self, n):
         linescores = [0, 40, 100, 300, 1200]
@@ -279,10 +276,10 @@ class Tetris(BaseGameAnim):
             self.gameover = False
 
     def step(self, amt=1):
-        if (self.levelUp or self.gameover or self.win) and (self._lastKeys != self._keys) and any(v == True for v in self._keys.itervalues()):
+        if (self.levelUp or self.gameover or self.win) and (self._lastKeys != self._keys) and any(v is True for v in self._keys.itervalues()):
             self.doStart = True
         if self.doStart:
-            if not any(v == True for v in self._keys.itervalues()):
+            if not any(v is True for v in self._keys.itervalues()):
                 if self.levelUp:
                     self.clearLevelUp()
                 elif self.gameover or self.win:
@@ -293,68 +290,68 @@ class Tetris(BaseGameAnim):
         if not self.doStart:
             self.handleKeys()
 
-        self._led.all_off()
+        self.layout.all_off()
         if self.gameover:
-            self._led.all_off()
-            self._led.drawText("GAME", self.width // 2 - 11,
-                               self.height // 2 - 8, color=colors.Green)
-            self._led.drawText("OVER", self.width // 2 - 11,
-                               self.height // 2 + 1, color=colors.Green)
+            self.layout.all_off()
+            self.layout.drawText("GAME", self.width // 2 - 11,
+                                 self.height // 2 - 8, color=colors.Green)
+            self.layout.drawText("OVER", self.width // 2 - 11,
+                                 self.height // 2 + 1, color=colors.Green)
             s = "{}".format(self.score)
-            self._led.drawText(s, self.width // 2 - (len(s) * 4) //
-                               2 + 1, self.height // 2 + 9, font_scale=1, font='6x4', color=colors.Green)
+            self.layout.drawText(s, self.width // 2 - (len(s) * 4) //
+                                 2 + 1, self.height // 2 + 9, font_scale=1, font='6x4', color=colors.Green)
         elif self.win:
             for x in range(self.width):
                 c = colors.hue_helper(
                     self.width - x, self.width, self._speedStep * 2)
-                self._led.drawLine(self.width // 2, self.height // 2, x, 0, c)
-                self._led.drawLine(self.width // 2, self.height // 2,
-                                   self.width - 1 - x, self.height - 1, c)
+                self.layout.drawLine(self.width // 2, self.height // 2, x, 0, c)
+                self.layout.drawLine(self.width // 2, self.height // 2,
+                                     self.width - 1 - x, self.height - 1, c)
             for y in range(self.height):
                 c = colors.hue_helper(y, self.height, self._speedStep * 2)
-                self._led.drawLine(self.width // 2, self.height // 2, 0, y, c)
-                self._led.drawLine(self.width // 2, self.height // 2,
-                                   self.width - 1, self.height - 1 - y, c)
+                self.layout.drawLine(self.width // 2, self.height // 2, 0, y, c)
+                self.layout.drawLine(self.width // 2, self.height // 2,
+                                     self.width - 1, self.height - 1 - y, c)
 
-            self._led.drawText("YOU", self.width // 2 - 9,
-                               self.height // 2 - 8, color=colors.Black, bg=None)
-            self._led.drawText("WIN!", self.width // 2 - 10,
-                               self.height // 2 + 1, color=colors.Black, bg=None)
+            self.layout.drawText("YOU", self.width // 2 - 9,
+                                 self.height // 2 - 8, color=colors.Black, bg=None)
+            self.layout.drawText("WIN!", self.width // 2 - 10,
+                                 self.height // 2 + 1, color=colors.Black, bg=None)
         else:
             if self.paused:
-                self._led.all_off()
+                self.layout.all_off()
                 if self.levelUp:
-                    self._led.drawText(
+                    self.layout.drawText(
                         "LVL", self.width // 2 - 8, self.height // 2 - 8, color=colors.Green)
                     l = "{}".format(self.level)
-                    self._led.drawText(
+                    self.layout.drawText(
                         l, self.width // 2 - (len(l) * 6) // 2 + 1, self.height // 2 + 1, color=colors.Green)
                 else:
                     x = self.width // 2 - 2
                     y = 1
-                    self._led.drawText("P", x, y + 0, color=colors.White)
-                    self._led.drawText("A", x, y + 8, color=colors.White)
-                    self._led.drawText("U", x, y + 16, color=colors.White)
-                    self._led.drawText("S", x, y + 24, color=colors.White)
-                    self._led.drawText("E", x, y + 32, color=colors.White)
-                    self._led.drawText("D", x, y + 40, color=colors.White)
+                    self.layout.drawText("P", x, y + 0, color=colors.White)
+                    self.layout.drawText("A", x, y + 8, color=colors.White)
+                    self.layout.drawText("U", x, y + 16, color=colors.White)
+                    self.layout.drawText("S", x, y + 24, color=colors.White)
+                    self.layout.drawText("E", x, y + 32, color=colors.White)
+                    self.layout.drawText("D", x, y + 40, color=colors.White)
 
             else:
                 self.disp_msg("{}".format(self.score), 1, 1)
 
                 lines_left = self.level * self.lines_per_level - self.lines
                 for l in range(lines_left):
-                    self._led.set(0, self.height - 1 - l * 2, colors.Red)
+                    self.layout.set(0, self.height - 1 - l * 2, colors.Red)
 
                 # draw rainbow border
-                self._led.drawLine(2, 8, cols + 3, 8,
-                                   colorFunc=lambda pos: colors.hue_helper(pos, cols + 2, self._speedStep * 2))
-                self._led.drawLine(2, self.height - 1, cols + 3, self.height - 1,
-                                   colorFunc=lambda pos: colors.hue_helper(cols + 2 - pos, cols + 2, self._speedStep * 2))
-                self._led.drawLine(2, 9, 2, self.height - 2,
-                                   colorFunc=lambda pos: colors.hue_helper(rows + 2 - pos, rows, self._speedStep * 2))
-                self._led.drawLine(cols + 3, 9, cols + 3, self.height - 2,
-                                   colorFunc=lambda pos: colors.hue_helper(pos, rows, self._speedStep * 2))
+                self.layout.drawLine(2, 8, cols + 3, 8,
+                                     colorFunc=lambda pos: colors.hue_helper(pos, cols + 2, self._speedStep * 2))
+                self.layout.drawLine(2, self.height - 1, cols + 3, self.height - 1,
+                                     colorFunc=lambda pos: colors.hue_helper(cols + 2 - pos, cols + 2, self._speedStep * 2))
+                self.layout.drawLine(2, 9, 2, self.height - 2,
+                                     colorFunc=lambda pos: colors.hue_helper(rows + 2 - pos, rows, self._speedStep * 2))
+                self.layout.drawLine(cols + 3, 9, cols + 3, self.height - 2,
+                                     colorFunc=lambda pos: colors.hue_helper(pos, rows, self._speedStep * 2))
 
                 # draw current board state
                 self.draw_matrix(self.board, (3, 9))

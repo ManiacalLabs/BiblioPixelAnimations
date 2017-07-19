@@ -116,15 +116,19 @@ class Table:
 
 class GameOfLife(BaseMatrixAnim):
 
-    def __init__(self, led, color=colors.Red, bg=colors.Off, toroidal=False):
-        super(GameOfLife, self).__init__(led)
+    def __init__(self, layout, color=colors.Red, bg=colors.Off, toroidal=False):
+        super(GameOfLife, self).__init__(layout)
 
         self._color = color
         self._bg = bg
-        self._table = Table(self._led.height, self._led.width, 1, None)
-        self._table.toroidal = toroidal
+
+        self.toroidal = toroidal
 
         self._finishCount = 0
+
+    def preRun(self):
+        self._table = Table(self.layout.height, self.layout.width, 1, None)
+        self._table.toroidal = self.toroidal
 
     def stepTable(self):
         x = 0
@@ -132,9 +136,9 @@ class GameOfLife(BaseMatrixAnim):
         for row in self._table.table:
             for col in row:
                 if col == 0:
-                    self._led.set(x, y, self._bg)
+                    self.layout.set(x, y, self._bg)
                 else:
-                    self._led.set(x, y, self._color)
+                    self.layout.set(x, y, self._color)
                 x = x + 1
             y = y + 1
             x = 0
@@ -156,19 +160,22 @@ class GameOfLife(BaseMatrixAnim):
 
 class GameOfLifeRGB(BaseMatrixAnim):
 
-    def __init__(self, led, toroidal=True):
-        super(GameOfLifeRGB, self).__init__(led)
+    def __init__(self, layout, toroidal=True):
+        super(GameOfLifeRGB, self).__init__(layout)
 
-        self._tableR = Table(self._led.height, self._led.width, 1, None)
-        self._tableR.toroidal = toroidal
+        self.toroidal = toroidal
+
+    def preRun(self):
+        self._tableR = Table(self.layout.height, self.layout.width, 1, None)
+        self._tableR.toroidal = self.toroidal
         time.sleep(0.01)
 
-        self._tableG = Table(self._led.height, self._led.width, 1, None)
-        self._tableG.toroidal = toroidal
+        self._tableG = Table(self.layout.height, self.layout.width, 1, None)
+        self._tableG.toroidal = self.toroidal
         time.sleep(0.01)
 
-        self._tableB = Table(self._led.height, self._led.width, 1, None)
-        self._tableB.toroidal = toroidal
+        self._tableB = Table(self.layout.height, self.layout.width, 1, None)
+        self._tableB.toroidal = self.toroidal
 
     def stepTables(self):
         x = 0
@@ -180,7 +187,7 @@ class GameOfLifeRGB(BaseMatrixAnim):
                 b = (self._tableB.table[row][col]) * 255
 
                 c = (r, g, b)
-                self._led.set(x, y, c)
+                self.layout.set(x, y, c)
 
                 x = x + 1
             y = y + 1
@@ -205,8 +212,8 @@ class GameOfLifeRGB(BaseMatrixAnim):
 
 class GameOfLifeClock(BaseMatrixAnim):
 
-    def __init__(self, led, font_name='16x8', mil_time=False):
-        super(GameOfLifeClock, self).__init__(led)
+    def __init__(self, layout, font_name='16x8', mil_time=False):
+        super(GameOfLifeClock, self).__init__(layout)
         self.font_name = font_name
         self.mil_time = mil_time
         self.scale = 1
@@ -240,16 +247,16 @@ class GameOfLifeClock(BaseMatrixAnim):
                             font_scale=self.scale, final_sep=False)
         x = (self.width - w) // 2
         y = (self.height - h) // 2
-        old_buf = copy.copy(self._led.buffer)
-        self._led.all_off()
-        self._led.drawText(val, x, y, color=colors.Red,
-                           font=self.font_name, font_scale=self.scale)
+        old_buf = copy.copy(self.layout.colors)
+        self.layout.all_off()
+        self.layout.drawText(val, x, y, color=colors.Red,
+                             font=self.font_name, font_scale=self.scale)
         table = []
         for y in range(self.height):
             table.append([0] * self.width)
             for x in range(self.width):
-                table[y][x] = int(any(self._led.get(x, y)))
-        self._led.setBuffer(old_buf)
+                table[y][x] = int(any(self.layout.get(x, y)))
+        self.layout.setBuffer(old_buf)
         return table
 
     def generate_history(self, t, steps):
@@ -288,7 +295,7 @@ class GameOfLifeClock(BaseMatrixAnim):
         for y in range(self.height):
             for x in range(self.width):
                 c = colors.Red if frame[y][x] else colors.Black
-                self._led.set(x, y, c)
+                self.layout.set(x, y, c)
 
     def step(self, amt=1):
         if not self.history and not self.next_ready:
@@ -304,73 +311,3 @@ class GameOfLifeClock(BaseMatrixAnim):
                 self.display_frame(self.history[0])
                 if self.next_ready:
                     self.swap_history()
-
-
-MANIFEST = [
-    {
-        "id": "GameOfLife",
-        "class": GameOfLife,
-        "type": "animation",
-        "display": "Game of Life",
-        "controller": "matrix",
-        "desc": "Conway's Game of Life",
-        "params": [{
-                "id": "color",
-                "label": "Color",
-                "type": "color",
-                "default": (255, 0, 0),
-                "help": "Color of simulation cells."
-        }, {
-            "id": "bg",
-            "label": "Background Color",
-            "type": "color",
-            "default": (0, 0, 0),
-            "help": "Color of simulation background."
-        }, {
-            "id": "toroidal",
-            "label": "Toroidal",
-            "type": "bool",
-            "default": False,
-            "help": "Wrap similation around edges like a toroid (donut shape)."
-        }, ]
-    },
-    {
-        "id": "GameOfLifeClock",
-        "class": GameOfLifeClock,
-        "type": "animation",
-        "display": "Game of Life Clock",
-        "controller": "matrix",
-        "desc": "Conway's Game of Life Tells Time",
-        "params": [{
-            "help": "Font to use",
-            "id": "font_name",
-            "label": "Font",
-            "type": "combo",
-            "options": font.get_font_menu_options()[0],
-            "options_map": font.get_font_menu_options()[1],
-            "default": 1
-        },
-            {
-            "id": "mil_time",
-            "label": "24h",
-            "type": "bool",
-            "default": False,
-            "help": "True to show 24 hour time"
-        }, ]
-    },
-    {
-        "id": "GameOfLifeRGB",
-        "class": GameOfLifeRGB,
-        "type": "animation",
-        "display": "Game of Life RGB",
-        "controller": "matrix",
-        "desc": "Conway's Game of Life running three separate simulations, one on each color channel.",
-        "params": [{
-                "id": "toroidal",
-                "label": "Toroidal",
-                "type": "bool",
-                "default": False,
-                "help": "Wrap similation around edges like a toroid (donut shape)."
-        }, ]
-    }
-]
