@@ -1,93 +1,94 @@
 {
-    "remote": {
+    "animation": {
         "title": "circle Demo",
+        "typename": "remote",
         "animations": [
             {
                 "animation": {
-                    "typename": "BiblioPixelAnimations.circle.arc_clock.ArcClock"
+                    "typename": "BiblioPixelAnimations.circle.arc_clock.ArcClock",
+                    "name": "ArcClock"
                 },
-                "name": "ArcClock",
                 "run": {
                     "fps": 30
                 }
             },
             {
                 "animation": {
-                    "typename": "BiblioPixelAnimations.circle.arc_rotate.ArcRotate"
+                    "typename": "BiblioPixelAnimations.circle.arc_rotate.ArcRotate",
+                    "name": "ArcRotate"
                 },
-                "name": "ArcRotate",
                 "run": {
                     "fps": 30
                 }
             },
             {
                 "animation": {
-                    "typename": "BiblioPixelAnimations.circle.bloom.CircleBloom"
+                    "typename": "BiblioPixelAnimations.circle.bloom.CircleBloom",
+                    "name": "CircleBloom"
                 },
-                "name": "CircleBloom",
                 "run": {
                     "fps": 30
                 }
             },
             {
                 "animation": {
-                    "typename": "BiblioPixelAnimations.circle.circle_clock.CircleClock"
+                    "typename": "BiblioPixelAnimations.circle.circle_clock.CircleClock",
+                    "name": "CircleClock"
                 },
-                "name": "CircleClock",
                 "run": {
                     "fps": 30
                 }
             },
             {
                 "animation": {
-                    "typename": "BiblioPixelAnimations.circle.diag.Diag"
+                    "typename": "BiblioPixelAnimations.circle.diag.Diag",
+                    "name": "Diag"
                 },
-                "name": "Diag",
                 "run": {
                     "fps": 30
                 }
             },
             {
                 "animation": {
-                    "typename": "BiblioPixelAnimations.circle.fireflies.FireFlies"
+                    "typename": "BiblioPixelAnimations.circle.fireflies.FireFlies",
+                    "name": "FireFlies"
                 },
-                "name": "FireFlies",
                 "run": {
                     "fps": 30
                 }
             },
             {
                 "animation": {
-                    "typename": "BiblioPixelAnimations.circle.hyperspace.Hyperspace"
+                    "typename": "BiblioPixelAnimations.circle.hyperspace.Hyperspace",
+                    "name": "Hyperspace"
                 },
-                "name": "Hyperspace",
                 "run": {
                     "fps": 30
                 }
             },
             {
                 "animation": {
-                    "typename": "BiblioPixelAnimations.circle.hyperspace.HyperspaceRainbow"
+                    "typename": "BiblioPixelAnimations.circle.hyperspace.HyperspaceRainbow",
+                    "name": "HyperspaceRainbow"
                 },
-                "name": "HyperspaceRainbow",
                 "run": {
                     "fps": 30
                 }
             },
             {
                 "animation": {
-                    "typename": "BiblioPixelAnimations.circle.pinwheel.PinWheel"
+                    "typename": "BiblioPixelAnimations.circle.pinwheel.PinWheel",
+                    "name": "PinWheel"
                 },
-                "name": "PinWheel",
                 "run": {
                     "fps": 30
                 }
             },
             {
                 "animation": {
-                    "typename": "BiblioPixelAnimations.circle.swirl.Swirl"
+                    "typename": "BiblioPixelAnimations.circle.swirl.Swirl",
+                    "name": "Swirl"
                 },
-                "name": "Swirl",
                 "run": {
                     "fps": 30
                 }

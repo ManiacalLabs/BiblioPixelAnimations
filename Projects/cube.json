@@ -1,39 +1,40 @@
 {
-    "remote": {
-        "title": "cube Demo",
+    "animation": {
+        "title": "Cube Demo",
+        "typename": "remote",
         "animations": [
             {
                 "animation": {
-                    "typename": "BiblioPixelAnimations.cube.Rain.RainBow"
+                    "typename": "BiblioPixelAnimations.cube.Rain.RainBow",
+                    "name": "RainBow"
                 },
-                "name": "RainBow",
                 "run": {
                     "fps": 30
                 }
             },
             {
                 "animation": {
-                    "typename": "BiblioPixelAnimations.cube.bloom.CubeBloom"
+                    "typename": "BiblioPixelAnimations.cube.bloom.CubeBloom",
+                    "name": "CubeBloom"
                 },
-                "name": "CubeBloom",
                 "run": {
                     "fps": 30
                 }
             },
             {
                 "animation": {
-                    "typename": "BiblioPixelAnimations.cube.simplex.Simplex"
+                    "typename": "BiblioPixelAnimations.cube.simplex.Simplex",
+                    "name": "Simplex"
                 },
-                "name": "Simplex",
                 "run": {
                     "fps": 30
                 }
             },
             {
                 "animation": {
-                    "typename": "BiblioPixelAnimations.cube.wave_spiral.WaveSpiral"
+                    "typename": "BiblioPixelAnimations.cube.wave_spiral.WaveSpiral",
+                    "name": "WaveSpiral"
                 },
-                "name": "WaveSpiral",
                 "run": {
                     "fps": 30
                 }

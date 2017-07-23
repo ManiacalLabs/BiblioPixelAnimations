@@ -1,192 +1,193 @@
 {
-    "remote": {
-        "title": "strip Demo",
+    "animation": {
+        "title": "Strip Demo",
+        "typename": "remote",
         "animations": [
             {
                 "animation": {
-                    "typename": "BiblioPixelAnimations.strip.Alternates.Alternates"
+                    "typename": "BiblioPixelAnimations.strip.Alternates.Alternates",
+                    "name": "Alternates"
                 },
-                "name": "Alternates",
                 "run": {
                     "fps": 30
                 }
             },
             {
                 "animation": {
-                    "typename": "BiblioPixelAnimations.strip.BinaryEpochClock.BEClock"
+                    "typename": "BiblioPixelAnimations.strip.BinaryEpochClock.BEClock",
+                    "name": "BEClock"
                 },
-                "name": "BEClock",
                 "run": {
                     "fps": 30
                 }
             },
             {
                 "animation": {
-                    "typename": "BiblioPixelAnimations.strip.ColorChase.ColorChase"
+                    "typename": "BiblioPixelAnimations.strip.ColorChase.ColorChase",
+                    "name": "ColorChase"
                 },
-                "name": "ColorChase",
                 "run": {
                     "fps": 30
                 }
             },
             {
                 "animation": {
-                    "typename": "BiblioPixelAnimations.strip.ColorFade.ColorFade"
+                    "typename": "BiblioPixelAnimations.strip.ColorFade.ColorFade",
+                    "name": "ColorFade"
                 },
-                "name": "ColorFade",
                 "run": {
                     "fps": 30
                 }
             },
             {
                 "animation": {
-                    "typename": "BiblioPixelAnimations.strip.ColorPattern.ColorPattern"
+                    "typename": "BiblioPixelAnimations.strip.ColorPattern.ColorPattern",
+                    "name": "ColorPattern"
                 },
-                "name": "ColorPattern",
                 "run": {
                     "fps": 30
                 }
             },
             {
                 "animation": {
-                    "typename": "BiblioPixelAnimations.strip.ColorWipe.ColorWipe"
+                    "typename": "BiblioPixelAnimations.strip.ColorWipe.ColorWipe",
+                    "name": "ColorWipe"
                 },
-                "name": "ColorWipe",
                 "run": {
                     "fps": 30
                 }
             },
             {
                 "animation": {
-                    "typename": "BiblioPixelAnimations.strip.FireFlies.FireFlies"
+                    "typename": "BiblioPixelAnimations.strip.FireFlies.FireFlies",
+                    "name": "FireFlies"
                 },
-                "name": "FireFlies",
                 "run": {
                     "fps": 30
                 }
             },
             {
                 "animation": {
-                    "typename": "BiblioPixelAnimations.strip.HalvesRainbow.HalvesRainbow"
+                    "typename": "BiblioPixelAnimations.strip.HalvesRainbow.HalvesRainbow",
+                    "name": "HalvesRainbow"
                 },
-                "name": "HalvesRainbow",
                 "run": {
                     "fps": 30
                 }
             },
             {
                 "animation": {
-                    "typename": "BiblioPixelAnimations.strip.LarsonScanners.LarsonRainbow"
+                    "typename": "BiblioPixelAnimations.strip.LarsonScanners.LarsonRainbow",
+                    "name": "LarsonRainbow"
                 },
-                "name": "LarsonRainbow",
                 "run": {
                     "fps": 30
                 }
             },
             {
                 "animation": {
-                    "typename": "BiblioPixelAnimations.strip.LarsonScanners.LarsonScanner"
+                    "typename": "BiblioPixelAnimations.strip.LarsonScanners.LarsonScanner",
+                    "name": "LarsonScanner"
                 },
-                "name": "LarsonScanner",
                 "run": {
                     "fps": 30
                 }
             },
             {
                 "animation": {
-                    "typename": "BiblioPixelAnimations.strip.LinearRainbow.LinearRainbow"
+                    "typename": "BiblioPixelAnimations.strip.LinearRainbow.LinearRainbow",
+                    "name": "LinearRainbow"
                 },
-                "name": "LinearRainbow",
                 "run": {
                     "fps": 30
                 }
             },
             {
                 "animation": {
-                    "typename": "BiblioPixelAnimations.strip.PartyMode.PartyMode"
+                    "typename": "BiblioPixelAnimations.strip.PartyMode.PartyMode",
+                    "name": "PartyMode"
                 },
-                "name": "PartyMode",
                 "run": {
                     "fps": 30
                 }
             },
             {
                 "animation": {
-                    "typename": "BiblioPixelAnimations.strip.PixelPingPong.PixelPingPong"
+                    "typename": "BiblioPixelAnimations.strip.PixelPingPong.PixelPingPong",
+                    "name": "PixelPingPong"
                 },
-                "name": "PixelPingPong",
                 "run": {
                     "fps": 30
                 }
             },
             {
                 "animation": {
-                    "typename": "BiblioPixelAnimations.strip.RGBClock.RGBClock"
+                    "typename": "BiblioPixelAnimations.strip.RGBClock.RGBClock",
+                    "name": "RGBClock"
                 },
-                "name": "RGBClock",
                 "run": {
                     "fps": 30
                 }
             },
             {
                 "animation": {
-                    "typename": "BiblioPixelAnimations.strip.Rainbows.Rainbow"
+                    "typename": "BiblioPixelAnimations.strip.Rainbows.Rainbow",
+                    "name": "Rainbow"
                 },
-                "name": "Rainbow",
                 "run": {
                     "fps": 30
                 }
             },
             {
                 "animation": {
-                    "typename": "BiblioPixelAnimations.strip.Rainbows.RainbowCycle"
+                    "typename": "BiblioPixelAnimations.strip.Rainbows.RainbowCycle",
+                    "name": "RainbowCycle"
                 },
-                "name": "RainbowCycle",
                 "run": {
                     "fps": 30
                 }
             },
             {
                 "animation": {
-                    "typename": "BiblioPixelAnimations.strip.Searchlights.Searchlights"
+                    "typename": "BiblioPixelAnimations.strip.Searchlights.Searchlights",
+                    "name": "Searchlights"
                 },
-                "name": "Searchlights",
                 "run": {
                     "fps": 30
                 }
             },
             {
                 "animation": {
-                    "typename": "BiblioPixelAnimations.strip.Wave.Wave"
+                    "typename": "BiblioPixelAnimations.strip.Wave.Wave",
+                    "name": "Wave"
                 },
-                "name": "Wave",
                 "run": {
                     "fps": 30
                 }
             },
             {
                 "animation": {
-                    "typename": "BiblioPixelAnimations.strip.Wave.WaveMove"
+                    "typename": "BiblioPixelAnimations.strip.Wave.WaveMove",
+                    "name": "WaveMove"
                 },
-                "name": "WaveMove",
                 "run": {
                     "fps": 30
                 }
             },
             {
                 "animation": {
-                    "typename": "BiblioPixelAnimations.strip.WhiteTwinkle.WhiteTwinkle"
+                    "typename": "BiblioPixelAnimations.strip.WhiteTwinkle.WhiteTwinkle",
+                    "name": "WhiteTwinkle"
                 },
-                "name": "WhiteTwinkle",
                 "run": {
                     "fps": 30
                 }
             },
             {
                 "animation": {
-                    "typename": "BiblioPixelAnimations.strip.hexclock.HEXClock"
+                    "typename": "BiblioPixelAnimations.strip.hexclock.HEXClock",
+                    "name": "HEXClock"
                 },
-                "name": "HEXClock",
                 "run": {
                     "fps": 30
                 }

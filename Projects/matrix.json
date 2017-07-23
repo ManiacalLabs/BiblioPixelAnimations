@@ -1,227 +1,228 @@
 {
-    "remote": {
-        "title": "matrix Demo",
+    "animation": {
+        "title": "Matrix Demo",
+        "typename": "remote",
         "animations": [
             {
                 "animation": {
-                    "typename": "BiblioPixelAnimations.matrix.ImageAnim.ImageAnim"
+                    "typename": "BiblioPixelAnimations.matrix.ImageAnim.ImageAnim",
+                    "name": "ImageAnim"
                 },
-                "name": "ImageAnim",
                 "run": {
                 }
             },
             {
                 "animation": {
-                    "typename": "BiblioPixelAnimations.matrix.ImageShow.ImageShow"
+                    "typename": "BiblioPixelAnimations.matrix.ImageShow.ImageShow",
+                    "name": "ImageShow"
                 },
-                "name": "ImageShow",
                 "run": {
                     "fps": 5
                 }
             },
             {
                 "animation": {
-                    "typename": "BiblioPixelAnimations.matrix.ImageDissolve.ImageDissolve"
+                    "typename": "BiblioPixelAnimations.matrix.ImageDissolve.ImageDissolve",
+                    "name": "ImageDissolve"
                 },
-                "name": "ImageDissolve",
                 "run": {
                     "fps": 30
                 }
             },
             {
                 "animation": {
-                    "typename": "BiblioPixelAnimations.matrix.ScreenGrab.ScreenGrab"
+                    "typename": "BiblioPixelAnimations.matrix.ScreenGrab.ScreenGrab",
+                    "name": "ScreenGrab"
                 },
-                "name": "ScreenGrab",
                 "run": {
                     "fps": 30
                 }
             },
             {
                 "animation": {
-                    "typename": "BiblioPixelAnimations.matrix.AnalogClock.AnalogClock"
+                    "typename": "BiblioPixelAnimations.matrix.AnalogClock.AnalogClock",
+                    "name": "AnalogClock"
                 },
-                "name": "AnalogClock",
                 "run": {
                     "fps": 30
                 }
             },
             {
                 "animation": {
-                    "typename": "BiblioPixelAnimations.matrix.AnalogClock.RGBAnalogClock"
+                    "typename": "BiblioPixelAnimations.matrix.AnalogClock.RGBAnalogClock",
+                    "name": "RGBAnalogClock"
                 },
-                "name": "RGBAnalogClock",
                 "run": {
                     "fps": 30
                 }
             },
             {
                 "animation": {
-                    "typename": "BiblioPixelAnimations.matrix.BinaryClock.MatrixBinaryClock"
+                    "typename": "BiblioPixelAnimations.matrix.BinaryClock.MatrixBinaryClock",
+                    "name": "MatrixBinaryClock"
                 },
-                "name": "MatrixBinaryClock",
                 "run": {
                     "fps": 30
                 }
             },
             {
                 "animation": {
-                    "typename": "BiblioPixelAnimations.matrix.CPUUsage.CPUUsage"
+                    "typename": "BiblioPixelAnimations.matrix.CPUUsage.CPUUsage",
+                    "name": "CPUUsage"
                 },
-                "name": "CPUUsage",
                 "run": {
                     "fps": 30
                 }
             },
             {
                 "animation": {
-                    "typename": "BiblioPixelAnimations.matrix.GameOfLife.GameOfLife"
+                    "typename": "BiblioPixelAnimations.matrix.GameOfLife.GameOfLife",
+                    "name": "GameOfLife"
                 },
-                "name": "GameOfLife",
                 "run": {
                     "fps": 30
                 }
             },
             {
                 "animation": {
-                    "typename": "BiblioPixelAnimations.matrix.GameOfLife.GameOfLifeRGB"
+                    "typename": "BiblioPixelAnimations.matrix.GameOfLife.GameOfLifeRGB",
+                    "name": "GameOfLifeRGB"
                 },
-                "name": "GameOfLifeRGB",
                 "run": {
                     "fps": 30
                 }
             },
             {
                 "animation": {
-                    "typename": "BiblioPixelAnimations.matrix.GradientClock.GradientClock"
+                    "typename": "BiblioPixelAnimations.matrix.GradientClock.GradientClock",
+                    "name": "GradientClock"
                 },
-                "name": "GradientClock",
                 "run": {
                     "fps": 30
                 }
             },
             {
                 "animation": {
-                    "typename": "BiblioPixelAnimations.matrix.LangtonsAnt.LangtonsAnt"
+                    "typename": "BiblioPixelAnimations.matrix.LangtonsAnt.LangtonsAnt",
+                    "name": "LangtonsAnt"
                 },
-                "name": "LangtonsAnt",
                 "run": {
                     "fps": 30
                 }
             },
             {
                 "animation": {
-                    "typename": "BiblioPixelAnimations.matrix.LangtonsAnt.LangtonsAntRainbow"
+                    "typename": "BiblioPixelAnimations.matrix.LangtonsAnt.LangtonsAntRainbow",
+                    "name": "LangtonsAntRainbow"
                 },
-                "name": "LangtonsAntRainbow",
                 "run": {
                     "fps": 30
                 }
             },
             {
                 "animation": {
-                    "typename": "BiblioPixelAnimations.matrix.Mainframe.Mainframe"
+                    "typename": "BiblioPixelAnimations.matrix.Mainframe.Mainframe",
+                    "name": "Mainframe"
                 },
-                "name": "Mainframe",
                 "run": {
                     "fps": 30
                 }
             },
             {
                 "animation": {
-                    "typename": "BiblioPixelAnimations.matrix.MatrixRain.MatrixRain"
+                    "typename": "BiblioPixelAnimations.matrix.MatrixRain.MatrixRain",
+                    "name": "MatrixRain"
                 },
-                "name": "MatrixRain",
                 "run": {
                     "fps": 30
                 }
             },
             {
                 "animation": {
-                    "typename": "BiblioPixelAnimations.matrix.MatrixRain.MatrixRainBow"
+                    "typename": "BiblioPixelAnimations.matrix.MatrixRain.MatrixRainBow",
+                    "name": "MatrixRainBow"
                 },
-                "name": "MatrixRainBow",
                 "run": {
                     "fps": 30
                 }
             },
             {
                 "animation": {
-                    "typename": "BiblioPixelAnimations.matrix.SpinningTriangle.SpinningTriangle"
+                    "typename": "BiblioPixelAnimations.matrix.SpinningTriangle.SpinningTriangle",
+                    "name": "SpinningTriangle"
                 },
-                "name": "SpinningTriangle",
                 "run": {
                     "fps": 30
                 }
             },
             {
                 "animation": {
-                    "typename": "BiblioPixelAnimations.matrix.TallClock.TallClock"
+                    "typename": "BiblioPixelAnimations.matrix.TallClock.TallClock",
+                    "name": "TallClock"
                 },
-                "name": "TallClock",
                 "run": {
                     "fps": 30
                 }
             },
             {
                 "animation": {
-                    "typename": "BiblioPixelAnimations.matrix.Text.BounceText"
+                    "typename": "BiblioPixelAnimations.matrix.Text.BounceText",
+                    "name": "BounceText"
                 },
-                "name": "BounceText",
                 "run": {
                     "fps": 30
                 }
             },
             {
                 "animation": {
-                    "typename": "BiblioPixelAnimations.matrix.Text.ScrollText"
+                    "typename": "BiblioPixelAnimations.matrix.Text.ScrollText",
+                    "name": "ScrollText"
                 },
-                "name": "ScrollText",
                 "run": {
                     "fps": 30
                 }
             },
             {
                 "animation": {
-                    "typename": "BiblioPixelAnimations.matrix.TicTacToe.TicTacToe"
+                    "typename": "BiblioPixelAnimations.matrix.TicTacToe.TicTacToe",
+                    "name": "TicTacToe"
                 },
-                "name": "TicTacToe",
                 "run": {
                     "fps": 30
                 }
             },
             {
                 "animation": {
-                    "typename": "BiblioPixelAnimations.matrix.bloom.Bloom"
+                    "typename": "BiblioPixelAnimations.matrix.bloom.Bloom",
+                    "name": "Bloom"
                 },
-                "name": "Bloom",
                 "run": {
                     "fps": 30
                 }
             },
             {
                 "animation": {
-                    "typename": "BiblioPixelAnimations.matrix.circlepop.CirclePop"
+                    "typename": "BiblioPixelAnimations.matrix.circlepop.CirclePop",
+                    "name": "CirclePop"
                 },
-                "name": "CirclePop",
                 "run": {
                     "fps": 30
                 }
             },
             {
                 "animation": {
-                    "typename": "BiblioPixelAnimations.matrix.perlin_simplex.PerlinSimplex"
+                    "typename": "BiblioPixelAnimations.matrix.perlin_simplex.PerlinSimplex",
+                    "name": "PerlinSimplex"
                 },
-                "name": "PerlinSimplex",
                 "run": {
                     "fps": 30
                 }
             },
             {
                 "animation": {
-                    "typename": "BiblioPixelAnimations.matrix.pinwheel.Pinwheel"
+                    "typename": "BiblioPixelAnimations.matrix.pinwheel.Pinwheel",
+                    "name": "Pinwheel"
                 },
-                "name": "Pinwheel",
                 "run": {
                     "fps": 30
                 }
