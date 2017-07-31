@@ -26,7 +26,7 @@ class ScrollText(BaseMatrixAnim):
                              color=self.color, bg=self.bgcolor, font=self.font_name, font_scale=self.font_scale)
         self.xPos -= amt
         if self.xPos + self._strW <= 0:
-            self.xPos = self.startX + self.width - 1
+            self.xPos = self.width - 1
             self.animComplete = True
 
         self._step = 0
