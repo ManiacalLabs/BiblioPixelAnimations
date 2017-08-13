@@ -1,5 +1,5 @@
 from bibliopixel.animation import BaseMatrixAnim
-from bibliopixel.image import loadImage
+from bibliopixel import image
 from random import shuffle
 import os
 
@@ -25,7 +25,7 @@ class ImageDissolve(BaseMatrixAnim):
         self.waitCount = 0
 
     def resetAndLoad(self):
-        self.layout.setTexture(loadImage(self.layout, imagePath=self.imageFiles[self.imgIndex]))
+        self.layout.setTexture(image.loadImage(self.layout, imagePath=self.imageFiles[self.imgIndex]))
         self.map = [(x, y) for x in range(self.width) for y in range(self.height)]
         shuffle(self.map)
 

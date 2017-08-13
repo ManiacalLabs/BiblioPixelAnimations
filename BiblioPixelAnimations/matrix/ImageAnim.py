@@ -1,7 +1,7 @@
 from __future__ import division
 
 from bibliopixel.animation import BaseMatrixAnim
-import bibliopixel.log as log
+from bibliopixel import log
 
 try:
     from PIL import Image, ImageSequence
@@ -48,7 +48,7 @@ def _getBufferFromImage(img, layout, bgcolor, bright, offset):
         for y in range(oy, h + oy):
             if x < 0 or y < 0:
                 continue
-            pixel = layout.matrix_map[y][x]
+            pixel = layout.coord_map[y][x]
             r, g, b, a = frame.getpixel((x - ox, y - oy))
             if a == 0:
                 r, g, b = bgcolor

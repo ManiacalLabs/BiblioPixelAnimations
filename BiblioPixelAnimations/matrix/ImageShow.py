@@ -1,5 +1,5 @@
 from bibliopixel.animation import BaseMatrixAnim
-from bibliopixel.image import loadImage
+from bibliopixel import image
 import os
 
 
@@ -14,7 +14,7 @@ class ImageShow(BaseMatrixAnim):
         self.offset = offset
 
     def pre_run(self):
-        self.layout.setTexture(loadImage(self.layout, imagePath=self.img, offset=self.offset))
+        self.layout.setTexture(image.loadImage(self.layout, imagePath=self.img, offset=self.offset))
 
     def step(self, amt):
         self.layout.fillScreen()

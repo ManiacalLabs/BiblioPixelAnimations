@@ -2,7 +2,7 @@ from __future__ import division
 
 from bibliopixel.animation import BaseMatrixAnim
 import bibliopixel.colors as colors
-import bibliopixel.log as log
+from bibliopixel import log
 from . system_eq import EQ
 
 
