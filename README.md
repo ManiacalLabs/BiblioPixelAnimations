@@ -4,17 +4,17 @@ BiblioPixelAnimations
 User created animations for BiblioPixel.
 
 ## Installation ##
-You can always just download the code directly from here, but it's much easier to use the repository when it's installed, so the animations are available in your python path. But this is not a normal repository, so making it available in PyPi makes no sense. It's always in flux and normal version numbers and releases would be too hard to keep up with, since it's not a typical library. It's just a place for awesome BiblioPixel animations to live. To install *or upgrade* the repository, just run the following command:
+ To install *or upgrade* the repository, just run the following command:
 
 ```
-pip install https://github.com/ManiacalLabs/BiblioPixelAnimations/archive/master.zip --upgrade
+pip install BiblioPixelAnimations --upgrade
 ```
 
 This will clone the latest code from GitHub and install it to your python path.
 
 ## Using Animations ##
 
-A simple example of how to use the animations in this repo. 
+A simple example of how to use the animations in this repo.
 
 ```
 from bibliopixel.drivers.serial_driver import *
