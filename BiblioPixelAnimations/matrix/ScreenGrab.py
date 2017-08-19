@@ -43,7 +43,7 @@ if grab is None:
         log.info('Using mss module')
     except:
         try:
-            from pil import ImageGrab
+            from PIL import ImageGrab
             log.info("Using PIL ImageGrab module")
         except:
             try:
