@@ -5,7 +5,9 @@ from bibliopixel import font
 
 class ScrollText(BaseMatrixAnim):
 
-    def __init__(self, layout, text='ScrollText', xPos=0, yPos=0, color=colors.White, bgcolor=colors.Off, font_name=font.default_font, font_scale=1):
+    def __init__(self, layout, text='ScrollText', xPos=0, yPos=0,
+                 color=colors.White, bgcolor=colors.Off,
+                 font_name=font.default_font, font_scale=1):
         super(ScrollText, self).__init__(layout)
         self.bgcolor = bgcolor
         self.color = color

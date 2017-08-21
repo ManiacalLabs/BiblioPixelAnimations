@@ -15,6 +15,7 @@ import os
 import bibliopixel.colors as colors
 import threading
 import random as rand
+import time
 
 
 def _getBufferFromImage(img, layout, bgcolor, bright, offset):
@@ -91,32 +92,32 @@ class loadnextthread(threading.Thread):
     def __init__(self, imganim):
         super(loadnextthread, self).__init__()
         self.setDaemon(True)
-        self._stop = threading.Event()
-        self._wait = threading.Event()
+        self._stop_event = threading.Event()
+        self._wait_event = threading.Event()
         self.anim = imganim
 
     def stop(self):
-        self._stop.set()
+        self._stop_event.set()
 
     def stopped(self):
-        return self._stop.isSet()
+        return self._stop_event.isSet()
 
     def loading(self):
-        return self._wait.isSet()
+        return self._wait_event.isSet()
 
     def loadNext(self):
-        self._wait.set()
+        self._wait_event.set()
 
     def run(self):
         while not self.stopped():
-            self._wait.wait()
+            self._wait_event.wait()
             self.anim.loadNextGIF()
-            self._wait.clear()
+            self._wait_event.clear()
 
 
 class ImageAnim(BaseMatrixAnim):
     def __init__(self, layout, imagePath=None, offset=(0, 0), bgcolor=colors.Off,
-                 brightness=255, cycles=1, random=False, use_file_fps=True):
+                 brightness=255, cycles=1, seconds=None, random=False, use_file_fps=True):
         """Helper class for displaying image animations for GIF files or a set of bitmaps
 
         layout - layoutMatrix instance
@@ -130,12 +131,13 @@ class ImageAnim(BaseMatrixAnim):
         self.cycles = cycles
         self.cycle_count = 0
 
+        self.seconds = seconds
+        self.last_start = 0
+
         self.random = random
         self.use_file_fps = use_file_fps
 
         self._bright = brightness
-        # if self._bright == 255 and layout.brightness != 255:
-        #     self._bright = layout.brightness
 
         self._bgcolor = colors.color_scale(bgcolor, self._bright)
         self._offset = offset
@@ -146,6 +148,7 @@ class ImageAnim(BaseMatrixAnim):
             cur_dir = os.path.dirname(os.path.realpath(__file__))
             imagePath = os.path.abspath(os.path.join(cur_dir, '../../Graphics/MarioRotating.gif'))
 
+        self.imagePath = imagePath
         self.folder_mode = os.path.isdir(imagePath)
         self.gif_files = []
         self.gif_indices = []
@@ -153,22 +156,28 @@ class ImageAnim(BaseMatrixAnim):
         self.load_thread = None
 
         if self.folder_mode:
-            self.gif_files = glob.glob(imagePath + "/*.gif")
-            self.gif_indices = range(len(self.gif_files))
+            self.gif_files = glob.glob(self.imagePath + "/*.gif")
+            self.gif_indices = list(range(len(self.gif_files)))
             self.loadNextGIF()  # first load is manual
             self.swapbuf()
             self.load_thread = loadnextthread(self)
             self.load_thread.start()
             self.load_thread.loadNext()  # pre-load next image
         else:
-            self.loadGIFFile(imagePath)
+            self.loadGIFFile(self.imagePath)
             self.swapbuf()
 
-        self._curImage = 0
-
-    def _exit(self, type, value, traceback):
+    def cleanup(self, clean_layout=True):
         if self.load_thread:
             self.load_thread.stop()
+        super().cleanup(clean_layout)
+
+    def pre_run(self):
+        print('pre_run')
+
+        self.last_start = time.time()
+
+        self._curImage = 0
 
     def loadGIFFile(self, gif):
         _, ext = os.path.splitext(gif)
@@ -183,7 +192,7 @@ class ImageAnim(BaseMatrixAnim):
         if self.random:
             if len(self.gif_indices) < 2:
                 self.folder_index = self.gif_indices[0]
-                self.gif_indices = range(len(self.gif_files))
+                self.gif_indices = list(range(len(self.gif_files)))
             else:
                 self.folder_index = self.gif_indices.pop(rand.randrange(0, len(self.gif_indices)))
         else:
@@ -218,13 +227,22 @@ class ImageAnim(BaseMatrixAnim):
         if self._curImage >= len(img):
             self._curImage = 0
             if self.folder_mode:
-                if self.cycle_count < self.cycles - 1:
-                    self.cycle_count += 1
-                elif not self.load_thread.loading():  # wait another cycle if still loading
+                loadnext = False
+                if self.seconds:
+                    if ((time.time() - self.last_start) > self.seconds):
+                        loadnext = True
+                else:
+                    if self.cycle_count < self.cycles - 1:
+                        self.cycle_count += 1
+                    else:
+                        loadnext = True
+
+                if loadnext and not self.load_thread.loading():  # wait another cycle if still loading
                     self.animComplete = True
                     self.load_thread.loadNext()
                     self.swapbuf()
                     self.cycle_count = 0
+                    self.last_start = time.time()
             else:
                 self.animComplete = True
 
