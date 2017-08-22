@@ -176,6 +176,15 @@
             },
             {
                 "animation": {
+                    "typename": "BiblioPixelAnimations.strip.Twinkle.Twinkle",
+                    "name": "Twinkle"
+                },
+                "run": {
+                    "fps": 30
+                }
+            },
+            {
+                "animation": {
                     "typename": "BiblioPixelAnimations.strip.WhiteTwinkle.WhiteTwinkle",
                     "name": "WhiteTwinkle"
                 },
