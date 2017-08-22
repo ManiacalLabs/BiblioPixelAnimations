@@ -8,8 +8,8 @@ class ColorPattern(BaseStripAnim):
     """Fill the dots progressively along the strip with alternating colors."""
 
     def __init__(self, layout, colors=[colors.Red, colors.Green, colors.Blue],
-                 width=1, dir=True, start=0, end=-1):
-        super(ColorPattern, self).__init__(layout, start, end)
+                 width=1, dir=True):
+        super(ColorPattern, self).__init__(layout)
         self._colors = colors
         self._colorCount = len(colors)
         self._width = width
@@ -22,13 +22,9 @@ class ColorPattern(BaseStripAnim):
     def step(self, amt=1):
         for i in range(self._size):
             cIndex = ((i + self._step) % self._total_width) // self._width
-            self.layout.set(self._start + i, self._colors[cIndex])
-        if self._dir:
-            self._step += amt
-            overflow = (self._start + self._step) - self._end
-            if overflow >= 0:
-                self._step = overflow
-        else:
-            self._step -= amt
-            if self._step < 0:
-                self._step = self._end + self._step
+            self.layout.set(i, self._colors[cIndex])
+        self._step += amt * (1 if self._dir else -1)
+        if self._dir and self._step >= self.layout.numLEDs:
+            self._step = 0
+        elif not self._dir and self._step < 0:
+            self._step = self.layout.numLEDs - 1
