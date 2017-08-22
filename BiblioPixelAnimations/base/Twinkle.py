@@ -34,11 +34,10 @@ class TwinkleBase:
         self.max_bright = min(self.max_bright, 255)
         self.max_bright = max(self.max_bright, 5)
 
-        # direction, color, level
-        self.pixels = [(0, bp_colors.Off, 0)] * self.layout.numLEDs
-
     def pre_run(self):
         self._step = 0
+        # direction, color, level
+        self.pixels = [(0, bp_colors.Off, 0)] * self.layout.numLEDs
 
     def pick_led(self, speed):
         idx = random.randrange(0, self.layout.numLEDs)
