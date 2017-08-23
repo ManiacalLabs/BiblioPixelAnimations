@@ -5,11 +5,9 @@ import random
 
 
 class MatrixRain(BaseMatrixAnim):
-    def __init__(self, layout, rain_colors=colors.Green, tail=4, growthRate=4):
+    def __init__(self, layout, colors=[colors.Green], tail=4, growthRate=4):
         super(MatrixRain, self).__init__(layout)
-        if not isinstance(rain_colors, list):
-            rain_colors = [rain_colors]
-        self._colors = rain_colors
+        self._colors = colors
         self._tail = tail
         self._growthRate = growthRate
 
