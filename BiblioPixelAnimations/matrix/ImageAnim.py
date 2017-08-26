@@ -13,6 +13,7 @@ except ImportError as e:
 import glob
 import os
 import bibliopixel.colors as colors
+import threading
 import random as rand
 import time
 
@@ -86,10 +87,38 @@ def _loadGIFSequence(imagePath, layout, bgcolor, bright, offset):
     return images
 
 
+class loadnextthread(threading.Thread):
+
+    def __init__(self, imganim):
+        super(loadnextthread, self).__init__()
+        self.setDaemon(True)
+        self._stop_event = threading.Event()
+        self._wait_event = threading.Event()
+        self.anim = imganim
+
+    def stop(self):
+        self._stop_event.set()
+
+    def stopped(self):
+        return self._stop_event.isSet()
+
+    def loading(self):
+        return self._wait_event.isSet()
+
+    def loadNext(self):
+        self._wait_event.set()
+
+    def run(self):
+        print('load thread running')
+        while not self.stopped():
+            self._wait_event.wait()
+            self.anim.loadNextGIF()
+            self._wait_event.clear()
+
+
 class ImageAnim(BaseMatrixAnim):
     def __init__(self, layout, imagePath=None, offset=(0, 0), bgcolor=colors.Off,
-                 brightness=255, cycles=1, seconds=None, random=False,
-                 use_file_fps=True):
+                 brightness=255, cycles=1, seconds=None, random=False, use_file_fps=True):
         """Helper class for displaying image animations for GIF files or a set of bitmaps
 
         layout - layoutMatrix instance
@@ -113,9 +142,8 @@ class ImageAnim(BaseMatrixAnim):
 
         self._bgcolor = colors.color_scale(bgcolor, self._bright)
         self._offset = offset
-        self._image_buffers = []
-        self._cur_img_buf = -1
-        self._curImage = 0
+        self._image_buffers = [None, None]
+        self._cur_img_buf = 1  # start here because loadNext swaps it
 
         if imagePath is None:
             cur_dir = os.path.dirname(os.path.realpath(__file__))
@@ -124,17 +152,21 @@ class ImageAnim(BaseMatrixAnim):
         self.imagePath = imagePath
         self.folder_mode = os.path.isdir(imagePath)
         self.gif_files = []
-        self.gif_indices = [0]
+        self.gif_indices = []
         self.folder_index = -1
         self.load_thread = None
 
         if self.folder_mode:
             self.gif_files = glob.glob(self.imagePath + "/*.gif")
             self.gif_indices = list(range(len(self.gif_files)))
-            for f in self.gif_files:
-                self._image_buffers.append(self.loadGIFFile(f))
+            self.loadNextGIF()  # first load is manual
+            self.swapbuf()
+            self.load_thread = loadnextthread(self)
+            # self.load_thread.start()
+            # self.load_thread.loadNext()  # pre-load next image
         else:
-            self._image_buffers = [self.loadGIFFile(self.imagePath)]
+            self.loadGIFFile(self.imagePath)
+            self.swapbuf()
 
     def cleanup(self, clean_layout=True):
         if self.load_thread:
@@ -142,26 +174,43 @@ class ImageAnim(BaseMatrixAnim):
         super().cleanup(clean_layout)
 
     def pre_run(self):
+        self.load_thread.start()
+        self.load_thread.loadNext()
         self.last_start = time.time()
 
-        self._cur_img_buf = -1
         self._curImage = 0
-        self.load_next()
 
     def loadGIFFile(self, gif):
         _, ext = os.path.splitext(gif)
+        next_buf = self.next_img_buf()
         if ext.lower().endswith("gif"):
             log.logger.info("Loading {0} ...".format(gif))
-            return _loadGIFSequence(gif, self.layout, self._bgcolor, self._bright, self._offset)
+            self._image_buffers[next_buf] = _loadGIFSequence(gif, self.layout, self._bgcolor, self._bright, self._offset)
         else:
             raise ValueError('Must be a GIF file!')
 
-    def load_next(self):
-        self._curImage = 0
+    def loadNextGIF(self):
         if self.random:
-            self._cur_img_buf = rand.choice(self.gif_indices)
+            if len(self.gif_indices) < 2:
+                self.folder_index = self.gif_indices[0]
+                self.gif_indices = list(range(len(self.gif_files)))
+            else:
+                self.folder_index = self.gif_indices.pop(rand.randrange(0, len(self.gif_indices)))
         else:
-            self._cur_img_buf += 1
+            self.folder_index += 1
+            if self.folder_index >= len(self.gif_files):
+                self.folder_index = 0
+        self.loadGIFFile(self.gif_files[self.folder_index])
+
+    def next_img_buf(self):
+        i = self._cur_img_buf
+        i += 1
+        if i > 1:
+            i = 0
+        return i
+
+    def swapbuf(self):
+        self._cur_img_buf = self.next_img_buf()
 
     def step(self, amt=1):
         self.layout.all_off()
@@ -169,6 +218,7 @@ class ImageAnim(BaseMatrixAnim):
 
         self.layout.setBuffer(img[self._curImage][1])
         if self.use_file_fps:
+            # print(img[self._curImage][0])
             self.internal_delay = img[self._curImage][0] / 1000.0
 
         self._curImage += 1
@@ -185,8 +235,12 @@ class ImageAnim(BaseMatrixAnim):
                     else:
                         loadnext = True
 
-                if loadnext:
-                    self.load_next()
+                if loadnext and not self.load_thread.loading():  # wait another cycle if still loading
+                    self.animComplete = True
+                    self.load_thread.loadNext()
+                    self.swapbuf()
+                    self.cycle_count = 0
+                    self.last_start = time.time()
             else:
                 self.animComplete = True
 
