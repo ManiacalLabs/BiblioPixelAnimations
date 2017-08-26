@@ -89,7 +89,7 @@ class WhiteTwinkle(BaseStripAnim):
                 continue
 
             # if red is odd darken it, if its even brighten it
-            if r & 1:
+            if int(r) & 1:
                 self.layout.set(i, self.qsub8(this_led, self.speed))
             else:
                 self.layout.set(i, self.qadd8(this_led, self.speed))

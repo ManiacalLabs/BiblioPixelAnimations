@@ -38,7 +38,7 @@ class LangtonsAntBase(BaseMatrixAnim):
         elif self.d == 3:
             self.x = roll(self.x, -1, 0, self.width - 1)
 
-        self.curColor = self.layout.get(self.x, self.y)
+        self.curColor = tuple(int(c) for c in self.layout.get(self.x, self.y))
         self._postMove()
 
 
