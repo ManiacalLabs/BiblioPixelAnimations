@@ -7,22 +7,21 @@ class ArcClock(BaseCircleAnim):
 
     def __init__(self, layout):
         super(ArcClock, self).__init__(layout)
-        last = self.lastRing
         self.hands = [
             {
-                'rings': [last - 0, last - 1],
+                'rings': [0, 1],
                 'color': colors.Red,
                 'segments': 60,
                 'key': 'tm_sec'
             },
             {
-                'rings': [last - 2, last - 3],
+                'rings': [2, 3],
                 'color': colors.Green,
                 'segments': 60,
                 'key': 'tm_min'
             },
             {
-                'rings': [last - 4, last - 5],
+                'rings': [4, 5],
                 'color': colors.Blue,
                 'segments': 12,
                 'key': 'tm_hour'
