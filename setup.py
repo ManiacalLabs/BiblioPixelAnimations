@@ -1,8 +1,5 @@
 from __future__ import print_function
 from setuptools import setup, find_packages
-import json
-import sys
-import datetime
 from sys import version_info as vi
 
 
