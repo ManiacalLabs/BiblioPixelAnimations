@@ -27,12 +27,8 @@ class LangtonsAntBase(BaseMatrixAnim):
             val = min + diff - 1
         return val
 
-    def _changeDir(self, dir):
-        if dir:
-            dir = 1
-        else:
-            dir = -1
-        self.d = self._rollValue(self.d, dir, 0, 3)
+    def _changeDelta(self, delta):
+        self.d = self._rollValue(self.d, delta, 0, 3)
 
     def _moveAnt(self):
         if self.d == 0:
@@ -55,11 +51,11 @@ class LangtonsAnt(LangtonsAntBase):
     def step(self, amt=1):
         if self.curColor == self.pathColor:
             self.layout.set(self.x, self.y, self.offColor)
-            self._changeDir(False)
+            self._changeDelta(-1)
             self._moveAnt()
         else:
             self.layout.set(self.x, self.y, self.pathColor)
-            self._changeDir(True)
+            self._changeDelta(1)
             self._moveAnt()
 
 
@@ -87,8 +83,8 @@ class LangtonsAntRainbow(LangtonsAntBase):
     def step(self, amt=1):
         self.layout.set(self.x, self.y, self.curColor)
         if self.curColorIndex % 2 == 0:
-            self._changeDir(False)
+            self._changeDelta(-1)
             self._moveAnt()
         else:
-            self._changeDir(True)
+            self._changeDelta(1)
             self._moveAnt()
