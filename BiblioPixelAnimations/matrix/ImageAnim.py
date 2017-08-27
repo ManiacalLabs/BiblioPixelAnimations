@@ -109,7 +109,6 @@ class loadnextthread(threading.Thread):
         self._wait_event.set()
 
     def run(self):
-        print('load thread running')
         while not self.stopped():
             self._wait_event.wait()
             self.anim.loadNextGIF()
@@ -161,9 +160,7 @@ class ImageAnim(BaseMatrixAnim):
             self.gif_indices = list(range(len(self.gif_files)))
             self.loadNextGIF()  # first load is manual
             self.swapbuf()
-            self.load_thread = loadnextthread(self)
-            # self.load_thread.start()
-            # self.load_thread.loadNext()  # pre-load next image
+            self.load_thread = None
         else:
             self.loadGIFFile(self.imagePath)
             self.swapbuf()
@@ -174,7 +171,10 @@ class ImageAnim(BaseMatrixAnim):
         super().cleanup(clean_layout)
 
     def pre_run(self):
-        self.load_thread.start()
+        if not self.load_thread or not self.load_thread.is_alive():
+            self.load_thread = loadnextthread(self)
+            self.load_thread.start()
+
         self.load_thread.loadNext()
         self.last_start = time.time()
 
@@ -218,7 +218,6 @@ class ImageAnim(BaseMatrixAnim):
 
         self.layout.setBuffer(img[self._curImage][1])
         if self.use_file_fps:
-            # print(img[self._curImage][0])
             self.internal_delay = img[self._curImage][0] / 1000.0
 
         self._curImage += 1
