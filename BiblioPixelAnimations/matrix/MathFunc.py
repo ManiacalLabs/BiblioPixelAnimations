@@ -80,6 +80,7 @@ class MathFunc(BaseMatrixAnim):
                 self.next_func = self.cur_func + 1
                 if self.next_func >= len(self.funcs):
                     self.next_func = 0
+                    self.state = 2
             self.count = 0
             if not self.fade_frames:
                 self.cur_func = self.next_func
