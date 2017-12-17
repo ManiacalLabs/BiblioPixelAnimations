@@ -21,7 +21,7 @@ if os.name == 'nt':
             return img
 
         grab = nt_grab
-    except:
+    except Exception as e:
         pass
 
 if grab is None:
@@ -41,15 +41,15 @@ if grab is None:
 
         grab = mss_grab
         log.info('Using mss module')
-    except:
+    except Exception as e:
         try:
             from PIL import ImageGrab
             log.info("Using PIL ImageGrab module")
-        except:
+        except Exception as e:
             try:
                 import pyscreenshot as ImageGrab
                 log.info("Using pyscreenshot module")
-            except:
+            except Exception as e:
                 raise Exception("Unable to find any available screenshot option.")
 
         grab = ImageGrab.grab

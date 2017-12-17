@@ -47,10 +47,10 @@ class Snake(BaseGameAnim):
         self.placeApple()
 
     def drawBody(self):
-        l = len(self._body)
+        body_len = len(self._body)
         i = 0
         for b in self._body:
-            c = colors.hue_helper(i, l, 1)
+            c = colors.hue_helper(i, body_len, 1)
             x, y = b
             self.layout.set(x, y, c)
             i += 1

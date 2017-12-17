@@ -323,9 +323,9 @@ class Tetris(BaseGameAnim):
                 if self.levelUp:
                     self.layout.drawText(
                         "LVL", self.width // 2 - 8, self.height // 2 - 8, color=colors.Green)
-                    l = "{}".format(self.level)
+                    str_level = "{}".format(self.level)
                     self.layout.drawText(
-                        l, self.width // 2 - (len(l) * 6) // 2 + 1, self.height // 2 + 1, color=colors.Green)
+                        str_level, self.width // 2 - (len(str_level) * 6) // 2 + 1, self.height // 2 + 1, color=colors.Green)
                 else:
                     x = self.width // 2 - 2
                     y = 1
