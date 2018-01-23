@@ -32,12 +32,12 @@ class Searchlights(BaseStripAnim):
             self._currentpos[i] = self._start + self._steps[i]
 
             # average the colors together so they blend
-            self._ledcolors[self._currentpos[i]] = map(lambda x, y: (x + y) // 2, self._color[i], self._ledcolors[self._currentpos[i]])
+            self._ledcolors[self._currentpos[i]] = list(map(lambda x, y: (x + y) // 2, self._color[i], self._ledcolors[self._currentpos[i]]))
             for j in range(1, self._tail):
                 if self._currentpos[i] - j >= 0:
-                    self._ledcolors[self._currentpos[i] - j] = map(lambda x, y: (x + y) // 2, self._ledcolors[self._currentpos[i] - j], colors.color_scale(self._color[i], 255 - (self._fadeAmt * j)))
+                    self._ledcolors[self._currentpos[i] - j] = list(map(lambda x, y: (x + y) // 2, self._ledcolors[self._currentpos[i] - j], colors.color_scale(self._color[i], 255 - (self._fadeAmt * j))))
                 if self._currentpos[i] + j < self._size:
-                    self._ledcolors[self._currentpos[i] + j] = map(lambda x, y: (x + y) // 2, self._ledcolors[self._currentpos[i] + j], colors.color_scale(self._color[i], 255 - (self._fadeAmt * j)))
+                    self._ledcolors[self._currentpos[i] + j] = list(map(lambda x, y: (x + y) // 2, self._ledcolors[self._currentpos[i] + j], colors.color_scale(self._color[i], 255 - (self._fadeAmt * j))))
             if self._start + self._steps[i] >= self._end:
                 self._direction[i] = -1
             elif self._start + self._steps[i] <= 0:
