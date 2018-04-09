@@ -171,12 +171,13 @@ class ImageAnim(BaseMatrixAnim):
         super().cleanup(clean_layout)
 
     def pre_run(self):
-        if not self.load_thread or not self.load_thread.is_alive():
-            self.load_thread = loadnextthread(self)
-            self.load_thread.start()
+        if self.folder_mode:
+            if not self.load_thread or not self.load_thread.is_alive():
+                self.load_thread = loadnextthread(self)
+                self.load_thread.start()
 
-        self.load_thread.loadNext()
-        self.last_start = time.time()
+            self.load_thread.loadNext()
+            self.last_start = time.time()
 
         self._curImage = 0
 

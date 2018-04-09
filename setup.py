@@ -37,7 +37,7 @@ setup(
     author_email='adam@maniacallabs.com',
     url='http://github.com/maniacallabs/BiblioPixelAnimations/',
     license='MIT',
-    packages=find_packages(),
+    packages=find_packages() + ['Graphics', 'Projects'],
     include_package_data=True,
     classifiers=[
         'Development Status :: 5 - Production/Stable',
