@@ -1,3 +1,9 @@
 include VERSION
-include Projects/*
-include Graphics/*
+recursive-include Projects *
+recursive-include Graphics *
+recursive-exclude test *
+recursive-exclude bin *
+recursive-exclude build *
+recursive-exclude htmlcov *
+recursive-exclude dist *
+recursive-exclude *.egg-info
