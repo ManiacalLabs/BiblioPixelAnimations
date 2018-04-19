@@ -1,8 +1,6 @@
 # Based on: https://gist.github.com/kch42/565419
 
-from __future__ import division
 from random import randrange as rand
-
 import bibliopixel.colors as colors
 from bibliopixel.animation import BaseGameAnim
 

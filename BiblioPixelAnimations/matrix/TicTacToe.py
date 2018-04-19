@@ -1,5 +1,3 @@
-from __future__ import division
-
 # much of the code below borrowed from http://cwoebker.com/posts/tic-tac-toe
 import random
 from bibliopixel.animation import BaseMatrixAnim

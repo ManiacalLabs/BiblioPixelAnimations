@@ -1,4 +1,3 @@
-from __future__ import division
 from bibliopixel.animation import BaseCubeAnim
 import bibliopixel.colors as colors
 from bibliopixel import log

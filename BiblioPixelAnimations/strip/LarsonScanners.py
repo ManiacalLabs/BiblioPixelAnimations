@@ -1,5 +1,3 @@
-from __future__ import division
-
 import bibliopixel.colors as colors
 from bibliopixel.animation import BaseStripAnim
 

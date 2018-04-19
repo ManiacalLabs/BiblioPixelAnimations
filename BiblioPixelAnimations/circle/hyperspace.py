@@ -1,4 +1,3 @@
-from __future__ import division
 from bibliopixel.animation import BaseCircleAnim
 import bibliopixel.colors as colors
 import random

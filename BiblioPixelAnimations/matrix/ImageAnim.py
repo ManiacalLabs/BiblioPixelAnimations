@@ -1,5 +1,3 @@
-from __future__ import division
-
 from bibliopixel.animation import BaseMatrixAnim
 from bibliopixel import log
 
