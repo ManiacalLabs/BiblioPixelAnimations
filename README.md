@@ -4,10 +4,12 @@ BiblioPixelAnimations
 User created animations for BiblioPixel.
 
 ## Installation ##
- To install *or upgrade* the repository, just run the following command:
+
+BiblioPixelAnimations is installed or upgraded automatically with BiblioPixel as
+follows:
 
 ```
-pip install BiblioPixelAnimations --upgrade
+pip install BiblioPixel --update
 ```
 
 This will clone the latest code from GitHub and install it to your python path.
@@ -52,8 +54,8 @@ Please include author information in a comment block at the top of your file. By
 
 ## Style Guide ##
 
-Please follow the [PEP 8 Style Guide](https://www.python.org/dev/peps/pep-0008/) coding guidelines. Please upload one animtion per file unless multiple files are required and consider reusability by other developers.
+Please follow the [PEP 8 Style Guide](https://www.python.org/dev/peps/pep-0008/) coding guidelines. Please upload one animtion per file unless multiple files are required, and consider reusability by other developers.
 
-##Modules##
+## Modules ##
 
 If your animation is big enough to require multiple files please build this in to a standalone module and place it in it's own folder.
