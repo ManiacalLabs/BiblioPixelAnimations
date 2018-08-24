@@ -183,7 +183,7 @@ class ImageAnim(BaseMatrixAnim):
         _, ext = os.path.splitext(gif)
         next_buf = self.next_img_buf()
         if ext.lower().endswith("gif"):
-            log.logger.info("Loading {0} ...".format(gif))
+            log.logger.debug("Loading {0} ...".format(gif))
             self._image_buffers[next_buf] = _loadGIFSequence(gif, self.layout, self._bgcolor, self._bright, self._offset)
         else:
             raise ValueError('Must be a GIF file!')

@@ -196,7 +196,7 @@ class Spectrum(BaseCubeAnim):
         if self.draw_obj:
             del self.draw_obj
         name = self.vis_list[self.cur_vis]
-        log.info("Loading {}".format(name))
+        log.debug("Loading {}".format(name))
         self.draw_obj = self.vis_dict[name]
 
     def step(self, amt=1):
