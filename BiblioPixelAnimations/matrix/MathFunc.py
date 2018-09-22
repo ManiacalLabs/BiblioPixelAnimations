@@ -54,6 +54,14 @@ class MathFunc(BaseMatrixAnim):
     def call_func(self, func, x, y, s):
         return abs(int(self.funcs[func](x, y, s))) % 360
 
+    @property
+    def func(self):
+        return self.cur_func / len(self.funcs)
+
+    @func.setter
+    def func(self, f):
+        self.cur_func = min(int(len(self.funcs) * f), len(self.funcs) - 1)
+
     def step(self, amt=1):
         self.layout.all_off()
         for y in range(self.height):
