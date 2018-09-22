@@ -1,5 +1,9 @@
 from bibliopixel.animation import BaseMatrixAnim
-from websocket import create_connection
+try:
+    from websocket import create_connection
+except ImportError:
+    create_connection = None
+
 import threading
 import numpy as np
 

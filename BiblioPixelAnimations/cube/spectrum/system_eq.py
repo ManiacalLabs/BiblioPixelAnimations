@@ -1,5 +1,9 @@
 import numpy as np
-import pyaudio
+try:
+    import pyaudio
+except ImportError:
+    pyaudio = None
+
 import threading
 
 
