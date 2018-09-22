@@ -1,4 +1,4 @@
-from bibliopixel.receiver_anim import BaseReceiver
+from bibliopixel.animation.receiver import BaseReceiver
 import bibliopixel.drivers.network_receiver as net
 from bibliopixel import LEDMatrix, LEDStrip
 
