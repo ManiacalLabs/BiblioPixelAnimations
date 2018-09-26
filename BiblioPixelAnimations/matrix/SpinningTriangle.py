@@ -1,10 +1,11 @@
 from bibliopixel.animation import BaseMatrixAnim
-import bibliopixel.colors as colors
+from bibliopixel.util.colors import palettes
 from bibliopixel.util import pointOnCircle
 
 
 class SpinningTriangle(BaseMatrixAnim):
-    def __init__(self, layout, cx=None, cy=None, radius=None, aa=True):
+    def __init__(self, layout, cx=None, cy=None, radius=None, aa=True,
+                 palette=palettes.get('three_sixty')):
         super(SpinningTriangle, self).__init__(layout)
         self._cx = cx
         self._cy = cy
@@ -18,6 +19,7 @@ class SpinningTriangle(BaseMatrixAnim):
             self._cy = self.height // 2
         if self._radius is None:
             self._radius = (self.width // 2) - 2
+        self.palette = palette
 
     def pre_run(self):
         self._step = 0
@@ -39,7 +41,7 @@ class SpinningTriangle(BaseMatrixAnim):
         b = pointOnCircle(self._cx, self._cy, self._radius, self._angles[1])
         c = pointOnCircle(self._cx, self._cy, self._radius, self._angles[2])
 
-        color = colors.hue2rgb_360(self._angles[0])
+        color = self.palette.get(self._angles[0])
 
         self.layout.drawLine(a[0], a[1], b[0], b[1], color, aa=self.aa)
         self.layout.drawLine(b[0], b[1], c[0], c[1], color, aa=self.aa)

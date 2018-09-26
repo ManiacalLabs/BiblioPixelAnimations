@@ -6,6 +6,7 @@ http://forum.maniacallabs.com/showthread.php?tid=9&highlight=circlepop
 import random
 from bibliopixel.animation import BaseMatrixAnim
 import bibliopixel.colors as colors
+from bibliopixel.util.colors import palettes
 
 
 class Circle():
@@ -30,13 +31,15 @@ class Circle():
 
 class CirclePop(BaseMatrixAnim):
 
-    def __init__(self, layout, bgcolor=colors.Off):
+    def __init__(self, layout, bgcolor=colors.Off,
+                 palette=palettes.get('three_sixty')):
         super(CirclePop, self).__init__(layout)
         self.max_circ = 3  # max number of cirles in the list
         # probability for adding a new Circle to the list. higher values make
         # it less probable.
         self.prob_circ = 8
         self.bgcolor = bgcolor
+        self.palette = palette
 
     def pre_run(self):
         self.cont = []
@@ -51,7 +54,7 @@ class CirclePop(BaseMatrixAnim):
         # loop through our circles, draw and update them
         for circ in self.cont:
             self.layout.drawCircle(circ._x, circ._y, circ._radius,
-                                   colors.hue2rgb_360(circ._color))
+                                   self.palette.get(circ._color))
 
             if not self._step % circ.frameratio:
                 circ.grow()

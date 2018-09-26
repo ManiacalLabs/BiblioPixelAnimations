@@ -1,13 +1,12 @@
 from bibliopixel.animation import BaseCubeAnim
-import bibliopixel.colors as colors
-from bibliopixel import log
+from bibliopixel.util.colors import palettes
+from bibliopixel import log, matrix
 from . system_eq import EQ
-from bibliopixel import matrix
 
 
 class BaseSpectrumDraw(object):
 
-    def __init__(self, frame):
+    def __init__(self, frame, palette=palettes.get()):
         self.frame = frame
         self.width = frame.x
         self.height = frame.y
@@ -15,6 +14,7 @@ class BaseSpectrumDraw(object):
                            for i in range(1024)]
         self.width_map = [((i * (self.width - 1)) // (1023))
                           for i in range(1024)]
+        self.palette = palette
 
     def draw(self, data):
         raise NotImplementedError("Cannot call draw on the base class.")
@@ -29,7 +29,7 @@ class BaseSpectrumDraw(object):
             self.frame._draw_fast_vline(x, y, h, c)
 
     def color_map(self, width, offset=0):
-        return [colors.hue2rgb((((i * (255)) // (width - 1)) + offset) % 256) for i in range(width)]
+        return [self.palette.get((((i * (255)) // (width - 1)) + offset) % 256) for i in range(width)]
 
 
 class PeakLineGraph(BaseSpectrumDraw):

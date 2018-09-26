@@ -1,18 +1,19 @@
 from bibliopixel.animation import BaseMatrixAnim
 import bibliopixel.colors as colors
+from bibliopixel.util.colors import palettes
 from bibliopixel import log
 import time
 
 
 class GradientClock(BaseMatrixAnim):
-    def __init__(self, layout):
+    def __init__(self, layout, palette=palettes.get()):
         super(GradientClock, self).__init__(layout)
 
         self.cdim = self.layout.width
         self.half = self.cdim // 2
         self.odd = (self.half * 2) < self.cdim
 
-        self.hue = colors.hue2rgb
+        self.palette = palette
 
     def step(self, amt=1):
         self.layout.all_off()
@@ -35,6 +36,7 @@ class GradientClock(BaseMatrixAnim):
         log.debug('{}:{}:{}'.format(hrs, mins, sec))
 
         for x in range(self.cdim):
-            self.layout.drawLine(x, 0, x, self.layout.height - 1, colors.hue2rgb(grad[x]))
+            self.layout.drawLine(x, 0, x, self.layout.height - 1,
+                                 self.palette.get(grad[x]))
 
         self._step = 0

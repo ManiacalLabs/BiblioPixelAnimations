@@ -1,12 +1,12 @@
 from bibliopixel.animation import BaseMatrixAnim
-import bibliopixel.colors as colors
+from bibliopixel.util.colors import palettes
 from bibliopixel import log
 from . system_eq import EQ
 
 
 class BaseSpectrumDraw(object):
 
-    def __init__(self, anim):
+    def __init__(self, anim, palette=palettes.get()):
         self.anim = anim
         self.width = anim.width
         self.height = anim.height
@@ -15,6 +15,7 @@ class BaseSpectrumDraw(object):
                            for i in range(1024)]
         self.width_map = [((i * (self.width - 1)) // (1023))
                           for i in range(1024)]
+        self.palette = palette
 
     def draw(self, data):
         raise NotImplementedError("Cannot call draw on the base class.")
@@ -29,7 +30,8 @@ class BaseSpectrumDraw(object):
             self.led._drawFastVLine(x, y, h, c)
 
     def color_map(self, width, offset=0):
-        return [colors.hue2rgb((((i * (255)) // (width - 1)) + offset) % 256) for i in range(width)]
+        return [self.palette.get((((i * (255)) // (width - 1)) + offset) % 256)
+                for i in range(width)]
 
 
 class PeakLineGraph(BaseSpectrumDraw):
