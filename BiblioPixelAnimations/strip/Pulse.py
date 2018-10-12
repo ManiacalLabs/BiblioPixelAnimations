@@ -1,3 +1,4 @@
+
 import bibliopixel.colors as colors
 from bibliopixel.animation import BaseStripAnim
 import random
@@ -26,7 +27,7 @@ class Pulse(BaseStripAnim):
         self.pulse_speed = 0
 
     def add_pulse(self):
-        self.pulse_color = self._colors[random.randrange(0, len(self._colors))]
+        self.pulse_color = random.choice(self._colors)
         self.pulse_speed = random.randrange(self.min_speed, self.max_speed)
         self.pulse_position = 0
 
@@ -47,15 +48,3 @@ class Pulse(BaseStripAnim):
                 self.pulse_speed = 0
             else:
                 self.pulse_position += self.pulse_speed
-
-
-# class LarsonRainbow(LarsonScanner):
-#     """Larson scanner (i.e. Cylon Eye or K.I.T.T.) but Rainbow."""
-#
-#     def __init__(self, layout, tail=2, start=0, end=-1):
-#         super(LarsonRainbow, self).__init__(layout, colors.Off, tail, start, end)
-#
-#     def step(self, amt=1):
-#         self._color = colors.hue_helper(0, self._size, self._step)
-#
-#         super(LarsonRainbow, self).step(amt)
