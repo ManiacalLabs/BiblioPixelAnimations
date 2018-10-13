@@ -1,12 +1,11 @@
 from bibliopixel.animation import BaseCubeAnim
-from bibliopixel.util.colors import palettes
 from bibliopixel import log, matrix
 from . system_eq import EQ
 
 
 class BaseSpectrumDraw(object):
 
-    def __init__(self, frame, palette=palettes.get()):
+    def __init__(self, frame):
         self.frame = frame
         self.width = frame.x
         self.height = frame.y
@@ -14,7 +13,6 @@ class BaseSpectrumDraw(object):
                            for i in range(1024)]
         self.width_map = [((i * (self.width - 1)) // (1023))
                           for i in range(1024)]
-        self.palette = palette
 
     def draw(self, data):
         raise NotImplementedError("Cannot call draw on the base class.")

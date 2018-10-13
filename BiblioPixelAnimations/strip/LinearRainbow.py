@@ -1,12 +1,10 @@
 from bibliopixel.animation import BaseStripAnim
-from bibliopixel.util.colors import palettes
 from bibliopixel import colors
 
 
 class LinearRainbow(BaseStripAnim):
 
-    def __init__(self, layout, max_led=-1, individual_pixel=False,
-                 palette=palettes.get()):
+    def __init__(self, layout, max_led=-1, individual_pixel=False):
         super(LinearRainbow, self).__init__(layout, 0, -1)
         self._minLed = 0
         self._maxLed = max_led
@@ -14,7 +12,6 @@ class LinearRainbow(BaseStripAnim):
             self._maxLed = self.layout.numLEDs - 1
 
         self._individualPixel = individual_pixel
-        self.palette = palette
 
     def pre_run(self):
         self._current = 0

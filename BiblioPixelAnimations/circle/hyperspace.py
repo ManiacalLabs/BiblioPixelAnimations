@@ -1,5 +1,4 @@
 from bibliopixel.animation import BaseCircleAnim
-from bibliopixel.util.colors import palettes
 import bibliopixel.colors as colors
 import random
 
@@ -52,15 +51,13 @@ class Hyperspace(BaseCircleAnim):
 
 
 class HyperspaceRainbow(BaseCircleAnim):
-    def __init__(self, layout, tail=4, growthRate=4, angleDiff=6,
-                 palette=palettes.get()):
+    def __init__(self, layout, tail=4, growthRate=4, angleDiff=6):
         super(HyperspaceRainbow, self).__init__(layout)
 
         self._tail = tail
         self._tails = [[] for x in range(360)]
         self._growthRate = growthRate
         self._angleDiff = angleDiff
-        self.palette = palette
 
     def pre_run(self):
         self._step = 0

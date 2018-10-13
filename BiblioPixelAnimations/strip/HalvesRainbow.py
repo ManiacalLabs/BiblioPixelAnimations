@@ -1,5 +1,4 @@
 from bibliopixel.animation import BaseStripAnim
-from bibliopixel.util.colors import palettes
 import math
 
 # This one is best run in the region of 50 frames a second
@@ -7,8 +6,7 @@ import math
 
 class HalvesRainbow(BaseStripAnim):
 
-    def __init__(self, layout, max_led=-1, centre_out=True, rainbow_inc=4,
-                 palette=palettes.get()):
+    def __init__(self, layout, max_led=-1, centre_out=True, rainbow_inc=4):
         super(HalvesRainbow, self).__init__(layout, 0, -1)
         self._minLed = 0
         self._maxLed = max_led
@@ -18,7 +16,6 @@ class HalvesRainbow(BaseStripAnim):
         self._step = 0
         self._centerOut = centre_out
         self._rainbowInc = rainbow_inc
-        self.palette = palette
 
     def pre_run(self):
         self._current = 0

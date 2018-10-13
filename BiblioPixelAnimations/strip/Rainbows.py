@@ -1,5 +1,4 @@
 import bibliopixel.colors as colors
-from bibliopixel.util.colors import palettes
 from bibliopixel.animation import BaseStripAnim
 
 
@@ -9,10 +8,8 @@ class Rainbow(BaseStripAnim):
        are using, use RainbowCycle instead
     """
 
-    def __init__(self, layout, start=0, end=-1,
-                 palette=palettes.get()):
+    def __init__(self, layout, start=0, end=-1):
         super(Rainbow, self).__init__(layout, start, end)
-        self.palette = palette
 
     def pre_run(self):
         self._step = 0

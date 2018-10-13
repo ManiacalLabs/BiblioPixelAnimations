@@ -1,5 +1,5 @@
 from bibliopixel.animation import BaseCircleAnim
-from bibliopixel.util.colors import COLORS, palettes
+from bibliopixel.util.colors import COLORS
 
 
 class CircleFill(BaseCircleAnim):
@@ -20,10 +20,6 @@ class CircleFill(BaseCircleAnim):
 
 
 class CircleFillRainbow(BaseCircleAnim):
-
-    def __init__(self, layout, palette=palettes.get('three_sixty')):
-        super().__init__(layout)
-        self.palette = palette
 
     def pre_run(self):
         self._step = 0

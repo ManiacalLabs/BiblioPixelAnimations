@@ -1,5 +1,4 @@
 from bibliopixel.animation import BaseMatrixAnim
-from bibliopixel.util.colors import palettes
 import math, random
 
 
@@ -36,14 +35,13 @@ class MathFunc(BaseMatrixAnim):
     ]
 
     def __init__(self, layout, frames_per=300, func=0, rand=True,
-                 fade_frames=30, palette=palettes.get('three_sixty')):
+                 fade_frames=30):
         super().__init__(layout)
         self.start_func = func
         self.frames_per = frames_per
         self.rand = rand
         self.fade_frames = fade_frames
         self.fade_step = 1.0 / fade_frames if fade_frames else 0.0
-        self.palette = palette
 
     def pre_run(self):
         self._step = 0

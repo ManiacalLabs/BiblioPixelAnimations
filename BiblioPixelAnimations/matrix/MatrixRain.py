@@ -1,5 +1,4 @@
 from bibliopixel.animation import BaseMatrixAnim
-from bibliopixel.util.colors import palettes
 import bibliopixel.colors as colors
 import random
 
@@ -49,12 +48,10 @@ class MatrixRain(BaseMatrixAnim):
 
 class MatrixRainBow(BaseMatrixAnim):
 
-    def __init__(self, layout, tail=4, growthRate=4,
-                 palette=palettes.get()):
+    def __init__(self, layout, tail=4, growthRate=4):
         super(MatrixRainBow, self).__init__(layout)
         self._tail = tail
         self._growthRate = growthRate
-        self.palette = palette
 
     def pre_run(self):
         self._drops = [[] for x in range(self.layout.width)]

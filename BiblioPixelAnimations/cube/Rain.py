@@ -1,17 +1,15 @@
 from bibliopixel.animation import BaseCubeAnim
 import bibliopixel.colors as colors
-from bibliopixel.util.colors import palettes
 import random
 
 
 class RainBow(BaseCubeAnim):
 
-    def __init__(self, layout, tail=4, growthRate=12, palette=palettes.get()):
+    def __init__(self, layout, tail=4, growthRate=12):
         super(RainBow, self).__init__(layout)
         self._tail = tail
         self._drops = [[[] for z in range(self.z)] for x in range(self.x)]
         self._growthRate = growthRate
-        self.palette = palette
 
     def pre_run(self):
         self._step = 0

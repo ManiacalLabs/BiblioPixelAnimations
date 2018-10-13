@@ -1,13 +1,12 @@
 import time
 from bibliopixel.animation import BaseStripAnim
-from bibliopixel.util.colors import palettes
 
 
 class RGBClock(BaseStripAnim):
     """RGB Clock done with RGB LED strip(s)"""
 
     def __init__(self, layout, hStart=0, hEnd=0, mStart=1, mEnd=1, sStart=2,
-                 sEnd=2, palette=palettes.get()):
+                 sEnd=2):
         super(RGBClock, self).__init__(layout, 0, -1)
         if hEnd < hStart:
             hEnd = hStart + 1
@@ -21,7 +20,6 @@ class RGBClock(BaseStripAnim):
         self._mEnd = mEnd
         self._sStart = sStart
         self._sEnd = sEnd
-        self.palette = palette
 
     def step(self, amt=1):
         t = time.localtime()

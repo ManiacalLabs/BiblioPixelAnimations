@@ -1,19 +1,16 @@
 from bibliopixel.animation import BaseMatrixAnim
 import bibliopixel.colors as colors
-from bibliopixel.util.colors import palettes
 from bibliopixel import log
 import time
 
 
 class GradientClock(BaseMatrixAnim):
-    def __init__(self, layout, palette=palettes.get()):
+    def __init__(self, layout):
         super(GradientClock, self).__init__(layout)
 
         self.cdim = self.layout.width
         self.half = self.cdim // 2
         self.odd = (self.half * 2) < self.cdim
-
-        self.palette = palette
 
     def step(self, amt=1):
         self.layout.all_off()
