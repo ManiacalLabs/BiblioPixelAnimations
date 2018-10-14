@@ -5,7 +5,7 @@ from bibliopixel import colors
 class Swirl(BaseCircleAnim):
 
     def __init__(self, layout, angle=12):
-        super(Swirl, self).__init__(layout)
+        super().__init__(layout)
         self.angle = angle
 
     def pre_run(self):

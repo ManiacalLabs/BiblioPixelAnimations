@@ -6,7 +6,7 @@ class LarsonScanner(BaseStripAnim):
     """Larson scanner (i.e. Cylon Eye or K.I.T.T.)."""
 
     def __init__(self, layout, color=colors.Red, tail=2, start=0, end=-1):
-        super(LarsonScanner, self).__init__(layout, start, end)
+        super().__init__(layout, start, end)
         self._color = color
 
         self._tail = tail + 1  # makes tail math later easier
@@ -44,9 +44,9 @@ class LarsonRainbow(LarsonScanner):
     """Larson scanner (i.e. Cylon Eye or K.I.T.T.) but Rainbow."""
 
     def __init__(self, layout, tail=2, start=0, end=-1):
-        super(LarsonRainbow, self).__init__(layout, colors.Off, tail, start, end)
+        super().__init__(layout, colors.Off, tail, start, end)
 
     def step(self, amt=1):
         self._color = colors.hue_helper(0, self._size, self._step)
 
-        super(LarsonRainbow, self).step(amt)
+        super().step(amt)

@@ -7,7 +7,7 @@ class Wave(BaseStripAnim):
     """Sine wave animation."""
 
     def __init__(self, layout, color=colors.Red, cycles=2, start=0, end=-1):
-        super(Wave, self).__init__(layout, start, end)
+        super().__init__(layout, start, end)
         self._color = color
         self._cycles = cycles
 
@@ -43,7 +43,7 @@ class WaveMove(BaseStripAnim):
     """Sine wave animation."""
 
     def __init__(self, layout, color=colors.Red, cycles=2, start=0, end=-1):
-        super(WaveMove, self).__init__(layout, start, end)
+        super().__init__(layout, start, end)
         self._color = color
         self._cycles = cycles
         self._moveStep = 0

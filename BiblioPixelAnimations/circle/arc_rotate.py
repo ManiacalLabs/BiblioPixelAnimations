@@ -5,7 +5,7 @@ from bibliopixel import colors
 class ArcRotate(BaseCircleAnim):
 
     def __init__(self, layout, colors=[colors.Red, colors.Green, colors.Blue], arc=180, outterRing=-1):
-        super(ArcRotate, self).__init__(layout)
+        super().__init__(layout)
         if outterRing < 0 or outterRing > self.layout.lastRing:
             outterRing = self.layout.lastRing
         self.outterRing = outterRing

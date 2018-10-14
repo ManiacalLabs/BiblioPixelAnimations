@@ -14,7 +14,7 @@ class BEClock(BaseStripAnim):
 
     def __init__(self, layout, onColor=colors.Red, offColor=colors.Off,
                  bitWidth=1, bitSpace=1, reverse=False):
-        super(BEClock, self).__init__(layout, 0, 0)
+        super().__init__(layout, 0, 0)
         self._onColor = onColor
         self._offColor = offColor
         self._bitWidth = bitWidth - 1

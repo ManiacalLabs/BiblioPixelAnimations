@@ -5,7 +5,7 @@ from bibliopixel import colors
 class LinearRainbow(BaseStripAnim):
 
     def __init__(self, layout, max_led=-1, individual_pixel=False):
-        super(LinearRainbow, self).__init__(layout, 0, -1)
+        super().__init__(layout, 0, -1)
         self._minLed = 0
         self._maxLed = max_led
         if self._maxLed < 0 or self._maxLed < self._minLed:

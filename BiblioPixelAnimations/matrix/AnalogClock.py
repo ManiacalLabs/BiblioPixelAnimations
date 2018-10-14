@@ -6,7 +6,7 @@ from bibliopixel.util import pointOnCircle
 
 class AnalogClock(BaseMatrixAnim):
     def __init__(self, layout, aa=True):
-        super(AnalogClock, self).__init__(layout)
+        super().__init__(layout)
         self._centerX = (self.layout.width - 1) // 2
         self._centerY = (self.layout.height - 1) // 2
         self.hand_length = min(self._centerX, self._centerY)
@@ -33,7 +33,7 @@ class AnalogClock(BaseMatrixAnim):
 class RGBAnalogClock(BaseMatrixAnim):
 
     def __init__(self, layout, aa=True):
-        super(RGBAnalogClock, self).__init__(layout)
+        super().__init__(layout)
         self._centerX = (self.layout.width - 1) // 2
         self._centerY = (self.layout.height - 1) // 2
         self.hand_length = min(self._centerX, self._centerY)

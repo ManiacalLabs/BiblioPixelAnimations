@@ -5,7 +5,7 @@ import random
 
 class Hyperspace(BaseCircleAnim):
     def __init__(self, layout, colors=[colors.Green], tail=4, growthRate=4, angleDiff=6):
-        super(Hyperspace, self).__init__(layout)
+        super().__init__(layout)
         if not isinstance(colors, list):
             colors = [colors]
         self._colors = colors
@@ -52,7 +52,7 @@ class Hyperspace(BaseCircleAnim):
 
 class HyperspaceRainbow(BaseCircleAnim):
     def __init__(self, layout, tail=4, growthRate=4, angleDiff=6):
-        super(HyperspaceRainbow, self).__init__(layout)
+        super().__init__(layout)
 
         self._tail = tail
         self._tails = [[] for x in range(360)]

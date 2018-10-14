@@ -9,7 +9,7 @@ class Searchlights(BaseStripAnim):
 
     def __init__(self, layout, colors=[colors.MediumSeaGreen, colors.MediumPurple, colors.MediumVioletRed], tail=5, start=0, end=-1):
 
-        super(Searchlights, self).__init__(layout, start, end)
+        super().__init__(layout, start, end)
 
         self._color = colors
         self._tail = tail + 1

@@ -10,7 +10,7 @@ class MatrixBinaryClock(BaseMatrixAnim):
 
     def __init__(self, layout, onColor=colors.Red, offColor=colors.Blue,
                  origX=0, origY=0, lightSize=1, colSpacing=1):
-        super(MatrixBinaryClock, self).__init__(layout)
+        super().__init__(layout)
         self._onColor = onColor
         self._offColor = offColor
         self._origX = origX

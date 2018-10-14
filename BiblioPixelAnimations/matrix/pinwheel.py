@@ -5,7 +5,7 @@ import bibliopixel.colors as colors
 class Pinwheel(BaseMatrixAnim):
 
     def __init__(self, layout, dir=True):
-        super(Pinwheel, self).__init__(layout)
+        super().__init__(layout)
         self._center = (self.width // 2, self.height // 2)
         self._dir = dir
         self._len = (self.width * 2) + (self.height * 2) - 2

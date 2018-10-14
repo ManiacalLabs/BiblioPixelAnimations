@@ -5,7 +5,7 @@ class ColorChase(BaseStripAnim):
     """Chase one pixel down the strip."""
 
     def __init__(self, layout, color=[255, 0, 0], width=1, start=0, end=-1):
-        super(ColorChase, self).__init__(layout, start, end)
+        super().__init__(layout, start, end)
         self._color = color
         self._width = width
 

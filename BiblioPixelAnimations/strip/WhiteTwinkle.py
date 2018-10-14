@@ -22,7 +22,7 @@ class WhiteTwinkle(BaseStripAnim):
 
     def __init__(self, layout, max_led=None, density=80, speed=2, max_bright=255):
 
-        super(WhiteTwinkle, self).__init__(layout, 0, -1)
+        super().__init__(layout, 0, -1)
         self._current = 0
         self._minLed = 0
         self._maxLed = max_led

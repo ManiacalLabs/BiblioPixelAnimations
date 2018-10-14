@@ -5,7 +5,7 @@ from bibliopixel import colors
 class Diag(BaseCircleAnim):
 
     def __init__(self, layout, turns=1, angle=6, direction=False):
-        super(Diag, self).__init__(layout)
+        super().__init__(layout)
         self.turns = turns
         self.angle = angle
         self.slice = 360 / self.ringCount * self.turns

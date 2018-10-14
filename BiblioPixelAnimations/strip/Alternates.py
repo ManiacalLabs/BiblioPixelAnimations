@@ -24,7 +24,7 @@ from bibliopixel.animation import BaseStripAnim
 class Alternates(BaseStripAnim):
 
     def __init__(self, layout, max_led=-1, color1=(255, 255, 255), color2=(0, 0, 0)):
-        super(Alternates, self).__init__(layout, 0, -1)
+        super().__init__(layout, 0, -1)
         self._current = 0
         self._minLed = 0
         self._maxLed = max_led

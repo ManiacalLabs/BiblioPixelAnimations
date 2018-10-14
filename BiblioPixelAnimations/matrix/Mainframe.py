@@ -6,7 +6,7 @@ import os
 class Mainframe(BaseMatrixAnim):
 
     def __init__(self, layout, scroll=True, color=colors.Red, bgcolor=colors.Off):
-        super(Mainframe, self).__init__(layout)
+        super().__init__(layout)
         self.color = color
         self.bgcolor = bgcolor
         self.scroll = scroll

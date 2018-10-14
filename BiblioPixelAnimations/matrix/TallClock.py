@@ -6,7 +6,7 @@ import time
 class TallClock(BaseMatrixAnim):
 
     def __init__(self, layout):
-        super(TallClock, self).__init__(layout)
+        super().__init__(layout)
 
     def step(self, amt):
         self.layout.setTexture([[colors.hue_helper(

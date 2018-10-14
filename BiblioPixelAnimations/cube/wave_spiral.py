@@ -9,7 +9,7 @@ def spiralOrder(matrix):
 class WaveSpiral(BaseCubeAnim):
 
     def __init__(self, layout, offset=1, dir=True):
-        super(WaveSpiral, self).__init__(layout)
+        super().__init__(layout)
         self.offset = offset
         self._dir = dir
         self.spiral_len = self.x * self.y

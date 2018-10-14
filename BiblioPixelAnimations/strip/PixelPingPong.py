@@ -24,7 +24,7 @@ class PixelPingPong(BaseStripAnim):
 
     def __init__(self, layout, max_led=None, color=(255, 255, 255),
                  total_pixels=1, fade_delay=1):
-        super(PixelPingPong, self).__init__(layout, 0, -1)
+        super().__init__(layout, 0, -1)
         self._current = 0
         self._minLed = 0
         self._maxLed = max_led

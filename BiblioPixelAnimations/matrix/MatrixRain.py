@@ -5,7 +5,7 @@ import random
 
 class MatrixRain(BaseMatrixAnim):
     def __init__(self, layout, colors=[colors.Green], tail=4, growthRate=4):
-        super(MatrixRain, self).__init__(layout)
+        super().__init__(layout)
         self._colors = colors
         self._tail = tail
         self._growthRate = growthRate
@@ -49,7 +49,7 @@ class MatrixRain(BaseMatrixAnim):
 class MatrixRainBow(BaseMatrixAnim):
 
     def __init__(self, layout, tail=4, growthRate=4):
-        super(MatrixRainBow, self).__init__(layout)
+        super().__init__(layout)
         self._tail = tail
         self._growthRate = growthRate
 

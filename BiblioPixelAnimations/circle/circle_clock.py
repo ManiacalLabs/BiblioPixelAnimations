@@ -6,7 +6,7 @@ import time
 class CircleClock(BaseCircleAnim):
 
     def __init__(self, layout):
-        super(CircleClock, self).__init__(layout)
+        super().__init__(layout)
         last = self.lastRing
         self.hands = [
             {

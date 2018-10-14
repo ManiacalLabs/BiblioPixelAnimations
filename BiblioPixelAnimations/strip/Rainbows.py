@@ -9,7 +9,7 @@ class Rainbow(BaseStripAnim):
     """
 
     def __init__(self, layout, start=0, end=-1):
-        super(Rainbow, self).__init__(layout, start, end)
+        super().__init__(layout, start, end)
 
     def pre_run(self):
         self._step = 0
@@ -29,7 +29,7 @@ class RainbowCycle(BaseStripAnim):
     """Generate rainbow wheel equally distributed over strip."""
 
     def __init__(self, layout, start=0, end=-1):
-        super(RainbowCycle, self).__init__(layout, start, end)
+        super().__init__(layout, start, end)
 
     def pre_run(self):
         self._step = 0

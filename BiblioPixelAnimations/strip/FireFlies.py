@@ -7,7 +7,7 @@ class FireFlies(BaseStripAnim):
     """Stobe Light Effect."""
 
     def __init__(self, layout, colors=[colors.Red], width=1, count=1, start=0, end=-1):
-        super(FireFlies, self).__init__(layout, start, end)
+        super().__init__(layout, start, end)
         self._colors = colors
         self._color_count = len(colors)
         self._width = width

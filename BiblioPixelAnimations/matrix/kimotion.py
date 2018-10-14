@@ -38,7 +38,7 @@ def thread_lock():
 class ws_thread(threading.Thread):
 
     def __init__(self, server):
-        super(ws_thread, self).__init__()
+        super().__init__()
         self.setDaemon(True)
         self._stop = threading.Event()
         self._reading = thread_lock()
@@ -85,7 +85,7 @@ class SandStorm(KimotionShader):
                  mid_color=[40, 0, 114],
                  far_color=[2, 2, 12], far_z=1100):
 
-        super(SandStorm, self).__init__(anim)
+        super().__init__(anim)
 
         self.min_z = float(min_z)
         self.max_z = float(max_z)
@@ -132,7 +132,7 @@ class Kimotion(BaseMatrixAnim):
     }
 
     def __init__(self, layout, server="localhost:1337", mirror=True, crop=True, shader="Sandstorm", **kwargs):
-        super(Kimotion, self).__init__(layout)
+        super().__init__(layout)
         self.server = server
         self.mirror = mirror
         self.crop = crop

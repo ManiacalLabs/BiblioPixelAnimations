@@ -7,7 +7,7 @@ import bibliopixel.util as util
 class Snake(BaseGameAnim):
 
     def __init__(self, layout, inputDev):
-        super(Snake, self).__init__(layout, inputDev)
+        super().__init__(layout, inputDev)
         self._growLen = 4
         self._lives = 4
         self._level = 1

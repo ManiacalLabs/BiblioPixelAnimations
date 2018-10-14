@@ -7,7 +7,7 @@ class ColorPattern(BaseStripAnim):
 
     def __init__(self, layout, colors=[colors.Red, colors.Green, colors.Blue],
                  width=1, dir=True):
-        super(ColorPattern, self).__init__(layout)
+        super().__init__(layout)
         self._colors = colors
         self._colorCount = len(colors)
         self._width = width

@@ -8,7 +8,7 @@ from collections import deque
 class CPUUsage(BaseMatrixAnim):
 
     def __init__(self, layout, onColor=colors.Red):
-        super(CPUUsage, self).__init__(layout)
+        super().__init__(layout)
         self._onColor = onColor
 
         self._usage = deque(iterable=[0] * self.width, maxlen=self.width)

@@ -28,7 +28,7 @@ def genCubeVector(x, y, z, x_mult=1, y_mult=1, z_mult=1):
 class CubeBloom(BaseCubeAnim):
 
     def __init__(self, layout, dir=True):
-        super(CubeBloom, self).__init__(layout)
+        super().__init__(layout)
         self._vector = genCubeVector(self.x, self.y, self.z)
         self._dir = dir
 

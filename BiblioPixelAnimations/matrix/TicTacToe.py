@@ -125,7 +125,7 @@ class Tic(object):
 
 class TicTacToe(BaseMatrixAnim):
     def __init__(self, layout):
-        super(TicTacToe, self).__init__(layout)
+        super().__init__(layout)
 
         self._showWinCount = 0
 

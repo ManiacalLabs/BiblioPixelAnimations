@@ -6,7 +6,7 @@ import random
 class FireFlies(BaseCircleAnim):
 
     def __init__(self, layout, colors=[colors.Red, colors.Green, colors.Blue], count=10):
-        super(FireFlies, self).__init__(layout)
+        super().__init__(layout)
         self._colors = colors
         self._color_count = len(colors)
         self._count = count

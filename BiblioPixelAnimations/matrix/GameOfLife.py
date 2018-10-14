@@ -115,7 +115,7 @@ class Table:
 class GameOfLife(BaseMatrixAnim):
 
     def __init__(self, layout, color=colors.Red, bg=colors.Off, toroidal=False):
-        super(GameOfLife, self).__init__(layout)
+        super().__init__(layout)
 
         self._color = color
         self._bg = bg
@@ -159,7 +159,7 @@ class GameOfLife(BaseMatrixAnim):
 class GameOfLifeRGB(BaseMatrixAnim):
 
     def __init__(self, layout, toroidal=True):
-        super(GameOfLifeRGB, self).__init__(layout)
+        super().__init__(layout)
 
         self.toroidal = toroidal
 
@@ -211,7 +211,7 @@ class GameOfLifeRGB(BaseMatrixAnim):
 class GameOfLifeClock(BaseMatrixAnim):
 
     def __init__(self, layout, font_name='16x8', mil_time=False):
-        super(GameOfLifeClock, self).__init__(layout)
+        super().__init__(layout)
         self.font_name = font_name
         self.mil_time = mil_time
         self.scale = 1

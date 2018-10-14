@@ -5,7 +5,7 @@ from bibliopixel import colors
 class PinWheel(BaseCircleAnim):
 
     def __init__(self, layout, colors=[colors.Red, colors.Green, colors.Blue]):
-        super(PinWheel, self).__init__(layout)
+        super().__init__(layout)
         self.colors = colors
         self.blades = len(self.colors)
         self.sepDegrees = 360.0 / self.blades

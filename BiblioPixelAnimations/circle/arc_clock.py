@@ -6,7 +6,7 @@ import time
 class ArcClock(BaseCircleAnim):
 
     def __init__(self, layout):
-        super(ArcClock, self).__init__(layout)
+        super().__init__(layout)
         self.hands = [
             {
                 'rings': [0, 1],

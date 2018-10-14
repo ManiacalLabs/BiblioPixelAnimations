@@ -9,7 +9,7 @@ import bibliopixel.colors as colors
 class HEXClock(BaseStripAnim):
 
     def __init__(self, layout):
-        super(HEXClock, self).__init__(layout, 0, -1)
+        super().__init__(layout, 0, -1)
 
     def step(self, amt=1):
         t = time.localtime()

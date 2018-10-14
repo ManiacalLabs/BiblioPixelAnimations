@@ -8,7 +8,7 @@ class ScrollText(BaseMatrixAnim):
     def __init__(self, layout, text='ScrollText', xPos=0, yPos=0,
                  color=colors.White, bgcolor=colors.Off,
                  font_name=font.default_font, font_scale=1):
-        super(ScrollText, self).__init__(layout)
+        super().__init__(layout)
         self.bgcolor = bgcolor
         self.color = color
         self._text = text
@@ -37,7 +37,7 @@ class ScrollText(BaseMatrixAnim):
 class BounceText(BaseMatrixAnim):
 
     def __init__(self, layout, text='BounceText', xPos=0, yPos=0, buffer=0, color=colors.White, bgcolor=colors.Off, font_name=font.default_font, font_scale=1):
-        super(BounceText, self).__init__(layout)
+        super().__init__(layout)
         self.color = color
         self.bgcolor = bgcolor
         self._text = text

@@ -5,7 +5,7 @@ from bibliopixel import LEDMatrix, LEDStrip
 
 class GenericNetworkReceiver(BaseReceiver):
     def __init__(self, layout, port=3142, interface='0.0.0.0', raw=False, width=None, height=None):
-        super(GenericNetworkReceiver, self).__init__(layout)
+        super().__init__(layout)
         self.raw = raw
         self.address = (interface, port)
         net.SocketServer.TCPServer.allow_reuse_address = True

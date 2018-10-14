@@ -5,7 +5,7 @@ from bibliopixel import colors
 class CircleBloom(BaseCircleAnim):
 
     def __init__(self, layout, spread=1):
-        super(CircleBloom, self).__init__(layout)
+        super().__init__(layout)
         self.spread = spread
 
     def pre_run(self):

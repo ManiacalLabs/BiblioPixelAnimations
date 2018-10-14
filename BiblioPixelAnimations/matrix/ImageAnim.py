@@ -88,7 +88,7 @@ def _loadGIFSequence(imagePath, layout, bgcolor, bright, offset):
 class loadnextthread(threading.Thread):
 
     def __init__(self, imganim):
-        super(loadnextthread, self).__init__()
+        super().__init__()
         self.setDaemon(True)
         self._stop_event = threading.Event()
         self._wait_event = threading.Event()
@@ -124,7 +124,7 @@ class ImageAnim(BaseMatrixAnim):
         bgcolor - RGB tuple color to replace any transparent pixels with. Avoids transparent showing as black
         brightness - Brightness value (0-255) to scale the image by. Otherwise uses master brightness at the time of creation
         """
-        super(ImageAnim, self).__init__(layout)
+        super().__init__(layout)
 
         self.cycles = cycles
         self.cycle_count = 0

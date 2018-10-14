@@ -6,7 +6,7 @@ class PartyMode(BaseStripAnim):
     """Stobe Light Effect."""
 
     def __init__(self, layout, colors=[colors.Red, colors.Green, colors.Blue], start=0, end=-1):
-        super(PartyMode, self).__init__(layout, start, end)
+        super().__init__(layout, start, end)
         self._colors = colors
         self._color_count = len(colors)
 

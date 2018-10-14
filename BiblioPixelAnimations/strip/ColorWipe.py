@@ -5,7 +5,7 @@ class ColorWipe(BaseStripAnim):
     """Fill the dots progressively along the strip."""
 
     def __init__(self, layout, color=[255, 0, 0], start=0, end=-1):
-        super(ColorWipe, self).__init__(layout, start, end)
+        super().__init__(layout, start, end)
         self._color = color
 
     def pre_run(self):

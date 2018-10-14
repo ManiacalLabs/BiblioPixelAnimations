@@ -10,7 +10,7 @@ class ColorFade(BaseStripAnim):
         return main + [i for i in reversed(main[0:len(main) - 1])]
 
     def __init__(self, layout, colors=[colors.Red], step=5, start=0, end=-1):
-        super(ColorFade, self).__init__(layout, start, end)
+        super().__init__(layout, start, end)
         self._colors = colors
         self._levels = self.wave_range(30, 255, step)
         self._level_count = len(self._levels)

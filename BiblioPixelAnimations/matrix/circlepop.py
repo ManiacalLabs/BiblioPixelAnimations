@@ -31,7 +31,7 @@ class Circle():
 class CirclePop(BaseMatrixAnim):
 
     def __init__(self, layout, bgcolor=colors.Off):
-        super(CirclePop, self).__init__(layout)
+        super().__init__(layout)
         self.max_circ = 3  # max number of cirles in the list
         # probability for adding a new Circle to the list. higher values make
         # it less probable.

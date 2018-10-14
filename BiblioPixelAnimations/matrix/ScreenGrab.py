@@ -56,7 +56,7 @@ if grab is None:
 class ScreenGrab(BaseMatrixAnim):
 
     def __init__(self, layout, bbox=(300, 300, 332, 332), mirror=False, offset=0.0, crop=True):
-        super(ScreenGrab, self).__init__(layout)
+        super().__init__(layout)
 
         if not sum(bbox):
             bbox = None

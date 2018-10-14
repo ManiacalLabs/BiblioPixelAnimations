@@ -35,7 +35,7 @@ class BaseSpectrumDraw(object):
 class PeakLineGraph(BaseSpectrumDraw):
 
     def __init__(self, anim):
-        super(PeakLineGraph, self).__init__(anim)
+        super().__init__(anim)
         self.peak_dots = True
         self.peaks = [0] * self.width
 
@@ -72,14 +72,14 @@ class PeakLineGraph(BaseSpectrumDraw):
 class BasicLineGraph(PeakLineGraph):
 
     def __init__(self, anim):
-        super(BasicLineGraph, self).__init__(anim)
+        super().__init__(anim)
         self.peak_dots = False
 
 
 class Spread(BaseSpectrumDraw):
 
     def __init__(self, anim):
-        super(Spread, self).__init__(anim)
+        super().__init__(anim)
         self.center_line = self.height // 2
         self.offset = 0
         self.color_offset = 0
@@ -109,19 +109,19 @@ class Spread(BaseSpectrumDraw):
 
 class ScrollSpread(Spread):
     def __init__(self, anim):
-        super(ScrollSpread, self).__init__(anim)
+        super().__init__(anim)
         self.scroll = True
 
 
 class InverseSpread(Spread):
     def __init__(self, anim):
-        super(InverseSpread, self).__init__(anim)
+        super().__init__(anim)
         self.inverse = True
 
 
 class InverseScrollSpread(Spread):
     def __init__(self, anim):
-        super(InverseScrollSpread, self).__init__(anim)
+        super().__init__(anim)
         self.scroll = True
         self.inverse = True
 
@@ -141,7 +141,7 @@ class Spectrum(BaseMatrixAnim):
     def __init__(self, layout, vis_list=None, steps_per_vis=None,
                  bins=64, max_freq=4000, log_scale=True, auto_gain=False, gain=3):
 
-        super(Spectrum, self).__init__(layout)
+        super().__init__(layout)
         self.source = EQ(bins=bins, max_freq=max_freq,
                          log_scale=log_scale, auto_gain=auto_gain, gain=gain)
         self.draw_obj = None

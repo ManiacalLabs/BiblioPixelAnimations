@@ -4,7 +4,7 @@ from bibliopixel.util import pointOnCircle
 
 class SpinningTriangle(BaseMatrixAnim):
     def __init__(self, layout, cx=None, cy=None, radius=None, aa=True):
-        super(SpinningTriangle, self).__init__(layout)
+        super().__init__(layout)
         self._cx = cx
         self._cy = cy
         self._radius = radius

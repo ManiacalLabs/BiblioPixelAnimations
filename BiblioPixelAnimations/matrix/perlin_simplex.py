@@ -5,7 +5,7 @@ from noise import pnoise3, snoise3
 class PerlinSimplex(BaseMatrixAnim):
 
     def __init__(self, layout, freq=16, octaves=1, type=True):
-        super(PerlinSimplex, self).__init__(layout)
+        super().__init__(layout)
         self._step = 1
         self._freq = float(freq)
         self._octaves = octaves
