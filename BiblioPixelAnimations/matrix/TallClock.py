@@ -1,16 +1,15 @@
 from bibliopixel.animation import BaseMatrixAnim
-import bibliopixel.colors as colors
 import time
 
 
 class TallClock(BaseMatrixAnim):
 
-    def __init__(self, layout):
-        super().__init__(layout)
+    def __init__(self, layout, **kwds):
+        super().__init__(layout, **kwds)
 
     def step(self, amt):
-        self.layout.setTexture([[colors.hue_helper(
-            y, self.height, self._step * 2)] * self.width for y in range(self.height)])
+        self.layout.setTexture([[self.palette.get(
+            y * 255 / self.height + self._step * 2)] * self.width for y in range(self.height)])
         self.layout.all_off()
         t = time.localtime()
         hrs = str(t.tm_hour).zfill(2)

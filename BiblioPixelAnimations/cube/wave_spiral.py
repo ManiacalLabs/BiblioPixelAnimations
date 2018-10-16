@@ -1,5 +1,4 @@
 from bibliopixel.animation.cube import BaseCubeAnim
-import bibliopixel.colors as colors
 
 
 def spiralOrder(matrix):
@@ -8,8 +7,8 @@ def spiralOrder(matrix):
 
 class WaveSpiral(BaseCubeAnim):
 
-    def __init__(self, layout, offset=1, dir=True):
-        super().__init__(layout)
+    def __init__(self, layout, offset=1, dir=True, **kwds):
+        super().__init__(layout, **kwds)
         self.offset = offset
         self._dir = dir
         self.spiral_len = self.x * self.y
@@ -35,9 +34,9 @@ class WaveSpiral(BaseCubeAnim):
         offset_total = 0
         for z in range(self.z):
             for i in range(self.spiral_len):
-                c = colors.hue_helper(i, self.spiral_len, s + offset_total)
                 x, y = self.spiral[i]
-                self.layout.set(x, y, z, c)
+                index = i * 255 / self.spiral_len + s + offset_total
+                self.layout.set(x, y, z, self.palette.get(index))
             offset_total += self.offset
 
         self._step += amt

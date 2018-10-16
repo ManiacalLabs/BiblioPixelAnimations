@@ -1,4 +1,3 @@
-import bibliopixel.colors as colors
 from bibliopixel.animation import BaseStripAnim
 
 
@@ -8,8 +7,8 @@ class Rainbow(BaseStripAnim):
        are using, use RainbowCycle instead
     """
 
-    def __init__(self, layout, start=0, end=-1):
-        super().__init__(layout, start, end)
+    def __init__(self, layout, start=0, end=-1, **kwds):
+        super().__init__(layout, start, end, **kwds)
 
     def pre_run(self):
         self._step = 0
@@ -28,16 +27,16 @@ class Rainbow(BaseStripAnim):
 class RainbowCycle(BaseStripAnim):
     """Generate rainbow wheel equally distributed over strip."""
 
-    def __init__(self, layout, start=0, end=-1):
-        super().__init__(layout, start, end)
+    def __init__(self, layout, start=0, end=-1, **kwds):
+        super().__init__(layout, start, end, **kwds)
 
     def pre_run(self):
         self._step = 0
 
     def step(self, amt=1):
         for i in range(self._size):
-            c = colors.hue_helper(i, self._size, self._step)
-            self.layout.set(self._start + i, c)
+            color = self.palette.get(i * 255 / self._size + self._step)
+            self.layout.set(self._start + i, color)
 
         self._step += amt
         overflow = self._step - 256

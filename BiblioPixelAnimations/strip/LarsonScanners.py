@@ -1,5 +1,5 @@
-import bibliopixel.colors as colors
 from bibliopixel.animation import BaseStripAnim
+import bibliopixel.colors as colors
 
 
 class LarsonScanner(BaseStripAnim):
@@ -26,12 +26,13 @@ class LarsonScanner(BaseStripAnim):
         self.layout.all_off()
 
         self._last = self._start + self._step
-        color = self.palette.get(0)
+        color = self._get_color()
         self.layout.set(self._last, color)
 
         for i in range(self._tail):
-            self.layout.set(self._last - i, colors.color_scale(color, 255 - (self._fadeAmt * i)))
-            self.layout.set(self._last + i, colors.color_scale(color, 255 - (self._fadeAmt * i)))
+            c2 = colors.color_scale(color, 255 - (self._fadeAmt * i))
+            self.layout.set(self._last - i, c2)
+            self.layout.set(self._last + i, c2)
 
         if self._start + self._step >= self._end:
             self._direction = -self._direction
@@ -40,14 +41,12 @@ class LarsonScanner(BaseStripAnim):
 
         self._step += self._direction * amt
 
+    def _get_color(self):
+        return self.palette.get(0)
+
 
 class LarsonRainbow(LarsonScanner):
     """Larson scanner (i.e. Cylon Eye or K.I.T.T.) but Rainbow."""
 
-    def __init__(self, layout, tail=2, start=0, end=-1):
-        super().__init__(layout, colors.Off, tail, start, end)
-
-    def step(self, amt=1):
-        self._color = colors.hue_helper(0, self._size, self._step)
-
-        super().step(amt)
+    def _get_color(self):
+        return self.palette.get(self._step)

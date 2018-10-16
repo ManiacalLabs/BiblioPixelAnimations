@@ -1,11 +1,10 @@
 from bibliopixel.animation import BaseCircleAnim
-from bibliopixel import colors
 
 
 class CircleBloom(BaseCircleAnim):
 
-    def __init__(self, layout, spread=1):
-        super().__init__(layout)
+    def __init__(self, layout, spread=1, **kwds):
+        super().__init__(layout, **kwds)
         self.spread = spread
 
     def pre_run(self):
@@ -13,10 +12,8 @@ class CircleBloom(BaseCircleAnim):
 
     def step(self, amt=8):
         for i in range(self.ringCount):
-            c = colors.hue_helper(
-                i, int(self.ringCount * self.spread), self._step)
+            length = int(self.ringCount * self.spread)
+            c = self.palette.get(i * 255 / length + self._step)
             self.layout.fillRing(i, c)
 
         self._step += amt
-        if(self._step >= 255):
-            self._step = 0

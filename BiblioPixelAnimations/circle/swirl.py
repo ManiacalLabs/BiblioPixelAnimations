@@ -1,8 +1,9 @@
 from bibliopixel.animation import BaseCircleAnim
-from bibliopixel import colors
+from bibliopixel.util.colors import palettes
 
 
 class Swirl(BaseCircleAnim):
+    COLOR_DEFAULTS = ('palette', palettes.get('three_sixty')),
 
     def __init__(self, layout, angle=12):
         super().__init__(layout)
@@ -13,7 +14,7 @@ class Swirl(BaseCircleAnim):
 
     def step(self, amt=1):
         for a in range(0, 360, self.angle):
-            c = colors.hue_helper360(a, 360, self._step)
+            c = self.palette.get(self._step)
             for i in range(self.ringCount):
                 self.layout.set(i, a, c)
 

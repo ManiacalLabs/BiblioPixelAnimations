@@ -1,5 +1,4 @@
 from bibliopixel.animation.cube import BaseCubeAnim
-import bibliopixel.colors as colors
 import math
 
 
@@ -27,8 +26,8 @@ def genCubeVector(x, y, z, x_mult=1, y_mult=1, z_mult=1):
 
 class CubeBloom(BaseCubeAnim):
 
-    def __init__(self, layout, dir=True):
-        super().__init__(layout)
+    def __init__(self, layout, dir=True, **kwds):
+        super().__init__(layout, **kwds)
         self._vector = genCubeVector(self.x, self.y, self.z)
         self._dir = dir
 
@@ -45,8 +44,8 @@ class CubeBloom(BaseCubeAnim):
         for z in range(self.z):
             for y in range(self.y):
                 for x in range(self.x):
-                    c = colors.hue_helper(self._vector[x][y][z], self.y, s)
-                    self.layout.set(x, y, z, c)
+                    index = self._vector[x][y][z] * 255 / self.y + s
+                    self.layout.set(x, y, z, self.palette.get(index))
 
         self._step += amt
         if(self._step >= 255):

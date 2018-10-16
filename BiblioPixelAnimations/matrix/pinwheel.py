@@ -1,5 +1,4 @@
 from bibliopixel.animation import BaseMatrixAnim
-import bibliopixel.colors as colors
 
 
 class Pinwheel(BaseMatrixAnim):
@@ -19,23 +18,23 @@ class Pinwheel(BaseMatrixAnim):
         pos = 0
         cX, cY = self._center
         for x in range(self.width):
-            c = colors.hue_helper(pos, self._len, s)
-            self.layout.drawLine(cX, cY, x, 0, c)
+            index = pos * 255 / self._len + s
+            self.layout.drawLine(cX, cY, x, 0, self.palette.get(index))
             pos += 1
 
         for y in range(self.height):
-            c = colors.hue_helper(pos, self._len, s)
-            self.layout.drawLine(cX, cY, self.width - 1, y, c)
+            color = self.palette.get(pos * 255 / self._len + s)
+            self.layout.drawLine(cX, cY, self.width - 1, y, color)
             pos += 1
 
         for x in range(self.width - 1, -1, -1):
-            c = colors.hue_helper(pos, self._len, s)
-            self.layout.drawLine(cX, cY, x, self.height - 1, c)
+            color = self.palette.get(pos * 255 / self._len + s)
+            self.layout.drawLine(cX, cY, x, self.height - 1, color)
             pos += 1
 
         for y in range(self.height - 1, -1, -1):
-            c = colors.hue_helper(pos, self._len, s)
-            self.layout.drawLine(cX, cY, 0, y, c)
+            color = self.palette.get(pos * 255 / self._len + s)
+            self.layout.drawLine(cX, cY, 0, y, color)
             pos += 1
 
         self._step += amt

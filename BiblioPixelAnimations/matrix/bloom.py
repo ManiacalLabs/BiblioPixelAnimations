@@ -1,5 +1,4 @@
 from bibliopixel.animation import BaseMatrixAnim
-import bibliopixel.colors as colors
 from bibliopixel.util import genVector
 
 
@@ -19,8 +18,8 @@ class Bloom(BaseMatrixAnim):
         # this respects master brightness but is slower
         for y in range(self.layout.height):
             for x in range(self.layout.width):
-                c = colors.hue_helper(self._vector[y][x], self.layout.height, s)
-                self.layout.set(x, y, c)
+                index = self._vector[y][x] * 255 / self.layout.height + s
+                self.layout.set(x, y, self.palette.get(index))
 
         self._step += amt
         if(self._step >= 255):
