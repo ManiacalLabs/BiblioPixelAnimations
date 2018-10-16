@@ -6,11 +6,10 @@ from collections import deque
 
 
 class CPUUsage(BaseMatrixAnim):
+    COLOR_DEFAULTS = ('onColor', colors.Red),
 
-    def __init__(self, layout, onColor=colors.Red):
+    def __init__(self, layout):
         super().__init__(layout)
-        self._onColor = onColor
-
         self._usage = deque(iterable=[0] * self.width, maxlen=self.width)
 
     def step(self, amt=1):
@@ -21,4 +20,6 @@ class CPUUsage(BaseMatrixAnim):
 
         for x in range(self.width):
             if self._usage[x] > 0:
-                self.layout.drawLine(x, self.height, x, self.height - 1 - self._usage[x], self._onColor)
+                self.layout.drawLine(x, self.height,
+                                     x, self.height - 1 - self._usage[x],
+                                     self.palette.get())

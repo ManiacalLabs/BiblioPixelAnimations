@@ -22,30 +22,25 @@ from bibliopixel.animation import BaseStripAnim
 
 
 class Alternates(BaseStripAnim):
+    COLOR_DEFAULTS = ('color1', (255, 255, 255)), ('color2', (0, 0, 0))
 
-    def __init__(self, layout, max_led=-1, color1=(255, 255, 255), color2=(0, 0, 0)):
-        super().__init__(layout, 0, -1)
+    def __init__(self, layout, max_led=-1, **kwds):
+        super().__init__(layout, 0, -1, **kwds)
         self._current = 0
         self._minLed = 0
         self._maxLed = max_led
         if self._maxLed < 0 or self._maxLed < self._minLed:
             self._maxLed = self.layout.numLEDs - 1
         self._positive = True
-        self._color1 = color1
-        self._color2 = color2
 
     def pre_run(self):
         self._step = 0
 
     def step(self, amt=1):
-
         while self._current < self._maxLed:
-            if self._current % 2 == 0:
-                self.layout.fill(
-                    self._color1 if self._positive else self._color2, self._current, self._current)
-            else:
-                self.layout.fill(
-                    self._color2 if self._positive else self._color1, self._current, self._current)
+            odd = bool(self._current % 2)
+            color = self.palette.get(odd == self._positive)
+            self.layout.fill(color, self._current, self._current)
             self._current += amt
 
         self._current = self._minLed

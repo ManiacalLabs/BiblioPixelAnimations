@@ -7,12 +7,11 @@ import time
 
 
 class MatrixBinaryClock(BaseMatrixAnim):
+    COLOR_DEFAULTS = ('onColor', colors.Red), ('offColor', colors.Blue)
 
-    def __init__(self, layout, onColor=colors.Red, offColor=colors.Blue,
-                 origX=0, origY=0, lightSize=1, colSpacing=1):
-        super().__init__(layout)
-        self._onColor = onColor
-        self._offColor = offColor
+    def __init__(self, layout, origX=0, origY=0, lightSize=1, colSpacing=1,
+                 **kwds):
+        super().__init__(layout, **kwds)
         self._origX = origX
         self._origY = origY
         self._lightSize = lightSize
@@ -30,10 +29,11 @@ class MatrixBinaryClock(BaseMatrixAnim):
         for x in range(6):
             b = bin(128 + int(a[tIndex[x]]))
             for i in range(colSize[x]):
+                is_off = b[6 + (4 - colSize[x]) + i] == '0'
+                color = self.palette.get(int(is_off))
                 self.layout.fillRect(
                     self._origX + (x) + (self._lightSize - 1) * x + self._colSpacing * x,
                     ((4 - colSize[x]) + i + self._origY) * self._lightSize,
-                    self._lightSize, self._lightSize,
-                    self._offColor if b[6 + (4 - colSize[x]) + i] == '0' else self._onColor)
+                    self._lightSize, self._lightSize, color)
 
         self._step = 0

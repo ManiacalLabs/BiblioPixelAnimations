@@ -102,12 +102,10 @@ class Table:
 
 
 class CubeGameOfLife(BaseCubeAnim):
+    COLOR_DEFAULTS = ('bg', colors.Off), ('color', colors.Red)
 
-    def __init__(self, layout, color=colors.Red, bg=colors.Off, toroidal=False):
-        super().__init__(layout)
-
-        self._color = color
-        self._bg = bg
+    def __init__(self, layout, toroidal=False, **kwds):
+        super().__init__(layout, **kwds)
         self._table = Table(self.x, self.y, self.z, 1, None)
         self._table.toroidal = toroidal
 
@@ -118,10 +116,8 @@ class CubeGameOfLife(BaseCubeAnim):
         for t_z in self._table.table:
             for t_y in t_z:
                 for t_x in t_y:
-                    if t_x == 0:
-                        self.layout.set(x, y, z, self._bg)
-                    else:
-                        self.layout.set(x, y, z, self._color)
+                    color = self.palette.get(t_x != 0)
+                    self.layout.set(x, y, z, color)
                     # print(x, y, z)
                     x = x + 1
                 y = y + 1

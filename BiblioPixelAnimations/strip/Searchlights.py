@@ -6,12 +6,12 @@ import random
 
 class Searchlights(BaseStripAnim):
     """Three search lights sweeping at different speeds"""
+    COLORS = [colors.MediumSeaGreen, colors.MediumPurple, colors.MediumVioletRed]
+    COLOR_DEFAULTS = ('colors', COLORS),
 
-    def __init__(self, layout, colors=[colors.MediumSeaGreen, colors.MediumPurple, colors.MediumVioletRed], tail=5, start=0, end=-1):
+    def __init__(self, layout, tail=5, start=0, end=-1, **kwds):
+        super().__init__(layout, start, end, **kwds)
 
-        super().__init__(layout, start, end)
-
-        self._color = colors
         self._tail = tail + 1
         if self._tail >= self._size // 2:
             self._tail = (self._size // 2) - 1
@@ -29,13 +29,15 @@ class Searchlights(BaseStripAnim):
         for i in range(0, 3):
             self._currentpos[i] = self._start + self._steps[i]
 
+            color = self.palette.get(i)
+
             # average the colors together so they blend
-            self._ledcolors[self._currentpos[i]] = list(map(lambda x, y: (x + y) // 2, self._color[i], self._ledcolors[self._currentpos[i]]))
+            self._ledcolors[self._currentpos[i]] = list(map(lambda x, y: (x + y) // 2, color, self._ledcolors[self._currentpos[i]]))
             for j in range(1, self._tail):
                 if self._currentpos[i] - j >= 0:
-                    self._ledcolors[self._currentpos[i] - j] = list(map(lambda x, y: (x + y) // 2, self._ledcolors[self._currentpos[i] - j], colors.color_scale(self._color[i], 255 - (self._fadeAmt * j))))
+                    self._ledcolors[self._currentpos[i] - j] = list(map(lambda x, y: (x + y) // 2, self._ledcolors[self._currentpos[i] - j], colors.color_scale(color, 255 - (self._fadeAmt * j))))
                 if self._currentpos[i] + j < self._size:
-                    self._ledcolors[self._currentpos[i] + j] = list(map(lambda x, y: (x + y) // 2, self._ledcolors[self._currentpos[i] + j], colors.color_scale(self._color[i], 255 - (self._fadeAmt * j))))
+                    self._ledcolors[self._currentpos[i] + j] = list(map(lambda x, y: (x + y) // 2, self._ledcolors[self._currentpos[i] + j], colors.color_scale(color, 255 - (self._fadeAmt * j))))
             if self._start + self._steps[i] >= self._end:
                 self._direction[i] = -1
             elif self._start + self._steps[i] <= 0:

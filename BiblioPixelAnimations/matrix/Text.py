@@ -4,13 +4,11 @@ from bibliopixel import font
 
 
 class ScrollText(BaseMatrixAnim):
+    COLOR_DEFAULTS = (('bgcolor', colors.Off), ('color', colors.White))
 
     def __init__(self, layout, text='ScrollText', xPos=0, yPos=0,
-                 color=colors.White, bgcolor=colors.Off,
-                 font_name=font.default_font, font_scale=1):
-        super().__init__(layout)
-        self.bgcolor = bgcolor
-        self.color = color
+                 font_name=font.default_font, font_scale=1, **kwds):
+        super().__init__(layout, **kwds)
         self._text = text
         self.xPos = xPos
         self.orig_xPos = xPos
@@ -24,8 +22,11 @@ class ScrollText(BaseMatrixAnim):
 
     def step(self, amt=1):
         self.layout.all_off()
+        bg = self.palette.get(0)
+        color = self.palette.get(1)
         self.layout.drawText(self._text, self.xPos, self.yPos,
-                             color=self.color, bg=self.bgcolor, font=self.font_name, font_scale=self.font_scale)
+                             color=color, bg=bg, font=self.font_name,
+                             font_scale=self.font_scale)
         self.xPos -= amt
         if self.xPos + self._strW <= 0:
             self.xPos = self.width - 1
@@ -35,11 +36,11 @@ class ScrollText(BaseMatrixAnim):
 
 
 class BounceText(BaseMatrixAnim):
+    COLOR_DEFAULTS = (('bgcolor', colors.Off), ('color', colors.White))
 
-    def __init__(self, layout, text='BounceText', xPos=0, yPos=0, buffer=0, color=colors.White, bgcolor=colors.Off, font_name=font.default_font, font_scale=1):
+    def __init__(self, layout, text='BounceText', xPos=0, yPos=0, buffer=0,
+                 font_name=font.default_font, font_scale=1, **kwds):
         super().__init__(layout)
-        self.color = color
-        self.bgcolor = bgcolor
         self._text = text
         self.xPos = xPos
         self.yPos = yPos

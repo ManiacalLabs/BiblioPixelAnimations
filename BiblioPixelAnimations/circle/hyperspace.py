@@ -4,11 +4,10 @@ import random
 
 
 class Hyperspace(BaseCircleAnim):
-    def __init__(self, layout, colors=[colors.Green], tail=4, growthRate=4, angleDiff=6):
-        super().__init__(layout)
-        if not isinstance(colors, list):
-            colors = [colors]
-        self._colors = colors
+    COLOR_DEFAULTS = ('colors', [colors.Green]),
+
+    def __init__(self, layout, tail=4, growthRate=4, angleDiff=6, **kwds):
+        super().__init__(layout, **kwds)
         self._tail = tail
         self._tails = [[] for x in range(360)]
         self._growthRate = growthRate
@@ -28,8 +27,8 @@ class Hyperspace(BaseCircleAnim):
 
         for i in range(self._growthRate):
             newTail = random.randrange(0, 360, self._angleDiff)
-            cInt = random.randint(0, len(self._colors) - 1)
-            self._tails[newTail].append((0, self._colors[cInt]))
+            color = random.choice(self.palette)
+            self._tails[newTail].append((0, color))
 
         for a in range(360):
             angle = self._tails[a]

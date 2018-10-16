@@ -4,11 +4,10 @@ import random
 
 
 class FireFlies(BaseCircleAnim):
+    COLOR_DEFAULTS = ('colors', [colors.Red, colors.Green, colors.Blue]),
 
-    def __init__(self, layout, colors=[colors.Red, colors.Green, colors.Blue], count=10):
-        super().__init__(layout)
-        self._colors = colors
-        self._color_count = len(colors)
+    def __init__(self, layout, count=10, **kwds):
+        super().__init__(layout, **kwds)
         self._count = count
 
     def pre_run(self):
@@ -23,7 +22,7 @@ class FireFlies(BaseCircleAnim):
 
         for i in range(self._count):
             pixel = random.randint(0, self.layout.numLEDs - 1)
-            color = self._colors[random.randint(0, self._color_count - 1)]
+            color = random.choice(self.palette)
             self.layout._set_base(pixel, color)
 
         self._step += amt

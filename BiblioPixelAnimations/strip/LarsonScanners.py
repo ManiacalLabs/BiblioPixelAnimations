@@ -4,10 +4,10 @@ from bibliopixel.animation import BaseStripAnim
 
 class LarsonScanner(BaseStripAnim):
     """Larson scanner (i.e. Cylon Eye or K.I.T.T.)."""
+    COLOR_DEFAULTS = ('color', colors.Red),
 
-    def __init__(self, layout, color=colors.Red, tail=2, start=0, end=-1):
-        super().__init__(layout, start, end)
-        self._color = color
+    def __init__(self, layout, tail=2, start=0, end=-1, **kwds):
+        super().__init__(layout, start, end, **kwds)
 
         self._tail = tail + 1  # makes tail math later easier
         if self._tail >= self._size // 2:
@@ -26,11 +26,12 @@ class LarsonScanner(BaseStripAnim):
         self.layout.all_off()
 
         self._last = self._start + self._step
-        self.layout.set(self._last, self._color)
+        color = self.palette.get(0)
+        self.layout.set(self._last, color)
 
         for i in range(self._tail):
-            self.layout.set(self._last - i, colors.color_scale(self._color, 255 - (self._fadeAmt * i)))
-            self.layout.set(self._last + i, colors.color_scale(self._color, 255 - (self._fadeAmt * i)))
+            self.layout.set(self._last - i, colors.color_scale(color, 255 - (self._fadeAmt * i)))
+            self.layout.set(self._last + i, colors.color_scale(color, 255 - (self._fadeAmt * i)))
 
         if self._start + self._step >= self._end:
             self._direction = -self._direction

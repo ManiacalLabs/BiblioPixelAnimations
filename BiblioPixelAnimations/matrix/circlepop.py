@@ -29,21 +29,21 @@ class Circle():
 
 
 class CirclePop(BaseMatrixAnim):
+    LEGACY_COLORS = ('bgcolor', colors.Off),
 
-    def __init__(self, layout, bgcolor=colors.Off):
-        super().__init__(layout)
+    def __init__(self, layout, **kwds):
+        super().__init__(layout, **kwds)
         self.max_circ = 3  # max number of cirles in the list
         # probability for adding a new Circle to the list. higher values make
         # it less probable.
         self.prob_circ = 8
-        self.bgcolor = bgcolor
 
     def pre_run(self):
         self.cont = []
         self.addCircle()  # add a first circle to our list
 
     def step(self, amt=1):
-        self.layout.fillScreen(self.bgcolor)  # background color
+        self.layout.fillScreen(self.palette.get(0))  # background color
         # check if we may add a new circle to the list
         if not random.randrange(self.prob_circ) and len(self.cont) <= self.max_circ:
             self.addCircle()

@@ -3,10 +3,10 @@ from bibliopixel.animation import BaseStripAnim
 
 class ColorChase(BaseStripAnim):
     """Chase one pixel down the strip."""
+    COLOR_DEFAULTS = ('color', [255, 0, 0]),
 
-    def __init__(self, layout, color=[255, 0, 0], width=1, start=0, end=-1):
-        super().__init__(layout, start, end)
-        self._color = color
+    def __init__(self, layout, width=1, start=0, end=-1, **kwds):
+        super().__init__(layout, start, end, **kwds)
         self._width = width
 
     def pre_run(self):
@@ -16,7 +16,7 @@ class ColorChase(BaseStripAnim):
         self.layout.all_off()  # because I am lazy
 
         for i in range(self._width):
-            self.layout.set(self._start + self._step + i, self._color)
+            self.layout.set(self._start + self._step + i, self.palette.get(0))
 
         self._step += amt
         overflow = (self._start + self._step) - self._end

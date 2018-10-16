@@ -4,31 +4,35 @@ import time
 
 
 class RingClock(BaseCircleAnim):
+    COLOR_DEFAULTS = (
+        ('c_hour', colors.Red),
+        ('c_min', colors.Green),
+        ('c_sec', colors.Blue),
+    )
 
     def __init__(self, layout,
-                 c_hour=colors.Red, c_min=colors.Green, c_sec=colors.Blue,
                  ring_hour=0, ring_min=0, ring_sec=0,
-                 tail_hour=6, tail_min=6, tail_sec=6):
-        super().__init__(layout)
+                 tail_hour=6, tail_min=6, tail_sec=6, **kwds):
+        super().__init__(layout, **kwds)
         self.hands = [
             {
                 'ring': ring_sec,
                 'tail': tail_sec,
-                'color': c_sec,
+                'color': self.palette.get(2),
                 'segments': 60,
                 'key': 'tm_sec'
             },
             {
                 'ring': ring_min,
                 'tail': tail_min,
-                'color': c_min,
+                'color': self.palette.get(1),
                 'segments': 60,
                 'key': 'tm_min'
             },
             {
                 'ring': ring_hour,
                 'tail': tail_hour,
-                'color': c_hour,
+                'color': self.palette.get(0),
                 'segments': 12,
                 'key': 'tm_hour'
             }

@@ -3,10 +3,10 @@ from bibliopixel.animation import BaseStripAnim
 
 class ColorWipe(BaseStripAnim):
     """Fill the dots progressively along the strip."""
+    COLOR_DEFAULTS = ('color', [255, 0, 0]),
 
-    def __init__(self, layout, color=[255, 0, 0], start=0, end=-1):
-        super().__init__(layout, start, end)
-        self._color = color
+    def __init__(self, layout, start=0, end=-1, **kwds):
+        super().__init__(layout, start, end, **kwds)
 
     def pre_run(self):
         self._step = 0
@@ -15,7 +15,7 @@ class ColorWipe(BaseStripAnim):
         if self._step == 0:
             self.layout.all_off()
         for i in range(amt):
-            self.layout.set(self._start + self._step - i, self._color)
+            self.layout.set(self._start + self._step - i, self.palette.get(0))
 
         self._step += amt
         overflow = (self._start + self._step) - self._end

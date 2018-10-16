@@ -21,10 +21,10 @@ from bibliopixel.animation import BaseStripAnim
 
 
 class PixelPingPong(BaseStripAnim):
+    COLOR_DEFAULTS = ('color', (255, 255, 255)),
 
-    def __init__(self, layout, max_led=None, color=(255, 255, 255),
-                 total_pixels=1, fade_delay=1):
-        super().__init__(layout, 0, -1)
+    def __init__(self, layout, max_led=None, total_pixels=1, fade_delay=1, **kwds):
+        super().__init__(layout, 0, -1, **kwds)
         self._current = 0
         self._minLed = 0
         self._maxLed = max_led
@@ -32,9 +32,9 @@ class PixelPingPong(BaseStripAnim):
             self._maxLed = self.layout.numLEDs - 1
         self._additionalPixels = total_pixels - 1
         self._positive = True
-        self._color = color
         self._fade_delay = fade_delay if fade_delay >= 1 else 1
-        self._fade_increment = tuple(x / self._fade_delay for x in self._color)
+        color = self.palette.get(0)
+        self._fade_increment = tuple(x / self._fade_delay for x in color)
 
     def pre_run(self):
         self._step = 0
@@ -46,7 +46,8 @@ class PixelPingPong(BaseStripAnim):
             self.layout.fill(faded_color, i, i)
 
         self.layout.fill(
-            self._color, self._current, self._current + self._additionalPixels)
+            self.palette.get(0), self._current,
+            self._current + self._additionalPixels)
 
         if self._positive:
             self._current += 1

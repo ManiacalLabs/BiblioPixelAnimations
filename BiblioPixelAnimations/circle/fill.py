@@ -3,17 +3,14 @@ from bibliopixel.util.colors import COLORS
 
 
 class CircleFill(BaseCircleAnim):
-
-    def __init__(self, layout, colors=[COLORS.Red]):
-        super().__init__(layout)
-        self.colors = colors
+    COLOR_DEFAULTS = ('colors', [COLORS.Red]),
 
     def pre_run(self):
         self._step = 0
 
     def step(self, amt=1):
         self.layout.all_off()
-        for r, c in enumerate(self.colors):
+        for r, c in enumerate(self.palette):
             self.layout.fillRing(r, c, startAngle=0, endAngle=self._step)
         self._step += amt
         self._step %= 360

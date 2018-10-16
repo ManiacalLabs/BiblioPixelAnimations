@@ -113,15 +113,12 @@ class Table:
 
 
 class GameOfLife(BaseMatrixAnim):
+    COLOR_DEFAULTS = ('color', colors.Red), ('bg', colors.Off)
 
-    def __init__(self, layout, color=colors.Red, bg=colors.Off, toroidal=False):
+    def __init__(self, layout, toroidal=False):
         super().__init__(layout)
 
-        self._color = color
-        self._bg = bg
-
         self.toroidal = toroidal
-
         self._finishCount = 0
 
     def pre_run(self):
@@ -133,10 +130,8 @@ class GameOfLife(BaseMatrixAnim):
         y = 0
         for row in self._table.table:
             for col in row:
-                if col == 0:
-                    self.layout.set(x, y, self._bg)
-                else:
-                    self.layout.set(x, y, self._color)
+                color = self.palette.get(int(col != 0))
+                self.layout.set(x, y, color)
                 x = x + 1
             y = y + 1
             x = 0
@@ -144,7 +139,6 @@ class GameOfLife(BaseMatrixAnim):
         self._table.turn()
 
     def step(self, amt=1):
-
         self.stepTable()
         if self._table.checkStable():
             self._finishCount += 1
@@ -158,8 +152,8 @@ class GameOfLife(BaseMatrixAnim):
 
 class GameOfLifeRGB(BaseMatrixAnim):
 
-    def __init__(self, layout, toroidal=True):
-        super().__init__(layout)
+    def __init__(self, layout, toroidal=True, **kwds):
+        super().__init__(layout, **kwds)
 
         self.toroidal = toroidal
 
@@ -210,8 +204,8 @@ class GameOfLifeRGB(BaseMatrixAnim):
 
 class GameOfLifeClock(BaseMatrixAnim):
 
-    def __init__(self, layout, font_name='16x8', mil_time=False):
-        super().__init__(layout)
+    def __init__(self, layout, font_name='16x8', mil_time=False, **kwds):
+        super().__init__(layout, **kwds)
         self.font_name = font_name
         self.mil_time = mil_time
         self.scale = 1

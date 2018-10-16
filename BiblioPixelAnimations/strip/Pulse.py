@@ -5,9 +5,10 @@ import random
 
 
 class Pulse(BaseStripAnim):
-    def __init__(self, layout, colors=[colors.Red], tail=2, chance=30, min_speed=1, max_speed=5):
-        super().__init__(layout)
-        self._colors = colors
+    COLOR_DEFAULTS = ('colors', [colors.Red])
+
+    def __init__(self, layout, tail=2, chance=30, min_speed=1, max_speed=5, **kwds):
+        super().__init__(layout, **kwds)
 
         self._tail = tail + 1  # makes tail math later easier
         if self._tail >= self._size // 2:
@@ -27,7 +28,7 @@ class Pulse(BaseStripAnim):
         self.pulse_speed = 0
 
     def add_pulse(self):
-        self.pulse_color = random.choice(self._colors)
+        self.pulse_color = random.choice(self.palette)
         self.pulse_speed = random.randrange(self.min_speed, self.max_speed)
         self.pulse_position = 0
 

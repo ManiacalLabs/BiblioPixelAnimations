@@ -4,9 +4,8 @@ import random
 
 
 class MatrixRain(BaseMatrixAnim):
-    def __init__(self, layout, colors=[colors.Green], tail=4, growthRate=4):
-        super().__init__(layout)
-        self._colors = colors
+    def __init__(self, layout, tail=4, growthRate=4, **kwds):
+        super().__init__(layout, **kwds)
         self._tail = tail
         self._growthRate = growthRate
 
@@ -24,8 +23,7 @@ class MatrixRain(BaseMatrixAnim):
 
         for i in range(self._growthRate):
             newDrop = random.randint(0, self.layout.width - 1)
-            cInt = random.randint(0, len(self._colors) - 1)
-            self._drops[newDrop].append((0, self._colors[cInt]))
+            self._drops[newDrop].append((0, random.choice(self.palette)))
 
         for x in range(self.layout.width):
             col = self._drops[x]

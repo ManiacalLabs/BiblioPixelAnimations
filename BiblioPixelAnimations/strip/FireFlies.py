@@ -5,11 +5,10 @@ import random
 
 class FireFlies(BaseStripAnim):
     """Stobe Light Effect."""
+    COLOR_DEFAULTS = ('colors', [colors.Red]),
 
-    def __init__(self, layout, colors=[colors.Red], width=1, count=1, start=0, end=-1):
-        super().__init__(layout, start, end)
-        self._colors = colors
-        self._color_count = len(colors)
+    def __init__(self, layout, width=1, count=1, start=0, end=-1, **kwds):
+        super().__init__(layout, start, end, **kwds)
         self._width = width
         self._count = count
 
@@ -25,7 +24,7 @@ class FireFlies(BaseStripAnim):
 
         for i in range(self._count):
             pixel = random.randint(0, self.layout.numLEDs - 1)
-            color = self._colors[random.randint(0, self._color_count - 1)]
+            color = random.choice(self.palette)
 
             for i in range(self._width):
                 if pixel + i < self.layout.numLEDs:
