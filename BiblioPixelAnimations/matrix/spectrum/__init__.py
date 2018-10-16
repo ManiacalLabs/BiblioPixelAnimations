@@ -28,7 +28,7 @@ class BaseSpectrumDraw(object):
             self.led._drawFastVLine(x, y, h, c)
 
     def color_map(self, width, offset=0):
-        return [self.palette.get((((i * (255)) // (width - 1)) + offset) % 256)
+        return [self.palette((((i * (255)) // (width - 1)) + offset) % 256)
                 for i in range(width)]
 
 

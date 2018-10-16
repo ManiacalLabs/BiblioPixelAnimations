@@ -43,7 +43,7 @@ class CirclePop(BaseMatrixAnim):
         self.addCircle()  # add a first circle to our list
 
     def step(self, amt=1):
-        self.layout.fillScreen(self.palette.get(0))  # background color
+        self.layout.fillScreen(self.palette(0))  # background color
         # check if we may add a new circle to the list
         if not random.randrange(self.prob_circ) and len(self.cont) <= self.max_circ:
             self.addCircle()
@@ -51,7 +51,7 @@ class CirclePop(BaseMatrixAnim):
         # loop through our circles, draw and update them
         for circ in self.cont:
             self.layout.drawCircle(circ._x, circ._y, circ._radius,
-                                   self.palette.get(circ._color))
+                                   self.palette(circ._color))
 
             if not self._step % circ.frameratio:
                 circ.grow()

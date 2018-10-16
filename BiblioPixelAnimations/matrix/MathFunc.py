@@ -69,7 +69,7 @@ class MathFunc(BaseMatrixAnim):
                 if self.next_func:
                     h_next = self.call_func(self.next_func, x, y, self._step)
                     h = hue_fade(h, h_next, self.fade_step * self.fade_count)
-                c = self.palette.get(h)
+                c = self.palette(h)
                 self.layout.set(x, y, c)
         if self.next_func:
             self.fade_count += 1

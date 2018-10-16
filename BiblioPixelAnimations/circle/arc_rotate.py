@@ -24,7 +24,7 @@ class ArcRotate(BaseCircleAnim):
         self.layout.all_off()
         ci = 0
         for r in range(self.outerRing, self.outerRing - self.arcCount, -1):
-            c = self.palette.get(ci)
+            c = self.palette(ci)
             ci += 1
             self.layout.fillRing(r, c, startAngle=self._step - self.arc, endAngle=self._step + self.arc)
         self._step += amt

@@ -25,12 +25,12 @@ class Wave(BaseStripAnim):
             if y >= 0.0:
                 # Peaks of sine wave are white
                 y = 1.0 - y  # Translate Y to 0.0 (top) to 1.0 (center)
-                r, g, b = self.palette.get(0)
+                r, g, b = self.palette(0)
                 c2 = (int(255 - float(255 - r) * y), int(255 - float(255 - g) * y), int(255 - float(255 - b) * y))
             else:
                 # Troughs of sine wave are black
                 y += 1.0  # Translate Y to 0.0 (bottom) to 1.0 (center)
-                r, g, b = self.palette.get(0)
+                r, g, b = self.palette(0)
                 c2 = (int(float(r) * y),
                       int(float(g) * y),
                       int(float(b) * y))
@@ -54,12 +54,12 @@ class WaveMove(BaseStripAnim):
             if y >= 0.0:
                 # Peaks of sine wave are white
                 y = 1.0 - y  # Translate Y to 0.0 (top) to 1.0 (center)
-                r, g, b = self.palette.get(0)
+                r, g, b = self.palette(0)
                 c2 = (int(255 - float(255 - r) * y), int(255 - float(255 - g) * y), int(255 - float(255 - b) * y))
             else:
                 # Troughs of sine wave are black
                 y += 1.0  # Translate Y to 0.0 (bottom) to 1.0 (center)
-                r, g, b = self.palette.get(0)
+                r, g, b = self.palette(0)
                 c2 = (int(float(r) * y),
                       int(float(g) * y),
                       int(float(b) * y))

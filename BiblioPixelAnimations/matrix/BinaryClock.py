@@ -30,7 +30,7 @@ class MatrixBinaryClock(BaseMatrixAnim):
             b = bin(128 + int(a[tIndex[x]]))
             for i in range(colSize[x]):
                 is_off = b[6 + (4 - colSize[x]) + i] == '0'
-                color = self.palette.get(int(is_off))
+                color = self.palette(int(is_off))
                 self.layout.fillRect(
                     self._origX + (x) + (self._lightSize - 1) * x + self._colSpacing * x,
                     ((4 - colSize[x]) + i + self._origY) * self._lightSize,

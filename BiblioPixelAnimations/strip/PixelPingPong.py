@@ -33,7 +33,7 @@ class PixelPingPong(BaseStripAnim):
         self._additionalPixels = total_pixels - 1
         self._positive = True
         self._fade_delay = fade_delay if fade_delay >= 1 else 1
-        color = self.palette.get(0)
+        color = self.palette(0)
         self._fade_increment = tuple(x / self._fade_delay for x in color)
 
     def pre_run(self):
@@ -46,7 +46,7 @@ class PixelPingPong(BaseStripAnim):
             self.layout.fill(faded_color, i, i)
 
         self.layout.fill(
-            self.palette.get(0), self._current,
+            self.palette(0), self._current,
             self._current + self._additionalPixels)
 
         if self._positive:

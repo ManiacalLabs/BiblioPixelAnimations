@@ -18,5 +18,5 @@ class ColorPattern(BaseStripAnim):
     def step(self, amt=1):
         for i in range(self._size):
             cIndex = ((i + self._step) % self._total_width) / self._width
-            self.layout.set(i, self.palette.get(cIndex))
+            self.layout.set(i, self.palette(cIndex))
         self._step += amt * (1 if self._dir else -1)

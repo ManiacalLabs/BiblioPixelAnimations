@@ -28,14 +28,14 @@ class HalvesRainbow(BaseStripAnim):
 
         if self._centerOut:
             self.layout.fill(
-                self.palette.get(self._step), int(center_floor - self._current), int(center_floor - self._current))
+                self.palette(self._step), int(center_floor - self._current), int(center_floor - self._current))
             self.layout.fill(
-                self.palette.get(self._step), int(center_ceil + self._current), int(center_ceil + self._current))
+                self.palette(self._step), int(center_ceil + self._current), int(center_ceil + self._current))
         else:
             self.layout.fill(
-                self.palette.get(self._step), int(self._current), int(self._current))
+                self.palette(self._step), int(self._current), int(self._current))
             self.layout.fill(
-                self.palette.get(self._step), int(self._maxLed - self._current), int(self._maxLed - self._current))
+                self.palette(self._step), int(self._maxLed - self._current), int(self._maxLed - self._current))
 
         self._step += amt + self._rainbowInc
 

@@ -36,7 +36,7 @@ class RainBow(BaseCubeAnim):
                     for y in range(len(col)):
                         drop = col[y]
                         if drop < self.y:
-                            self._drawDrop(x, drop, z, self.palette.get(
+                            self._drawDrop(x, drop, z, self.palette(
                                 drop * (255 // self.y)))
                         if drop - (self._tail - 1) < self.y:
                             drop = drop + 1

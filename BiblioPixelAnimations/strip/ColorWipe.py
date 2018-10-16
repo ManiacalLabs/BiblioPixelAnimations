@@ -15,7 +15,7 @@ class ColorWipe(BaseStripAnim):
         if self._step == 0:
             self.layout.all_off()
         for i in range(amt):
-            self.layout.set(self._start + self._step - i, self.palette.get(0))
+            self.layout.set(self._start + self._step - i, self.palette(0))
 
         self._step += amt
         overflow = (self._start + self._step) - self._end

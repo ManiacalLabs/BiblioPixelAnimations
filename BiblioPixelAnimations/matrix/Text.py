@@ -22,8 +22,8 @@ class ScrollText(BaseMatrixAnim):
 
     def step(self, amt=1):
         self.layout.all_off()
-        bg = self.palette.get(0)
-        color = self.palette.get(1)
+        bg = self.palette(0)
+        color = self.palette(1)
         self.layout.drawText(self._text, self.xPos, self.yPos,
                              color=color, bg=bg, font=self.font_name,
                              font_scale=self.font_scale)

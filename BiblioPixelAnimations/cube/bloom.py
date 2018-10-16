@@ -45,7 +45,7 @@ class CubeBloom(BaseCubeAnim):
             for y in range(self.y):
                 for x in range(self.x):
                     index = self._vector[x][y][z] * 255 / self.y + s
-                    self.layout.set(x, y, z, self.palette.get(index))
+                    self.layout.set(x, y, z, self.palette(index))
 
         self._step += amt
         if(self._step >= 255):

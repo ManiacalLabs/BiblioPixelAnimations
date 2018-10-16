@@ -18,21 +18,21 @@ class RingClock(BaseCircleAnim):
             {
                 'ring': ring_sec,
                 'tail': tail_sec,
-                'color': self.palette.get(2),
+                'color': self.palette(2),
                 'segments': 60,
                 'key': 'tm_sec'
             },
             {
                 'ring': ring_min,
                 'tail': tail_min,
-                'color': self.palette.get(1),
+                'color': self.palette(1),
                 'segments': 60,
                 'key': 'tm_min'
             },
             {
                 'ring': ring_hour,
                 'tail': tail_hour,
-                'color': self.palette.get(0),
+                'color': self.palette(0),
                 'segments': 12,
                 'key': 'tm_hour'
             }

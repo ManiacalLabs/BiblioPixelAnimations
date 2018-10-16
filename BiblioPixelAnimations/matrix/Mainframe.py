@@ -30,5 +30,5 @@ class Mainframe(BaseMatrixAnim):
             for x in range(self.width):
                 b = self.bytes[y // 8][x]
                 bit = bool(b & (1 << (y % 8)))
-                color = self.palette.get(int(bit))
+                color = self.palette(int(bit))
                 self.layout.set(self.width - x - 1, y, color)

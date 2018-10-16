@@ -50,9 +50,9 @@ class RGBAnalogClock(BaseMatrixAnim):
         p_min = pointOnCircle(self._centerX, self._centerY, self.hand_length, mins * 6)
         p_sec = pointOnCircle(self._centerX, self._centerY, self.hand_length, sec * 6)
 
-        c_hrs = self.palette.get(hrs * (256 // 12))
-        c_min = self.palette.get(mins * (256 // 60))
-        c_sec = self.palette.get(sec * (256 // 60))
+        c_hrs = self.palette(hrs * (256 // 12))
+        c_min = self.palette(mins * (256 // 60))
+        c_sec = self.palette(sec * (256 // 60))
 
         self.layout.drawLine(self._centerX, self._centerY, p_hrs[0], p_hrs[1], c_hrs, aa=self.aa)
         self.layout.drawLine(self._centerX, self._centerY, p_min[0], p_min[1], c_min, aa=self.aa)

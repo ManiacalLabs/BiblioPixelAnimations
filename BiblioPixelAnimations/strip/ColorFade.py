@@ -20,7 +20,7 @@ class ColorFade(BaseStripAnim):
 
     def step(self, amt=1):
         c_index, l_index = divmod(self._step, self._level_count)
-        color = self.palette.get(c_index)
+        color = self.palette(c_index)
         color = colors.color_scale(color, self._levels[l_index])
         self.layout.fill(color, self._start, self._end)
         self._step += amt

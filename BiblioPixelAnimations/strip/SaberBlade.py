@@ -17,7 +17,7 @@ class SaberBlade(BaseStripAnim):
     def step(self, amt=1):
         self.layout.all_off()
 
-        self.layout.fill(self.palette.get(self.blade_color), 0, self.blade_pos)
+        self.layout.fill(self.palette(self.blade_color), 0, self.blade_pos)
         self.blade_pos += self.speed
 
         if self.speed > 0 and self.blade_pos + self.speed > self._size:

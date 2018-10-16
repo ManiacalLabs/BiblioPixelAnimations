@@ -16,7 +16,7 @@ class ColorChase(BaseStripAnim):
         self.layout.all_off()  # because I am lazy
 
         for i in range(self._width):
-            self.layout.set(self._start + self._step + i, self.palette.get(0))
+            self.layout.set(self._start + self._step + i, self.palette(0))
 
         self._step += amt
         overflow = (self._start + self._step) - self._end

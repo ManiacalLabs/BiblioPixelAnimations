@@ -27,7 +27,7 @@ class BaseSpectrumDraw(object):
             self.frame._draw_fast_vline(x, y, h, c)
 
     def color_map(self, width, offset=0):
-        return [self.palette.get((((i * (255)) // (width - 1)) + offset) % 256) for i in range(width)]
+        return [self.palette((((i * (255)) // (width - 1)) + offset) % 256) for i in range(width)]
 
 
 class PeakLineGraph(BaseSpectrumDraw):

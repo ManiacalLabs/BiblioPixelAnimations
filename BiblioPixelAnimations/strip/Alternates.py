@@ -39,7 +39,7 @@ class Alternates(BaseStripAnim):
     def step(self, amt=1):
         while self._current < self._maxLed:
             odd = bool(self._current % 2)
-            color = self.palette.get(odd == self._positive)
+            color = self.palette(odd == self._positive)
             self.layout.fill(color, self._current, self._current)
             self._current += amt
 

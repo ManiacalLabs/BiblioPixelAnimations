@@ -13,7 +13,7 @@ class CircleBloom(BaseCircleAnim):
     def step(self, amt=8):
         for i in range(self.ringCount):
             length = int(self.ringCount * self.spread)
-            c = self.palette.get(i * 255 / length + self._step)
+            c = self.palette(i * 255 / length + self._step)
             self.layout.fillRing(i, c)
 
         self._step += amt

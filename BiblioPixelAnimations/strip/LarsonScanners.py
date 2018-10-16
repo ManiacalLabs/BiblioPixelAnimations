@@ -42,11 +42,11 @@ class LarsonScanner(BaseStripAnim):
         self._step += self._direction * amt
 
     def _get_color(self):
-        return self.palette.get(0)
+        return self.palette(0)
 
 
 class LarsonRainbow(LarsonScanner):
     """Larson scanner (i.e. Cylon Eye or K.I.T.T.) but Rainbow."""
 
     def _get_color(self):
-        return self.palette.get(self._step)
+        return self.palette(self._step)

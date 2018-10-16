@@ -116,7 +116,7 @@ class CubeGameOfLife(BaseCubeAnim):
         for t_z in self._table.table:
             for t_y in t_z:
                 for t_x in t_y:
-                    color = self.palette.get(t_x != 0)
+                    color = self.palette(t_x != 0)
                     self.layout.set(x, y, z, color)
                     # print(x, y, z)
                     x = x + 1

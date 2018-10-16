@@ -16,7 +16,7 @@ class Rainbow(BaseStripAnim):
     def step(self, amt=1):
         for i in range(self._size):
             h = (i + self._step) % 255
-            self.layout.set(self._start + i, self.palette.get(h))
+            self.layout.set(self._start + i, self.palette(h))
 
         self._step += amt
         overflow = self._step - 256
@@ -35,7 +35,7 @@ class RainbowCycle(BaseStripAnim):
 
     def step(self, amt=1):
         for i in range(self._size):
-            color = self.palette.get(i * 255 / self._size + self._step)
+            color = self.palette(i * 255 / self._size + self._step)
             self.layout.set(self._start + i, color)
 
         self._step += amt

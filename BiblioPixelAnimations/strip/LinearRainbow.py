@@ -21,7 +21,7 @@ class LinearRainbow(BaseStripAnim):
         if self._individualPixel:
             # This setting will change the colour of each pixel on each cycle
             self.layout.fill(
-                self.palette.get(self._step), self._current, self._current)
+                self.palette(self._step), self._current, self._current)
 
         else:
             # This setting will change the colour of all pixels on each cycle

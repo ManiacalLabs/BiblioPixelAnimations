@@ -19,21 +19,21 @@ class Pinwheel(BaseMatrixAnim):
         cX, cY = self._center
         for x in range(self.width):
             index = pos * 255 / self._len + s
-            self.layout.drawLine(cX, cY, x, 0, self.palette.get(index))
+            self.layout.drawLine(cX, cY, x, 0, self.palette(index))
             pos += 1
 
         for y in range(self.height):
-            color = self.palette.get(pos * 255 / self._len + s)
+            color = self.palette(pos * 255 / self._len + s)
             self.layout.drawLine(cX, cY, self.width - 1, y, color)
             pos += 1
 
         for x in range(self.width - 1, -1, -1):
-            color = self.palette.get(pos * 255 / self._len + s)
+            color = self.palette(pos * 255 / self._len + s)
             self.layout.drawLine(cX, cY, x, self.height - 1, color)
             pos += 1
 
         for y in range(self.height - 1, -1, -1):
-            color = self.palette.get(pos * 255 / self._len + s)
+            color = self.palette(pos * 255 / self._len + s)
             self.layout.drawLine(cX, cY, 0, y, color)
             pos += 1
 

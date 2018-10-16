@@ -19,7 +19,7 @@ class Bloom(BaseMatrixAnim):
         for y in range(self.layout.height):
             for x in range(self.layout.width):
                 index = self._vector[y][x] * 255 / self.layout.height + s
-                self.layout.set(x, y, self.palette.get(index))
+                self.layout.set(x, y, self.palette(index))
 
         self._step += amt
         if(self._step >= 255):

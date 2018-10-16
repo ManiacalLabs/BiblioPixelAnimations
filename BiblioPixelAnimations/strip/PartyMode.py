@@ -16,7 +16,7 @@ class PartyMode(BaseStripAnim):
         amt = 1  # anything other than 1 would be just plain silly
 
         if self._step % 2 == 0:
-            color = self.palette.get(self._step / 2)
+            color = self.palette(self._step / 2)
             self.layout.fill(color, self._start, self._end)
         else:
             self.layout.all_off()

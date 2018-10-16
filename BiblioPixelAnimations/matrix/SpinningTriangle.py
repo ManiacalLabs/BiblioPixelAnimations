@@ -38,7 +38,7 @@ class SpinningTriangle(BaseMatrixAnim):
         b = pointOnCircle(self._cx, self._cy, self._radius, self._angles[1])
         c = pointOnCircle(self._cx, self._cy, self._radius, self._angles[2])
 
-        color = self.palette.get(self._angles[0])
+        color = self.palette(self._angles[0])
 
         self.layout.drawLine(a[0], a[1], b[0], b[1], color, aa=self.aa)
         self.layout.drawLine(b[0], b[1], c[0], c[1], color, aa=self.aa)

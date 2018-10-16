@@ -24,13 +24,13 @@ class RGBClock(BaseStripAnim):
     def step(self, amt=1):
         t = time.localtime()
 
-        r, g, b = self.palette.get(t.tm_hour * (256 // 24))
+        r, g, b = self.palette(t.tm_hour * (256 // 24))
         self.layout.fillRGB(r, g, b, self._hStart, self._hEnd)
 
-        r, g, b = self.palette.get(t.tm_min * (256 // 60))
+        r, g, b = self.palette(t.tm_min * (256 // 60))
         self.layout.fillRGB(r, g, b, self._mStart, self._mEnd)
 
-        r, g, b = self.palette.get(t.tm_sec * (256 // 60))
+        r, g, b = self.palette(t.tm_sec * (256 // 60))
         self.layout.fillRGB(r, g, b, self._sStart, self._sEnd)
 
         self._step = 0

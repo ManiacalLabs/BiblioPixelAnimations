@@ -130,7 +130,7 @@ class GameOfLife(BaseMatrixAnim):
         y = 0
         for row in self._table.table:
             for col in row:
-                color = self.palette.get(int(col != 0))
+                color = self.palette(int(col != 0))
                 self.layout.set(x, y, color)
                 x = x + 1
             y = y + 1

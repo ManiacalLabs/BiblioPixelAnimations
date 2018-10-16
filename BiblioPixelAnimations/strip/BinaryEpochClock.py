@@ -23,7 +23,7 @@ class BEClock(BaseStripAnim):
         z = calendar.timegm(time.gmtime(time.time()))
 
         for i in range(32):
-            color = self.palette.get((z & (1 << i)) > 0)
+            color = self.palette((z & (1 << i)) > 0)
             if self._reverse:
                 i = 31 - i
 

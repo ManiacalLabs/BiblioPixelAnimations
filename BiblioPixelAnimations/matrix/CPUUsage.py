@@ -22,4 +22,4 @@ class CPUUsage(BaseMatrixAnim):
             if self._usage[x] > 0:
                 self.layout.drawLine(x, self.height,
                                      x, self.height - 1 - self._usage[x],
-                                     self.palette.get())
+                                     self.palette())

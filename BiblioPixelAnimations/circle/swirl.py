@@ -14,7 +14,7 @@ class Swirl(BaseCircleAnim):
 
     def step(self, amt=1):
         for a in range(0, 360, self.angle):
-            c = self.palette.get(self._step)
+            c = self.palette(self._step)
             for i in range(self.ringCount):
                 self.layout.set(i, a, c)
 

@@ -36,7 +36,7 @@ class WaveSpiral(BaseCubeAnim):
             for i in range(self.spiral_len):
                 x, y = self.spiral[i]
                 index = i * 255 / self.spiral_len + s + offset_total
-                self.layout.set(x, y, z, self.palette.get(index))
+                self.layout.set(x, y, z, self.palette(index))
             offset_total += self.offset
 
         self._step += amt

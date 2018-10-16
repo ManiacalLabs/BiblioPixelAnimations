@@ -8,7 +8,7 @@ class OneKClock(BaseMatrixAnim):
         super().__init__(layout, **kwds)
 
     def step(self, amt):
-        self.layout.setTexture([[self.palette.get(
+        self.layout.setTexture([[self.palette(
             y * 255 / self.height + self._step * 2)] * self.width for y in range(self.height)])
         self.layout.all_off()
         t = time.localtime()

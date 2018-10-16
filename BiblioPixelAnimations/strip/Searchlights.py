@@ -29,7 +29,7 @@ class Searchlights(BaseStripAnim):
         for i in range(0, 3):
             self._currentpos[i] = self._start + self._steps[i]
 
-            color = self.palette.get(i)
+            color = self.palette(i)
 
             # average the colors together so they blend
             self._ledcolors[self._currentpos[i]] = list(map(lambda x, y: (x + y) // 2, color, self._ledcolors[self._currentpos[i]]))

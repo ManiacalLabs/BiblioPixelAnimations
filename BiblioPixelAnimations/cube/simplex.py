@@ -20,7 +20,7 @@ class Simplex(BaseCubeAnim):
                 for z in range(self.z):
                     v = int(snoise4(x / self._freq, y / self._freq, z / self._freq,
                                     self._step / self._freq, octaves=self._octaves) * 127.0 + 128.0)
-                    c = self.palette.get(v)
+                    c = self.palette(v)
                     self.layout.set(x, y, z, c)
 
         self._step += amt

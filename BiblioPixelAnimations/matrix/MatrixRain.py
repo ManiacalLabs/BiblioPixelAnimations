@@ -74,7 +74,7 @@ class MatrixRainBow(BaseMatrixAnim):
                 for y in range(len(col)):
                     drop = col[y]
                     if drop < self.layout.height:
-                        self._drawDrop(x, drop, self.palette.get(
+                        self._drawDrop(x, drop, self.palette(
                             drop * (255 // self.layout.height)))
                     if drop - (self._tail - 1) < self.layout.height:
                         drop = drop + 1

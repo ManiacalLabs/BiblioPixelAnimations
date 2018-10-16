@@ -12,7 +12,7 @@ class LangtonsAntBase(BaseMatrixAnim):
 
     def __init__(self, layout, **kwds):
         super().__init__(layout, **kwds)
-        self.curColor = self.palette.get(0)
+        self.curColor = self.palette(0)
 
     def pre_run(self):
         self.x = random.randrange(self.width)
@@ -46,14 +46,14 @@ class LangtonsAntBase(BaseMatrixAnim):
 
 class LangtonsAnt(LangtonsAntBase):
     def _postMove(self):
-        self.layout.set(self.x, self.y, self.palette.get(1))
+        self.layout.set(self.x, self.y, self.palette(1))
 
     def step(self, amt=1):
         if self.curColor == self.pathColor:
-            self.layout.set(self.x, self.y, self.palette.get(0))
+            self.layout.set(self.x, self.y, self.palette(0))
             self._moveAnt(-1)
         else:
-            self.layout.set(self.x, self.y, self.palette.get(2))
+            self.layout.set(self.x, self.y, self.palette(2))
             self._moveAnt(1)
 
 
@@ -67,7 +67,7 @@ class LangtonsAntRainbow(LangtonsAntBase):
         self.curColorIndex = -1
 
     def _postMove(self):
-        if self.curColor == self.palette.get(0):
+        if self.curColor == self.palette(0):
             i = 0
         else:
             i = self.colors.index(self.curColor)
@@ -76,7 +76,7 @@ class LangtonsAntRainbow(LangtonsAntBase):
 
         self.curColor = self.colors[i]
         self.curColorIndex = i
-        self.layout.set(self.x, self.y, self.palette.get(1))
+        self.layout.set(self.x, self.y, self.palette(1))
 
     def step(self, amt=1):
         self.layout.set(self.x, self.y, self.curColor)
