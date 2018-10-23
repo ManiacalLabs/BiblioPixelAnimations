@@ -65,7 +65,7 @@ class WaveMove(BaseStripAnim):
                       int(float(b) * y))
             self.layout.set(self._start + i, c2)
 
-        self._step += amt
+        self._moveStep += amt
         self._moveStep += 1
         if(self._moveStep >= self._size):
             self._moveStep = 0
