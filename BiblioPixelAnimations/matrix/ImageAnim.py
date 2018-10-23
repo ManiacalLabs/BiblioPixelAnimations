@@ -1,19 +1,15 @@
+import glob, os, pathlib, random, threading, time
 from bibliopixel.animation import BaseMatrixAnim
-from bibliopixel import log
+from bibliopixel.util import log, colors
 
 try:
     from PIL import Image, ImageSequence
 except ImportError:
     error = "Please install Python Imaging Library: pip install pillow"
     log.logger.error(error)
-    raise ImportError(error)
 
-import glob
-import os
-import bibliopixel.colors as colors
-import threading
-import random as rand
-import time
+ROOT = pathlib.Path(__file__).parents[2]
+DEFAULT_ANIM = ROOT / 'Graphics' / 'MarioRotating.gif'
 
 
 def _getBufferFromImage(img, layout, bgcolor, bright, offset):
@@ -79,7 +75,8 @@ def _loadGIFSequence(imagePath, layout, bgcolor, bright, offset):
     images = []
     count = 0
     for frame in ImageSequence.Iterator(img):
-        images.append(_getBufferFromImage(frame, layout, bgcolor, bright, offset))
+        images.append(_getBufferFromImage(
+            frame, layout, bgcolor, bright, offset))
         count += 1
 
     return images
@@ -119,11 +116,22 @@ class ImageAnim(BaseMatrixAnim):
                  use_file_fps=True, **kwds):
         """Helper class for displaying image animations for GIF files or a set of bitmaps
 
-        layout - layoutMatrix instance
-        imagePath - Path to either a single animated GIF image or folder of GIF files
-        offset - X,Y tuple coordinates at which to place the top-left corner of the image
-        bgcolor - RGB tuple color to replace any transparent pixels with. Avoids transparent showing as black
-        brightness - Brightness value (0-255) to scale the image by. Otherwise uses master brightness at the time of creation
+        layout
+            layoutMatrix instance
+
+        imagePath
+            Path to either a single animated GIF image or folder of GIF files
+
+        offset
+            X, Y coordinates of the top-left corner of the image
+
+        bgcolor
+            RGB tuple color to replace any transparent pixels with.
+            Avoids transparent showing as black
+
+        brightness
+            Brightness value (0-255) to scale the image by.
+            Otherwise uses master brightness at the time of creation
         """
         super().__init__(layout, **kwds)
 
@@ -143,12 +151,8 @@ class ImageAnim(BaseMatrixAnim):
         self._image_buffers = [None, None]
         self._cur_img_buf = 1  # start here because loadNext swaps it
 
-        if imagePath is None:
-            cur_dir = os.path.dirname(os.path.realpath(__file__))
-            imagePath = os.path.abspath(os.path.join(cur_dir, '../../Graphics/MarioRotating.gif'))
-
-        self.imagePath = imagePath
-        self.folder_mode = os.path.isdir(imagePath)
+        self.imagePath = imagePath or str(DEFAULT_ANIM)
+        self.folder_mode = os.path.isdir(self.imagePath)
         self.gif_files = []
         self.gif_indices = []
         self.folder_index = -1
@@ -195,7 +199,7 @@ class ImageAnim(BaseMatrixAnim):
                 self.folder_index = self.gif_indices[0]
                 self.gif_indices = list(range(len(self.gif_files)))
             else:
-                self.folder_index = self.gif_indices.pop(rand.randrange(0, len(self.gif_indices)))
+                self.folder_index = self.gif_indices.pop(random.randrange(0, len(self.gif_indices)))
         else:
             self.folder_index += 1
             if self.folder_index >= len(self.gif_files):
