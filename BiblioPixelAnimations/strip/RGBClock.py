@@ -32,5 +32,3 @@ class RGBClock(BaseStripAnim):
 
         r, g, b = self.palette(t.tm_sec * (256 // 60))
         self.layout.fillRGB(r, g, b, self._sStart, self._sEnd)
-
-        self._step = 0

@@ -27,8 +27,6 @@ class AnalogClock(BaseMatrixAnim):
         self.layout.drawLine(self._centerX, self._centerY, p_min[0], p_min[1], (0, 255, 0), aa=self.aa)
         self.layout.drawLine(self._centerX, self._centerY, p_sec[0], p_sec[1], (0, 0, 255), aa=self.aa)
 
-        self._step = 0
-
 
 class RGBAnalogClock(BaseMatrixAnim):
 
@@ -57,5 +55,3 @@ class RGBAnalogClock(BaseMatrixAnim):
         self.layout.drawLine(self._centerX, self._centerY, p_hrs[0], p_hrs[1], c_hrs, aa=self.aa)
         self.layout.drawLine(self._centerX, self._centerY, p_min[0], p_min[1], c_min, aa=self.aa)
         self.layout.drawLine(self._centerX, self._centerY, p_sec[0], p_sec[1], c_sec, aa=self.aa)
-
-        self._step = 0

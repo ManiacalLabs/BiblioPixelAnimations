@@ -29,5 +29,3 @@ class BEClock(BaseStripAnim):
 
             start = (self._bitSpace + self._bitWidth) * i
             self.layout.fill(color, start, start + self._bitWidth)
-
-        self._step = 0

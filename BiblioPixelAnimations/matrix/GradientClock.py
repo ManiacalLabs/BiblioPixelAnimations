@@ -35,5 +35,3 @@ class GradientClock(BaseMatrixAnim):
         for x in range(self.cdim):
             self.layout.drawLine(x, 0, x, self.layout.height - 1,
                                  self.palette(grad[x]))
-
-        self._step = 0

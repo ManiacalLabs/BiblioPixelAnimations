@@ -148,6 +148,9 @@ class Tetris(BaseGameAnim):
         self.addKeyFunc("START", self.togglePause, speed=1, hold=False)
         self.init_game()
 
+    def pre_run(self):
+        self._step = 0
+
     def _getNextPiece(self):
         stop = len(tetris_shapes) if self._doEvil else 7
         return tetris_shapes[rand(0, stop)]

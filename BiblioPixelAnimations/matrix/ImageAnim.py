@@ -241,5 +241,3 @@ class ImageAnim(BaseMatrixAnim):
                     self.last_start = time.time()
             else:
                 self.animComplete = True
-
-        self._step = 0

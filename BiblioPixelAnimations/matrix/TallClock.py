@@ -7,6 +7,9 @@ class TallClock(BaseMatrixAnim):
     def __init__(self, layout, **kwds):
         super().__init__(layout, **kwds)
 
+    def pre_run(self):
+        self._step = 0
+
     def step(self, amt):
         self.layout.setTexture([[self.palette(
             y * 255 / self.height + self._step * 2)] * self.width for y in range(self.height)])

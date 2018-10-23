@@ -111,6 +111,9 @@ class CubeGameOfLife(BaseCubeAnim):
 
         self._finishCount = 0
 
+    def pre_run(self):
+        self._step = 0
+
     def stepTable(self):
         x, y, z = 0, 0, 0
         for t_z in self._table.table:

@@ -159,6 +159,7 @@ class Spectrum(BaseMatrixAnim):
         self.next_draw_obj()
 
     def pre_run(self):
+        self._step = 0
         self.source.start()
 
     def _exit(self, type, value, traceback):

@@ -9,6 +9,9 @@ class Pinwheel(BaseMatrixAnim):
         self._dir = dir
         self._len = (self.width * 2) + (self.height * 2) - 2
 
+    def pre_run(self):
+        self._step = 0
+
     def step(self, amt):
         if self._dir:
             s = 255 - self._step

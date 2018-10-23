@@ -192,8 +192,6 @@ class TicTacToe(BaseMatrixAnim):
             y2 = ((i // 3) * 8) + 3
             self.layout.drawLine(x1, y1, x2, y2, colors.White)
 
-        self._step = 0
-
         if complete and self._showWinCount > 2:
             self._showWinCount = 0
             self._board.clearBoard()

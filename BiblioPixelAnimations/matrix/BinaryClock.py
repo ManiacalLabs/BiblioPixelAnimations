@@ -35,5 +35,3 @@ class MatrixBinaryClock(BaseMatrixAnim):
                     self._origX + (x) + (self._lightSize - 1) * x + self._colSpacing * x,
                     ((4 - colSize[x]) + i + self._origY) * self._lightSize,
                     self._lightSize, self._lightSize, color)
-
-        self._step = 0

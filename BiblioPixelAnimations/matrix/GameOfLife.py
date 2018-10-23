@@ -113,7 +113,7 @@ class Table:
 
 
 class GameOfLife(BaseMatrixAnim):
-    COLOR_DEFAULTS = ('color', colors.Red), ('bg', colors.Off)
+    COLOR_DEFAULTS = ('bg', colors.Off), ('color', colors.Red),
 
     def __init__(self, layout, toroidal=False):
         super().__init__(layout)
@@ -146,8 +146,6 @@ class GameOfLife(BaseMatrixAnim):
                 self._table.genNewTable()
                 self._finishCount = 0
                 self.animComplete = True
-
-        self._step = 0
 
 
 class GameOfLifeRGB(BaseMatrixAnim):
@@ -199,7 +197,6 @@ class GameOfLifeRGB(BaseMatrixAnim):
         self.doStableCheck(self._tableR)
         self.doStableCheck(self._tableG)
         self.doStableCheck(self._tableB)
-        self._step = 0
 
 
 class GameOfLifeClock(BaseMatrixAnim):

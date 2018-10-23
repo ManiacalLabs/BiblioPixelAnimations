@@ -9,6 +9,9 @@ class Bloom(BaseMatrixAnim):
         self._vector = genVector(self.layout.width, self.layout.height)
         self._dir = dir
 
+    def pre_run(self):
+        self._step = 0
+
     def step(self, amt=8):
         if self._dir:
             s = 255 - self._step

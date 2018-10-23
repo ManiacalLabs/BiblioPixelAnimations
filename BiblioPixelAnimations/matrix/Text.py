@@ -32,8 +32,6 @@ class ScrollText(BaseMatrixAnim):
             self.xPos = self.width - 1
             self.animComplete = True
 
-        self._step = 0
-
 
 class BounceText(BaseMatrixAnim):
     COLOR_DEFAULTS = (('bgcolor', colors.Off), ('color', colors.White))
@@ -70,5 +68,3 @@ class BounceText(BaseMatrixAnim):
                 self.animComplete = True
 
         self.xPos += amt * self._dir
-
-        self._step = 0

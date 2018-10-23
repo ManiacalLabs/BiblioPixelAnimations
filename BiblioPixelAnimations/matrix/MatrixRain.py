@@ -4,6 +4,8 @@ import random
 
 
 class MatrixRain(BaseMatrixAnim):
+    COLOR_DEFAULTS = ('palette', 'green'),
+
     def __init__(self, layout, tail=4, growthRate=4, **kwds):
         super().__init__(layout, **kwds)
         self._tail = tail
@@ -40,8 +42,6 @@ class MatrixRain(BaseMatrixAnim):
                         removals.append(drop)
                 for r in removals:
                     self._drops[x].remove(r)
-
-        self._step = 0
 
 
 class MatrixRainBow(BaseMatrixAnim):
@@ -83,5 +83,3 @@ class MatrixRainBow(BaseMatrixAnim):
                         removals.append(drop)
                 for r in removals:
                     self._drops[x].remove(r)
-
-        self._step = 0
