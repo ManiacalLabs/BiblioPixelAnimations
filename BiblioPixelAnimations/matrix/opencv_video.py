@@ -32,8 +32,9 @@ import cv2
 
 class OpenCVVideo(BaseMatrixAnim):
 
-    def __init__(self, layout, videoSource=None, mirror=True, offset=0.0, crop=True, useVidFPS=False):
-        super().__init__(layout)
+    def __init__(self, layout, videoSource=None, mirror=True, offset=0.0,
+                 crop=True, useVidFPS=False, **kwds):
+        super().__init__(layout, **kwds)
 
         self.crop = crop
         self.mirror = mirror

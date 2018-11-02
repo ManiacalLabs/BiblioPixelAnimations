@@ -3,8 +3,8 @@ from bibliopixel.animation import BaseMatrixAnim
 
 class Pinwheel(BaseMatrixAnim):
 
-    def __init__(self, layout, dir=True):
-        super().__init__(layout)
+    def __init__(self, layout, dir=True, **kwds):
+        super().__init__(layout, **kwds)
         self._center = (self.width // 2, self.height // 2)
         self._dir = dir
         self._len = (self.width * 2) + (self.height * 2) - 2

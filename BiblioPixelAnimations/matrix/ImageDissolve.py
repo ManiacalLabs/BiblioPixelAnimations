@@ -6,8 +6,9 @@ import os
 
 class ImageDissolve(BaseMatrixAnim):
 
-    def __init__(self, layout, imageFiles=None, pixelRate=10, waitFrames=30):
-        super().__init__(layout)
+    def __init__(self, layout, imageFiles=None, pixelRate=10, waitFrames=30,
+                 **kwds):
+        super().__init__(layout, **kwds)
         self.pixelRate = pixelRate
         if imageFiles is None:
             imageFiles = []

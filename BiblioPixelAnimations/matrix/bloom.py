@@ -4,8 +4,8 @@ from bibliopixel.util import genVector
 
 class Bloom(BaseMatrixAnim):
 
-    def __init__(self, layout, dir=True):
-        super().__init__(layout)
+    def __init__(self, layout, dir=True, **kwds):
+        super().__init__(layout, **kwds)
         self._vector = genVector(self.layout.width, self.layout.height)
         self._dir = dir
 

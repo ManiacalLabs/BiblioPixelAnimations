@@ -6,9 +6,6 @@ class PartyMode(BaseStripAnim):
     """Stobe Light Effect."""
     COLOR_DEFAULTS = ('colors', [colors.Red, colors.Green, colors.Blue]),
 
-    def __init__(self, layout, start=0, end=-1, **kwds):
-        super().__init__(layout, start, end, **kwds)
-
     def pre_run(self):
         self._step = 0
 

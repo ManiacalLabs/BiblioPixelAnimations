@@ -5,8 +5,8 @@ import random
 
 class RainBow(BaseCubeAnim):
 
-    def __init__(self, layout, tail=4, growthRate=12):
-        super().__init__(layout)
+    def __init__(self, layout, tail=4, growthRate=12, **kwds):
+        super().__init__(layout, **kwds)
         self._tail = tail
         self._drops = [[[] for z in range(self.z)] for x in range(self.x)]
         self._growthRate = growthRate

@@ -8,7 +8,7 @@ from bibliopixel.animation import BaseMatrixAnim
 import bibliopixel.colors as colors
 
 
-class Circle():
+class Circle:
 
     def __init__(self, posy, posx, color, frameratio, radius):
         self._y = posy

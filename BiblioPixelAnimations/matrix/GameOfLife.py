@@ -115,8 +115,8 @@ class Table:
 class GameOfLife(BaseMatrixAnim):
     COLOR_DEFAULTS = ('bg', colors.Off), ('color', colors.Red),
 
-    def __init__(self, layout, toroidal=False):
-        super().__init__(layout)
+    def __init__(self, layout, toroidal=False, **kwds):
+        super().__init__(layout, **kwds)
 
         self.toroidal = toroidal
         self._finishCount = 0

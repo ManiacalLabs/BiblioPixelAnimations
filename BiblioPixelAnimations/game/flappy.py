@@ -6,8 +6,8 @@ import time
 
 class Flappy(BaseGameAnim):
 
-    def __init__(self, layout, inputDev):
-        super().__init__(layout, inputDev)
+    def __init__(self, layout, inputDev, **kwds):
+        super().__init__(layout, inputDev, **kwds)
 
         self._speed = 5
         self._accel = 5

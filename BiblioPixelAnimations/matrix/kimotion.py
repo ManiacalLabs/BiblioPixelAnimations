@@ -132,7 +132,7 @@ class Kimotion(BaseMatrixAnim):
     }
 
     def __init__(self, layout, server="localhost:1337", mirror=True, crop=True, shader="Sandstorm", **kwargs):
-        super().__init__(layout)
+        super().__init__(layout, **kwargs)
         self.server = server
         self.mirror = mirror
         self.crop = crop

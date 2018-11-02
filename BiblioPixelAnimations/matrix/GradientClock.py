@@ -5,8 +5,8 @@ import time
 
 
 class GradientClock(BaseMatrixAnim):
-    def __init__(self, layout):
-        super().__init__(layout)
+    def __init__(self, layout, **kwds):
+        super().__init__(layout, **kwds)
 
         self.cdim = self.layout.width
         self.half = self.cdim // 2

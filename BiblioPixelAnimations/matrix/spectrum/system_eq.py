@@ -7,7 +7,7 @@ except ImportError:
 import threading
 
 
-class Recorder(object):
+class Recorder:
     def __init__(self, rate=8000, chunksize=128):
         self.rate = rate
         self.chunksize = chunksize
@@ -46,7 +46,7 @@ class Recorder(object):
         self.p.terminate()
 
 
-class EQ(object):
+class EQ:
 
     def __init__(self, bins, max_freq=4000, log_scale=True, auto_gain=False, gain=3):
         self.max_freq = max_freq

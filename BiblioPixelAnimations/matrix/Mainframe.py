@@ -6,8 +6,8 @@ import os
 class Mainframe(BaseMatrixAnim):
     COLOR_DEFAULTS = ('bgcolor', colors.Off), ('color', colors.Red)
 
-    def __init__(self, layout, scroll=True):
-        super().__init__(layout)
+    def __init__(self, layout, scroll=True, **kwds):
+        super().__init__(layout, **kwds)
         self.scroll = scroll
         self.rand_bytes_rows = (self.height // 8) + 1
         self.__genBytes()

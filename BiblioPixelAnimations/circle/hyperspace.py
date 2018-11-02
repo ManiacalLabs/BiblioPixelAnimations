@@ -50,8 +50,8 @@ class Hyperspace(BaseCircleAnim):
 
 
 class HyperspaceRainbow(BaseCircleAnim):
-    def __init__(self, layout, tail=4, growthRate=4, angleDiff=6):
-        super().__init__(layout)
+    def __init__(self, layout, tail=4, growthRate=4, angleDiff=6, **kwds):
+        super().__init__(layout, **kwds)
 
         self._tail = tail
         self._tails = [[] for x in range(360)]

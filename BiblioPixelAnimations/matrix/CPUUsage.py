@@ -8,8 +8,8 @@ from collections import deque
 class CPUUsage(BaseMatrixAnim):
     COLOR_DEFAULTS = ('onColor', colors.Red),
 
-    def __init__(self, layout):
-        super().__init__(layout)
+    def __init__(self, layout, **kwds):
+        super().__init__(layout, **kwds)
         self._usage = deque(iterable=[0] * self.width, maxlen=self.width)
 
     def step(self, amt=1):

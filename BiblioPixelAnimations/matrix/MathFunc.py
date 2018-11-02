@@ -35,8 +35,8 @@ class MathFunc(BaseMatrixAnim):
     ]
 
     def __init__(self, layout, frames_per=300, func=0, rand=True,
-                 fade_frames=30):
-        super().__init__(layout)
+                 fade_frames=30, **kwds):
+        super().__init__(layout, **kwds)
         self.start_func = func
         self.frames_per = frames_per
         self.rand = rand

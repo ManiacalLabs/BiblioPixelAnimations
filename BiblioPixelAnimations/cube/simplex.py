@@ -5,8 +5,8 @@ from noise import snoise4
 
 class Simplex(BaseCubeAnim):
 
-    def __init__(self, layout, freq=16, octaves=1):
-        super().__init__(layout)
+    def __init__(self, layout, freq=16, octaves=1, **kwds):
+        super().__init__(layout, **kwds)
         self._step = 1
         self._freq = float(freq)
         self._octaves = octaves

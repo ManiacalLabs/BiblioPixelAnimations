@@ -5,8 +5,8 @@ import time
 
 class CircleClock(BaseCircleAnim):
 
-    def __init__(self, layout):
-        super().__init__(layout)
+    def __init__(self, layout, **kwds):
+        super().__init__(layout, **kwds)
         last = self.lastRing
         self.hands = [
             {

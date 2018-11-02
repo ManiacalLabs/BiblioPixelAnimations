@@ -3,10 +3,6 @@ import time
 
 
 class OneKClock(BaseMatrixAnim):
-
-    def __init__(self, layout, **kwds):
-        super().__init__(layout, **kwds)
-
     def pre_run(self):
         self._step = 0
 

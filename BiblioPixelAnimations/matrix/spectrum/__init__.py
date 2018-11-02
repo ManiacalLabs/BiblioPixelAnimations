@@ -3,7 +3,7 @@ from bibliopixel import log
 from . system_eq import EQ
 
 
-class BaseSpectrumDraw(object):
+class BaseSpectrumDraw:
 
     def __init__(self, anim):
         self.anim = anim
@@ -139,9 +139,10 @@ DEFAULT_VIS_LIST = [
 class Spectrum(BaseMatrixAnim):
 
     def __init__(self, layout, vis_list=None, steps_per_vis=None,
-                 bins=64, max_freq=4000, log_scale=True, auto_gain=False, gain=3):
+                 bins=64, max_freq=4000, log_scale=True, auto_gain=False,
+                 gain=3, **kwds):
 
-        super().__init__(layout)
+        super().__init__(layout, **kwds)
         self.source = EQ(bins=bins, max_freq=max_freq,
                          log_scale=log_scale, auto_gain=auto_gain, gain=gain)
         self.draw_obj = None

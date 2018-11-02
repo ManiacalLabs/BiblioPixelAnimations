@@ -5,8 +5,8 @@ import os
 
 class ImageShow(BaseMatrixAnim):
 
-    def __init__(self, layout, imagePath=None, offset=(0, 0)):
-        super().__init__(layout)
+    def __init__(self, layout, imagePath=None, offset=(0, 0), **kwds):
+        super().__init__(layout, **kwds)
         if imagePath is None:
             cur_dir = os.path.dirname(os.path.realpath(__file__))
             imagePath = os.path.abspath(os.path.join(cur_dir, '../../Graphics/ml_logo.bmp'))

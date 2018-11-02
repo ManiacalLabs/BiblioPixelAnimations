@@ -5,8 +5,8 @@ import time
 
 class ArcClock(BaseCircleAnim):
 
-    def __init__(self, layout):
-        super().__init__(layout)
+    def __init__(self, layout, **kwds):
+        super().__init__(layout, **kwds)
         self.hands = [
             {
                 'rings': [0, 1],

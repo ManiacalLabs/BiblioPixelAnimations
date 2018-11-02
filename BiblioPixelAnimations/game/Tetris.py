@@ -116,8 +116,8 @@ def new_board():
 
 class Tetris(BaseGameAnim):
 
-    def __init__(self, layout, inputDev, evil=False):
-        super().__init__(layout, inputDev)
+    def __init__(self, layout, inputDev, evil=False, **kwds):
+        super().__init__(layout, inputDev, **kwds)
 
         if (self.width, self.height) != (25, 50):
             raise Exception(

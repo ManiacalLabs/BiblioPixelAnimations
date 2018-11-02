@@ -20,9 +20,9 @@ import random
 class WhiteTwinkle(BaseStripAnim):
     """ Random white twinkling leds """
 
-    def __init__(self, layout, max_led=None, density=80, speed=2, max_bright=255):
-
-        super().__init__(layout, 0, -1)
+    def __init__(self, layout, max_led=None, density=80, speed=2,
+                 max_bright=255, **kwds):
+        super().__init__(layout, 0, -1, **kwds)
         self._current = 0
         self._minLed = 0
         self._maxLed = max_led

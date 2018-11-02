@@ -38,7 +38,7 @@ class BounceText(BaseMatrixAnim):
 
     def __init__(self, layout, text='BounceText', xPos=0, yPos=0, buffer=0,
                  font_name=font.default_font, font_scale=1, **kwds):
-        super().__init__(layout)
+        super().__init__(layout, **kwds)
         self._text = text
         self.xPos = xPos
         self.yPos = yPos

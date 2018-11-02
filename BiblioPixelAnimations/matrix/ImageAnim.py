@@ -115,7 +115,8 @@ class loadnextthread(threading.Thread):
 
 class ImageAnim(BaseMatrixAnim):
     def __init__(self, layout, imagePath=None, offset=(0, 0), bgcolor=colors.Off,
-                 brightness=255, cycles=1, seconds=None, random=False, use_file_fps=True):
+                 brightness=255, cycles=1, seconds=None, random=False,
+                 use_file_fps=True, **kwds):
         """Helper class for displaying image animations for GIF files or a set of bitmaps
 
         layout - layoutMatrix instance
@@ -124,7 +125,7 @@ class ImageAnim(BaseMatrixAnim):
         bgcolor - RGB tuple color to replace any transparent pixels with. Avoids transparent showing as black
         brightness - Brightness value (0-255) to scale the image by. Otherwise uses master brightness at the time of creation
         """
-        super().__init__(layout)
+        super().__init__(layout, **kwds)
 
         self.cycles = cycles
         self.cycle_count = 0

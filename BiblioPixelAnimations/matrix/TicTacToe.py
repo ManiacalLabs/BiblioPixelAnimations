@@ -4,7 +4,7 @@ from bibliopixel.animation import BaseMatrixAnim
 import bibliopixel.colors as colors
 
 
-class Tic(object):
+class Tic:
     winning_combos = (
         [0, 1, 2], [3, 4, 5], [6, 7, 8],
         [0, 3, 6], [1, 4, 7], [2, 5, 8],
@@ -124,8 +124,8 @@ class Tic(object):
 
 
 class TicTacToe(BaseMatrixAnim):
-    def __init__(self, layout):
-        super().__init__(layout)
+    def __init__(self, layout, **kwds):
+        super().__init__(layout, **kwds)
 
         self._showWinCount = 0
 

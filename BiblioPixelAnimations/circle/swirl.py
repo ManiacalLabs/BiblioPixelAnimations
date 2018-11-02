@@ -5,8 +5,8 @@ from bibliopixel.util.colors import palettes
 class Swirl(BaseCircleAnim):
     COLOR_DEFAULTS = ('palette', palettes.get('three_sixty')),
 
-    def __init__(self, layout, angle=12):
-        super().__init__(layout)
+    def __init__(self, layout, angle=12, **kwds):
+        super().__init__(layout, **kwds)
         self.angle = angle
 
     def pre_run(self):

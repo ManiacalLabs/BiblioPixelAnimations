@@ -46,8 +46,8 @@ class MatrixRain(BaseMatrixAnim):
 
 class MatrixRainBow(BaseMatrixAnim):
 
-    def __init__(self, layout, tail=4, growthRate=4):
-        super().__init__(layout)
+    def __init__(self, layout, tail=4, growthRate=4, **kwds):
+        super().__init__(layout, **kwds)
         self._tail = tail
         self._growthRate = growthRate
 

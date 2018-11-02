@@ -5,8 +5,8 @@ from bibliopixel import colors as bp_colors
 class SaberBlade(BaseStripAnim):
     COLOR_DEFAULTS = ('colors', [bp_colors.Red])
 
-    def __init__(self, layout, speed=1):
-        super().__init__(layout)
+    def __init__(self, layout, speed=1, **kwds):
+        super().__init__(layout, **kwds)
         self.speed = speed
 
     def pre_run(self):
