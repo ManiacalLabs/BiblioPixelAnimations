@@ -3,7 +3,7 @@ from bibliopixel import log
 
 try:
     from PIL import Image, ImageSequence
-except ImportError as e:
+except ImportError:
     error = "Please install Python Imaging Library: pip install pillow"
     log.logger.error(error)
     raise ImportError(error)

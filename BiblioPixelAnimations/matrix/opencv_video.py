@@ -60,7 +60,7 @@ class OpenCVVideo(BaseMatrixAnim):
                     self.internal_delay = (1000 / (self._vidfps * 1000))
                 # CV_CAP_PROP_FRAME_COUNT
                 self._frameTotal = int(self._vid.get(7))
-            except Exception as e:
+            except Exception:
                 pass
 
         if i is None:
