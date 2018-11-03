@@ -1,7 +1,10 @@
 from bibliopixel.animation import BaseMatrixAnim
 from bibliopixel import log
 import numpy as np
-import cv2
+try:
+    import cv2
+except ImportError:
+    log.error('Could not import cv2 library')
 import os
 
 grab = None

@@ -27,7 +27,11 @@
 
 # Load driver for your hardware, visualizer just for example
 from bibliopixel.animation import BaseMatrixAnim
-import cv2
+from bibliopixel.util import log
+try:
+    import cv2
+except ImportError:
+    log.error('Could not import cv2 library')
 
 
 class OpenCVVideo(BaseMatrixAnim):
