@@ -24,9 +24,9 @@ class GenericNetworkReceiver(BaseReceiver):
             self.layout.setBuffer(data)
         else:
             if isinstance(self.layout, LEDMatrix):
-                for y in range(self.layout.height):
-                    for x in range(self.layout.width):
-                        pixel = x + y * self.layout.width
+                for y in range(self.height):
+                    for x in range(self.width):
+                        pixel = x + y * self.width
                         self.layout.setRGB(x, y, data[pixel * 3 + 0], data[pixel * 3 + 1], data[pixel * 3 + 2])
             elif isinstance(self.layout, LEDStrip):
                 for i in range(self.layout.numLEDs):

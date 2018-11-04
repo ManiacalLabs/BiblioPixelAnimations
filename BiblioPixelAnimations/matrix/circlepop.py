@@ -65,12 +65,12 @@ class CirclePop(BaseMatrixAnim):
 
         # remove circles that have grown bigger than our matrix
         self.cont = [c for c in self.cont if c._radius !=
-                     max(self.layout.height, self.layout.width) + 1]
+                     max(self.height, self.width) + 1]
 
     def addCircle(self):
         # let's add some randomness. You can play with these values.
-        posx = random.randint(3, self.layout.width - 3)
-        posy = random.randint(3, self.layout.height - 3)
+        posx = random.randint(3, self.width - 3)
+        posy = random.randint(3, self.height - 3)
         color = random.randint(1, 359)
         # choose between 2 speeds fps/1 and fps/2.
         frameratio = random.choice([1, 2])

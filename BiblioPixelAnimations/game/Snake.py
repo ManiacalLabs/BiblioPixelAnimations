@@ -68,7 +68,7 @@ class Snake(BaseGameAnim):
     def resetBody(self):
         dx, dy = self._dir = self._directions[0]  # randint(0,3)]
         dx, dy = dx * -1, dy * -1
-        x, y = self._pos = (self.layout.width // 2, self.layout.height // 2)
+        x, y = self._pos = (self.width // 2, self.height // 2)
         self._body = []
         for i in range(self._growLen):
             self._body.append(((x + (i * dx)), (y + (i * dy))))

@@ -8,7 +8,7 @@ class GradientClock(BaseMatrixAnim):
     def __init__(self, layout, **kwds):
         super().__init__(layout, **kwds)
 
-        self.cdim = self.layout.width
+        self.cdim = self.width
         self.half = self.cdim // 2
         self.odd = (self.half * 2) < self.cdim
 
@@ -33,5 +33,5 @@ class GradientClock(BaseMatrixAnim):
         log.debug('{}:{}:{}'.format(hrs, mins, sec))
 
         for x in range(self.cdim):
-            self.layout.drawLine(x, 0, x, self.layout.height - 1,
+            self.layout.drawLine(x, 0, x, self.height - 1,
                                  self.palette(grad[x]))

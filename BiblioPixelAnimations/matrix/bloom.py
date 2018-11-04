@@ -6,7 +6,7 @@ class Bloom(BaseMatrixAnim):
 
     def __init__(self, layout, dir=True, **kwds):
         super().__init__(layout, **kwds)
-        self._vector = genVector(self.layout.width, self.layout.height)
+        self._vector = genVector(self.width, self.height)
         self._dir = dir
 
     def pre_run(self):
@@ -19,9 +19,9 @@ class Bloom(BaseMatrixAnim):
             s = self._step
 
         # this respects master brightness but is slower
-        for y in range(self.layout.height):
-            for x in range(self.layout.width):
-                index = self._vector[y][x] * 255 / self.layout.height + s
+        for y in range(self.height):
+            for x in range(self.width):
+                index = self._vector[y][x] * 255 / self.height + s
                 self.layout.set(x, y, self.palette(index))
 
         self._step += amt

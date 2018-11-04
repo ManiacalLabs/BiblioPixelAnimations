@@ -122,7 +122,7 @@ class GameOfLife(BaseMatrixAnim):
         self._finishCount = 0
 
     def pre_run(self):
-        self._table = Table(self.layout.height, self.layout.width, 1, None)
+        self._table = Table(self.height, self.width, 1, None)
         self._table.toroidal = self.toroidal
 
     def stepTable(self):
@@ -156,15 +156,15 @@ class GameOfLifeRGB(BaseMatrixAnim):
         self.toroidal = toroidal
 
     def pre_run(self):
-        self._tableR = Table(self.layout.height, self.layout.width, 1, None)
+        self._tableR = Table(self.height, self.width, 1, None)
         self._tableR.toroidal = self.toroidal
         time.sleep(0.01)
 
-        self._tableG = Table(self.layout.height, self.layout.width, 1, None)
+        self._tableG = Table(self.height, self.width, 1, None)
         self._tableG.toroidal = self.toroidal
         time.sleep(0.01)
 
-        self._tableB = Table(self.layout.height, self.layout.width, 1, None)
+        self._tableB = Table(self.height, self.width, 1, None)
         self._tableB.toroidal = self.toroidal
 
     def stepTables(self):
