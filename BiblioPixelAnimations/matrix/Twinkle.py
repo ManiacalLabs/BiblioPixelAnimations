@@ -12,10 +12,10 @@
 #                 brightness (19 - 255). Lower brightness also speeds up the twinkle rate.
 
 from .. base.Twinkle import TwinkleBase
-from bibliopixel.animation import BaseMatrixAnim
+from bibliopixel.animation.matrix import Matrix
 
 
-class Twinkle(BaseMatrixAnim):
+class Twinkle(Matrix):
     def __init__(self, layout, **kwds):
         super().__init__(layout)
         self.base = TwinkleBase(layout, **kwds)

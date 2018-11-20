@@ -1,8 +1,8 @@
-from bibliopixel.animation import BaseCircleAnim
+from bibliopixel.animation.circle import Circle
 from bibliopixel.colors import COLORS
 
 
-class CircleFill(BaseCircleAnim):
+class CircleFill(Circle):
     COLOR_DEFAULTS = ('colors', [COLORS.Red]),
 
     def pre_run(self):
@@ -16,7 +16,7 @@ class CircleFill(BaseCircleAnim):
         self._step %= 360
 
 
-class CircleFillRainbow(BaseCircleAnim):
+class CircleFillRainbow(Circle):
 
     def pre_run(self):
         self._step = 0

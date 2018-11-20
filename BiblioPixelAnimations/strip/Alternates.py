@@ -18,10 +18,10 @@
 # Best run in the region of 5-10 FPS
 
 
-from bibliopixel.animation import BaseStripAnim
+from bibliopixel.animation.strip import Strip
 
 
-class Alternates(BaseStripAnim):
+class Alternates(Strip):
     COLOR_DEFAULTS = ('color1', (255, 255, 255)), ('color2', (0, 0, 0))
 
     def __init__(self, layout, max_led=-1, **kwds):

@@ -1,15 +1,14 @@
 # Author: Daniel Ternes
 # More Info: http://forum.maniacallabs.com/showthread.php?tid=6
 
-
-from bibliopixel.animation import BaseStripAnim
-from bibliopixel import colors
+from bibliopixel.animation.strip import Strip
+from bibliopixel.colors import COLORS
 import time
 import calendar
 
 
-class BEClock(BaseStripAnim):
-    COLOR_DEFAULTS = ('offColor', colors.Off), ('onColor', colors.Red)
+class BEClock(Strip):
+    COLOR_DEFAULTS = ('offColor', COLORS.Off), ('onColor', COLORS.Red)
 
     """Binary Epoch Clock"""
 

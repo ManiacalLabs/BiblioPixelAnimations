@@ -1,9 +1,9 @@
-from bibliopixel.animation import BaseCubeAnim
+from bibliopixel.animation.cube import Cube
 
 from noise import snoise4
 
 
-class Simplex(BaseCubeAnim):
+class Simplex(Cube):
 
     def __init__(self, layout, freq=16, octaves=1, **kwds):
         super().__init__(layout, **kwds)

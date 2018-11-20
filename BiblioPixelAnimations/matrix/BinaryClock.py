@@ -1,13 +1,13 @@
 # Scalable Binary (BCD) Clock
 # By: Dan (www.maniacallabs.com)
 
-from bibliopixel.animation import BaseMatrixAnim
-from bibliopixel import colors
+from bibliopixel.animation.matrix import Matrix
+from bibliopixel.colors import COLORS
 import time
 
 
-class MatrixBinaryClock(BaseMatrixAnim):
-    COLOR_DEFAULTS = ('onColor', colors.Red), ('offColor', colors.Blue)
+class MatrixBinaryClock(Matrix):
+    COLOR_DEFAULTS = ('onColor', COLORS.Red), ('offColor', COLORS.Blue)
 
     def __init__(self, layout, origX=0, origY=0, lightSize=1, colSpacing=1,
                  **kwds):

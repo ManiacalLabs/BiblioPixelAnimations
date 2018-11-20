@@ -1,7 +1,7 @@
-from bibliopixel.animation import BaseStripAnim
+from bibliopixel.animation.strip import Strip
 
 
-class ColorFill(BaseStripAnim):
+class ColorFill(Strip):
     """Fill the dots progressively along the strip."""
     # DEPRECATED - use bibliopixel.animation.fill
 

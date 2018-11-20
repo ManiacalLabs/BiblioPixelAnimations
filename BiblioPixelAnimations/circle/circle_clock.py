@@ -1,9 +1,9 @@
-from bibliopixel.animation import BaseCircleAnim
-from bibliopixel import colors
 import time
+from bibliopixel.animation.circle import Circle
+from bibliopixel.colors import COLORS
 
 
-class CircleClock(BaseCircleAnim):
+class CircleClock(Circle):
 
     def __init__(self, layout, **kwds):
         super().__init__(layout, **kwds)
@@ -11,19 +11,19 @@ class CircleClock(BaseCircleAnim):
         self.hands = [
             {
                 'radius': last - 0,
-                'color': colors.Red,
+                'color': COLORS.Red,
                 'segments': 60,
                 'key': 'tm_sec'
             },
             {
                 'radius': last - 2,
-                'color': colors.Green,
+                'color': COLORS.Green,
                 'segments': 60,
                 'key': 'tm_min'
             },
             {
                 'radius': last - 4,
-                'color': colors.Blue,
+                'color': COLORS.Blue,
                 'segments': 12,
                 'key': 'tm_hour'
             }

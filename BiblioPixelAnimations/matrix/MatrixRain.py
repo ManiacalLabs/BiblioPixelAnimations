@@ -1,9 +1,9 @@
-from bibliopixel.animation import BaseMatrixAnim
-import bibliopixel.colors as colors
+from bibliopixel.animation.matrix import Matrix
+from bibliopixel.colors.arithmetic import color_scale
 import random
 
 
-class MatrixRain(BaseMatrixAnim):
+class MatrixRain(Matrix):
     COLOR_DEFAULTS = ('palette', 'green'),
 
     def __init__(self, layout, tail=4, growthRate=4, **kwds):
@@ -18,7 +18,7 @@ class MatrixRain(BaseMatrixAnim):
         for i in range(self._tail):
             if y - i >= 0 and y - i < self.height:
                 level = 255 - ((255 // self._tail) * i)
-                self.layout.set(x, y - i, colors.color_scale(color, level))
+                self.layout.set(x, y - i, color_scale(color, level))
 
     def step(self, amt=1):
         self.layout.all_off()
@@ -44,7 +44,7 @@ class MatrixRain(BaseMatrixAnim):
                     self._drops[x].remove(r)
 
 
-class MatrixRainBow(BaseMatrixAnim):
+class MatrixRainBow(Matrix):
 
     def __init__(self, layout, tail=4, growthRate=4, **kwds):
         super().__init__(layout, **kwds)
@@ -58,7 +58,7 @@ class MatrixRainBow(BaseMatrixAnim):
         for i in range(self._tail):
             if y - i >= 0 and y - i < self.height:
                 level = 255 - ((255 // self._tail) * i)
-                self.layout.set(x, y - i, colors.color_scale(color, level))
+                self.layout.set(x, y - i, color_scale(color, level))
 
     def step(self, amt=1):
         self.layout.all_off()

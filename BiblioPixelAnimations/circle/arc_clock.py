@@ -1,28 +1,28 @@
-from bibliopixel.animation import BaseCircleAnim
-from bibliopixel import colors
 import time
+from bibliopixel.animation.circle import Circle
+from bibliopixel.colors import COLORS
 
 
-class ArcClock(BaseCircleAnim):
+class ArcClock(Circle):
 
     def __init__(self, layout, **kwds):
         super().__init__(layout, **kwds)
         self.hands = [
             {
                 'rings': [0, 1],
-                'color': colors.Red,
+                'color': COLORS.Red,
                 'segments': 60,
                 'key': 'tm_sec'
             },
             {
                 'rings': [2, 3],
-                'color': colors.Green,
+                'color': COLORS.Green,
                 'segments': 60,
                 'key': 'tm_min'
             },
             {
                 'rings': [4, 5],
-                'color': colors.Blue,
+                'color': COLORS.Blue,
                 'segments': 12,
                 'key': 'tm_hour'
             }
@@ -36,4 +36,5 @@ class ArcClock(BaseCircleAnim):
             end = (360 / segs) * (getattr(t, h['key']) % segs)
             if end:
                 for i in h['rings']:
-                    self.layout.fillRing(i, h['color'], startAngle=0, endAngle=end)
+                    self.layout.fillRing(
+                        i, h['color'], startAngle=0, endAngle=end)

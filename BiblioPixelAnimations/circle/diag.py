@@ -1,8 +1,8 @@
-from bibliopixel.animation import BaseCircleAnim
+from bibliopixel.animation.circle import Circle
 from bibliopixel.colors import palettes
 
 
-class Diag(BaseCircleAnim):
+class Diag(Circle):
     COLOR_DEFAULTS = ('palette', palettes.get('three_sixty')),
 
     def __init__(self, layout, turns=1, angle=6, direction=False, **kwds):

@@ -1,7 +1,7 @@
-from bibliopixel.animation import BaseMatrixAnim
+from bibliopixel.animation.matrix import Matrix
 
 
-class Pinwheel(BaseMatrixAnim):
+class Pinwheel(Matrix):
 
     def __init__(self, layout, dir=True, **kwds):
         super().__init__(layout, **kwds)

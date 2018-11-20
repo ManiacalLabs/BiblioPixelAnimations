@@ -1,9 +1,9 @@
-from bibliopixel.animation import BaseCircleAnim
-from bibliopixel import colors
+from bibliopixel.animation.circle import Circle
+from bibliopixel.colors import COLORS
 
 
-class PinWheel(BaseCircleAnim):
-    COLOR_DEFAULTS = ('colors', [colors.Red, colors.Green, colors.Blue]),
+class PinWheel(Circle):
+    COLOR_DEFAULTS = ('colors', [COLORS.Red, COLORS.Green, COLORS.Blue]),
 
     def __init__(self, layout, **kwds):
         super().__init__(layout, **kwds)

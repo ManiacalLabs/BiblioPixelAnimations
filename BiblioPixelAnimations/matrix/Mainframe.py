@@ -1,10 +1,10 @@
-from bibliopixel.animation import BaseMatrixAnim
-import bibliopixel.colors as colors
+from bibliopixel.animation.matrix import Matrix
+from bibliopixel.colors import COLORS
 import os
 
 
-class Mainframe(BaseMatrixAnim):
-    COLOR_DEFAULTS = ('bgcolor', colors.Off), ('color', colors.Red)
+class Mainframe(Matrix):
+    COLOR_DEFAULTS = ('bgcolor', COLORS.Off), ('color', COLORS.Red)
 
     def __init__(self, layout, scroll=True, **kwds):
         super().__init__(layout, **kwds)

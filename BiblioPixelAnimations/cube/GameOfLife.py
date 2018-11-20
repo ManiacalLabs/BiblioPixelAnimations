@@ -1,5 +1,5 @@
-from bibliopixel.animation.cube import BaseCubeAnim
-import bibliopixel.colors as colors
+from bibliopixel.animation.cube import Cube
+from bibliopixel.colors import COLORS
 from collections import deque
 import random
 import copy
@@ -101,8 +101,8 @@ class Table:
         return False
 
 
-class CubeGameOfLife(BaseCubeAnim):
-    COLOR_DEFAULTS = ('bg', colors.Off), ('color', colors.Red)
+class CubeGameOfLife(Cube):
+    COLOR_DEFAULTS = ('bg', COLORS.Off), ('color', COLORS.Red)
 
     def __init__(self, layout, toroidal=False, **kwds):
         super().__init__(layout, **kwds)

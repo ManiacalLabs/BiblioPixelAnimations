@@ -1,11 +1,11 @@
-from bibliopixel.animation import BaseStripAnim
-from bibliopixel import colors
+from bibliopixel.animation.strip import Strip
+from bibliopixel.colors import COLORS
 import math
 
 
-class Wave(BaseStripAnim):
+class Wave(Strip):
     """Sine wave animation."""
-    COLOR_DEFAULTS = ('color', colors.Red),
+    COLOR_DEFAULTS = ('color', COLORS.Red),
 
     def __init__(self, layout, cycles=2, start=0, end=-1, **kwds):
         super().__init__(layout, start, end, **kwds)
@@ -39,7 +39,7 @@ class Wave(BaseStripAnim):
         self._step += amt
 
 
-class WaveMove(BaseStripAnim):
+class WaveMove(Strip):
     """Sine wave animation."""
 
     def __init__(self, layout, cycles=2, start=0, end=-1, **kwds):

@@ -1,5 +1,6 @@
-from bibliopixel.animation import BaseCubeAnim
-from bibliopixel import log, matrix
+from bibliopixel.animation.cube import Cube
+from bibliopixel.util import log
+from bibliopixel.layout import matrix
 from . system_eq import EQ
 
 
@@ -153,7 +154,7 @@ class FrameDraw(object):
         matrix._draw_fast_vline(self.set, x, y, h, color)
 
 
-class Spectrum(BaseCubeAnim):
+class Spectrum(Cube):
 
     def __init__(self, layout, vis_list=None, steps_per_vis=None,
                  bins=64, max_freq=4000, log_scale=True, auto_gain=False,

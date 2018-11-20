@@ -1,6 +1,8 @@
 import glob, os, pathlib, random, threading, time
-from bibliopixel.animation import BaseMatrixAnim
-from bibliopixel.util import log, colors
+from bibliopixel.animation.matrix import Matrix
+from bibliopixel.util import log
+from bibliopixel.colors import COLORS
+from bibliopixel.colors.arithmetic import color_scale
 
 try:
     from PIL import Image, ImageSequence
@@ -52,7 +54,7 @@ def _getBufferFromImage(img, layout, bgcolor, bright, offset):
                 g = (g * a) >> 8
                 b = (b * a) >> 8
             if bright != 255:
-                r, g, b = colors.color_scale((r, g, b), bright)
+                r, g, b = color_scale((r, g, b), bright)
 
             buffer[pixel * 3 + 0] = gamma.get(r)
             buffer[pixel * 3 + 1] = gamma.get(g)
@@ -110,8 +112,8 @@ class loadnextthread(threading.Thread):
             self._wait_event.clear()
 
 
-class ImageAnim(BaseMatrixAnim):
-    def __init__(self, layout, imagePath=None, offset=(0, 0), bgcolor=colors.Off,
+class ImageAnim(Matrix):
+    def __init__(self, layout, imagePath=None, offset=(0, 0), bgcolor=COLORS.Off,
                  brightness=255, cycles=1, seconds=None, random=False,
                  use_file_fps=True, **kwds):
         """Helper class for displaying image animations for GIF files or a set of bitmaps
@@ -145,8 +147,7 @@ class ImageAnim(BaseMatrixAnim):
         self.use_file_fps = use_file_fps
 
         self._bright = brightness
-
-        self._bgcolor = colors.color_scale(bgcolor, self._bright)
+        self._bgcolor = color_scale(bgcolor, self._bright)
         self._offset = offset
         self._image_buffers = [None, None]
         self._cur_img_buf = 1  # start here because loadNext swaps it

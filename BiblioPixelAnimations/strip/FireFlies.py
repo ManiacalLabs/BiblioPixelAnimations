@@ -1,11 +1,11 @@
-from bibliopixel.animation import BaseStripAnim
-from bibliopixel import colors
+from bibliopixel.animation.strip import Strip
+from bibliopixel.colors import COLORS
 import random
 
 
-class FireFlies(BaseStripAnim):
+class FireFlies(Strip):
     """Stobe Light Effect."""
-    COLOR_DEFAULTS = ('colors', [colors.Red]),
+    COLOR_DEFAULTS = ('colors', [COLORS.Red]),
 
     def __init__(self, layout, width=1, count=1, start=0, end=-1, **kwds):
         super().__init__(layout, start, end, **kwds)

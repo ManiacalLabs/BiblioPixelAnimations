@@ -1,5 +1,5 @@
-from bibliopixel.animation import BaseMatrixAnim
-from bibliopixel import log
+from bibliopixel.animation.matrix import Matrix
+from bibliopixel.util import log
 import numpy as np
 try:
     import cv2
@@ -56,7 +56,7 @@ if grab is None:
         grab = ImageGrab.grab
 
 
-class ScreenGrab(BaseMatrixAnim):
+class ScreenGrab(Matrix):
 
     def __init__(self, layout, bbox=(300, 300, 332, 332), mirror=False,
                  offset=0.0, crop=True, **kwds):

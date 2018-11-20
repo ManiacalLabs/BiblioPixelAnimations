@@ -1,11 +1,11 @@
-
-import bibliopixel.colors as colors
-from bibliopixel.animation import BaseStripAnim
+from bibliopixel.colors import COLORS
+from bibliopixel.colors.arithmetic import color_scale
+from bibliopixel.animation.strip import Strip
 import random
 
 
-class Pulse(BaseStripAnim):
-    COLOR_DEFAULTS = ('colors', [colors.Red])
+class Pulse(Strip):
+    COLOR_DEFAULTS = ('colors', [COLORS.Red])
 
     def __init__(self, layout, tail=2, chance=30, min_speed=1, max_speed=5, **kwds):
         super().__init__(layout, **kwds)
@@ -41,7 +41,7 @@ class Pulse(BaseStripAnim):
         if self.pulse_speed > 0:
             self.layout.set(self.pulse_position, self.pulse_color)
             for i in range(self._tail):
-                c = colors.color_scale(self.pulse_color, 255 - (self._fadeAmt * i))
+                c = color_scale(self.pulse_color, 255 - (self._fadeAmt * i))
                 self.layout.set(self.pulse_position - i, c)
                 self.layout.set(self.pulse_position + i, c)
 

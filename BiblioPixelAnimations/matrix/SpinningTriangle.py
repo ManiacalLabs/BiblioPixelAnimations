@@ -1,8 +1,8 @@
-from bibliopixel.animation import BaseMatrixAnim
-from bibliopixel.util import pointOnCircle
+from bibliopixel.animation.matrix import Matrix
+from bibliopixel.util.util import pointOnCircle
 
 
-class SpinningTriangle(BaseMatrixAnim):
+class SpinningTriangle(Matrix):
     def __init__(self, layout, cx=None, cy=None, radius=None, aa=True, **kwds):
         super().__init__(layout, **kwds)
         self._cx = cx

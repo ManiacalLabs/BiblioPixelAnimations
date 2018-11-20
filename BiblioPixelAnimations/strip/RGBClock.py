@@ -1,8 +1,8 @@
 import time
-from bibliopixel.animation import BaseStripAnim
+from bibliopixel.animation.strip import Strip
 
 
-class RGBClock(BaseStripAnim):
+class RGBClock(Strip):
     """RGB Clock done with RGB LED strip(s)"""
 
     def __init__(self, layout, hStart=0, hEnd=0, mStart=1, mEnd=1, sStart=2,

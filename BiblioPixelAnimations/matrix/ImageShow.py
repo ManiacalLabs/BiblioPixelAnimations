@@ -1,9 +1,9 @@
-from bibliopixel.animation import BaseMatrixAnim
-from bibliopixel import image
+from bibliopixel.animation.matrix import Matrix
+from bibliopixel.util.image import load_image
 import os
 
 
-class ImageShow(BaseMatrixAnim):
+class ImageShow(Matrix):
 
     def __init__(self, layout, imagePath=None, offset=(0, 0), **kwds):
         super().__init__(layout, **kwds)
@@ -14,7 +14,7 @@ class ImageShow(BaseMatrixAnim):
         self.offset = offset
 
     def pre_run(self):
-        self.layout.setTexture(image.loadImage(self.layout, imagePath=self.img, offset=self.offset))
+        self.layout.setTexture(load_image.loadImage(self.layout, imagePath=self.img, offset=self.offset))
 
     def step(self, amt):
         self.layout.fillScreen()

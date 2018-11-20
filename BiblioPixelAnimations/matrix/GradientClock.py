@@ -1,10 +1,10 @@
-from bibliopixel.animation import BaseMatrixAnim
-import bibliopixel.colors as colors
-from bibliopixel import log
+from bibliopixel.animation.matrix import Matrix
+from bibliopixel.colors.conversions import hue_gradient
+from bibliopixel.util import log
 import time
 
 
-class GradientClock(BaseMatrixAnim):
+class GradientClock(Matrix):
     def __init__(self, layout, **kwds):
         super().__init__(layout, **kwds)
 
@@ -25,10 +25,10 @@ class GradientClock(BaseMatrixAnim):
 
         grad = []
 
-        grad += colors.hue_gradient(h_hrs, h_min, self.half)
+        grad += hue_gradient(h_hrs, h_min, self.half)
         if self.odd:
             grad += [h_min]
-        grad += colors.hue_gradient(h_min, h_sec, self.half)
+        grad += hue_gradient(h_min, h_sec, self.half)
 
         log.debug('{}:{}:{}'.format(hrs, mins, sec))
 

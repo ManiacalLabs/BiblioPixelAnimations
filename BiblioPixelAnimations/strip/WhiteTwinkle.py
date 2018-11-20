@@ -13,11 +13,11 @@
 #  max_bright - The maximum brightness, some leds twinkle better if they ramp to less than full
 #                 brightness (19 - 255). Lower brightness also speeds up the twinkle rate.
 
-from bibliopixel.animation import BaseStripAnim
+from bibliopixel.animation.strip import Strip
 import random
 
 
-class WhiteTwinkle(BaseStripAnim):
+class WhiteTwinkle(Strip):
     """ Random white twinkling leds """
 
     def __init__(self, layout, max_led=None, density=80, speed=2,

@@ -1,12 +1,9 @@
-import random
-import copy
+import copy, random, threading, time
 from collections import deque
-import time
-from bibliopixel.animation import BaseMatrixAnim
-import bibliopixel.colors as colors
-from bibliopixel import log
-from bibliopixel import font
-import threading
+from bibliopixel.animation.matrix import Matrix
+from bibliopixel.colors import COLORS
+from bibliopixel.util import log
+from bibliopixel.layout import font
 
 
 class Table:
@@ -112,8 +109,8 @@ class Table:
         return False
 
 
-class GameOfLife(BaseMatrixAnim):
-    COLOR_DEFAULTS = ('bg', colors.Off), ('color', colors.Red),
+class GameOfLife(Matrix):
+    COLOR_DEFAULTS = ('bg', COLORS.Off), ('color', COLORS.Red),
 
     def __init__(self, layout, toroidal=False, **kwds):
         super().__init__(layout, **kwds)
@@ -148,7 +145,7 @@ class GameOfLife(BaseMatrixAnim):
                 self.animComplete = True
 
 
-class GameOfLifeRGB(BaseMatrixAnim):
+class GameOfLifeRGB(Matrix):
 
     def __init__(self, layout, toroidal=True, **kwds):
         super().__init__(layout, **kwds)
@@ -199,7 +196,7 @@ class GameOfLifeRGB(BaseMatrixAnim):
         self.doStableCheck(self._tableB)
 
 
-class GameOfLifeClock(BaseMatrixAnim):
+class GameOfLifeClock(Matrix):
 
     def __init__(self, layout, font_name='16x8', mil_time=False, **kwds):
         super().__init__(layout, **kwds)
@@ -238,7 +235,7 @@ class GameOfLifeClock(BaseMatrixAnim):
         y = (self.height - h) // 2
         old_buf = copy.copy(self.layout.colors)
         self.layout.all_off()
-        self.layout.drawText(val, x, y, color=colors.Red,
+        self.layout.drawText(val, x, y, color=COLORS.Red,
                              font=self.font_name, font_scale=self.scale)
         table = []
         for y in range(self.height):
@@ -283,7 +280,7 @@ class GameOfLifeClock(BaseMatrixAnim):
     def display_frame(self, frame):
         for y in range(self.height):
             for x in range(self.width):
-                c = colors.Red if frame[y][x] else colors.Black
+                c = COLORS.Red if frame[y][x] else COLORS.Black
                 self.layout.set(x, y, c)
 
     def step(self, amt=1):

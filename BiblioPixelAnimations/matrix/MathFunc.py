@@ -1,4 +1,4 @@
-from bibliopixel.animation import BaseMatrixAnim
+from bibliopixel.animation.matrix import Matrix
 import math, random
 
 
@@ -8,7 +8,7 @@ def hue_fade(a, b, val):
     return (a + ((b - a) * val)) % 360
 
 
-class MathFunc(BaseMatrixAnim):
+class MathFunc(Matrix):
     funcs = [
         lambda x, y, s: x + (x * y) + s,
         lambda x, y, s: x * s + (x * y),

@@ -1,7 +1,7 @@
 # much of the code below borrowed from http://cwoebker.com/posts/tic-tac-toe
 import random
-from bibliopixel.animation import BaseMatrixAnim
-import bibliopixel.colors as colors
+from bibliopixel.animation.matrix import Matrix
+from bibliopixel.colors import COLORS
 
 
 class Tic:
@@ -123,7 +123,7 @@ class Tic:
             return beta
 
 
-class TicTacToe(BaseMatrixAnim):
+class TicTacToe(Matrix):
     def __init__(self, layout, **kwds):
         super().__init__(layout, **kwds)
 
@@ -157,10 +157,10 @@ class TicTacToe(BaseMatrixAnim):
         cy = 3 + (y * 8)
 
         if player == 'X':
-            self.layout.drawLine(cx - 2, cy - 2, cx + 2, cy + 2, colors.Green)
-            self.layout.drawLine(cx - 2, cy + 2, cx + 2, cy - 2, colors.Green)
+            self.layout.drawLine(cx - 2, cy - 2, cx + 2, cy + 2, COLORS.Green)
+            self.layout.drawLine(cx - 2, cy + 2, cx + 2, cy - 2, COLORS.Green)
         elif player == 'O':
-            self.layout.drawCircle(cx, cy, 2, colors.Blue)
+            self.layout.drawCircle(cx, cy, 2, COLORS.Blue)
 
     def step(self, amt=1):
         winner = None
@@ -175,10 +175,10 @@ class TicTacToe(BaseMatrixAnim):
         self.layout.all_off()
 
         # right now just assuming 24x24, don't feel like doing the math for dynamic
-        self.layout.drawLine(7, 0, 7, 22, colors.Red)
-        self.layout.drawLine(15, 0, 15, 22, colors.Red)
-        self.layout.drawLine(0, 7, 22, 7, colors.Red)
-        self.layout.drawLine(0, 15, 22, 15, colors.Red)
+        self.layout.drawLine(7, 0, 7, 22, COLORS.Red)
+        self.layout.drawLine(15, 0, 15, 22, COLORS.Red)
+        self.layout.drawLine(0, 7, 22, 7, COLORS.Red)
+        self.layout.drawLine(0, 15, 22, 15, COLORS.Red)
 
         for i in range(9):
             self.drawMove(i, self._board.get_squares()[i])
@@ -190,7 +190,7 @@ class TicTacToe(BaseMatrixAnim):
             i = winCombo[2]
             x2 = ((i % 3) * 8) + 3
             y2 = ((i // 3) * 8) + 3
-            self.layout.drawLine(x1, y1, x2, y2, colors.White)
+            self.layout.drawLine(x1, y1, x2, y2, COLORS.White)
 
         if complete and self._showWinCount > 2:
             self._showWinCount = 0

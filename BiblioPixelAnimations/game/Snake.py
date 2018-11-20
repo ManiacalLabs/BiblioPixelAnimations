@@ -1,10 +1,11 @@
-import bibliopixel.colors as colors
-from bibliopixel.animation import BaseGameAnim
+from bibliopixel.colors import COLORS
+from bibliopixel.colors.conversions import hue_helper
+from bibliopixel.animation.game import Game
 from random import randint
 import bibliopixel.util as util
 
 
-class Snake(BaseGameAnim):
+class Snake(Game):
 
     def __init__(self, layout, inputDev, **kwds):
         super().__init__(layout, inputDev, **kwds)
@@ -48,22 +49,22 @@ class Snake(BaseGameAnim):
         body_len = len(self._body)
         i = 0
         for b in self._body:
-            c = colors.hue_helper(i, body_len, 1)
+            c = hue_helper(i, body_len, 1)
             x, y = b
             self.layout.set(x, y, c)
             i += 1
 
     def drawLives(self):
         for i in range(self._lives):
-            self.layout.set(self.width - 1 - i * 2, 0, colors.Red)
+            self.layout.set(self.width - 1 - i * 2, 0, COLORS.Red)
 
     def drawApplesLeft(self):
         for i in range(self._apGoal - self._apCount):
-            self.layout.set(i * 2, 0, colors.Green)
+            self.layout.set(i * 2, 0, COLORS.Green)
 
     def drawApple(self):
         x, y = self._apple
-        self.layout.set(x, y, colors.Green)
+        self.layout.set(x, y, COLORS.Green)
 
     def resetBody(self):
         dx, dy = self._dir = self._directions[0]  # randint(0,3)]
@@ -168,9 +169,9 @@ class Snake(BaseGameAnim):
         if self._gameOver:
             self.layout.all_off()
             self.layout.drawText("GAME", self.width // 2 - 11,
-                                 self.height // 2 - 8, color=colors.Red)
+                                 self.height // 2 - 8, color=COLORS.Red)
             self.layout.drawText("OVER", self.width // 2 - 11,
-                                 self.height // 2 + 1, color=colors.Red)
+                                 self.height // 2 + 1, color=COLORS.Red)
             # self._gameOverCount += 1
             # if self._gameOverCount > 45:
             #     self.resetBody()
@@ -179,12 +180,12 @@ class Snake(BaseGameAnim):
         elif self._levelUp:
             self.layout.all_off()
             self.layout.drawText("LVL", self.width // 2 - 8,
-                                 self.height // 2 - 8, color=colors.Red)
+                                 self.height // 2 - 8, color=COLORS.Red)
             lvl = "{}".format(self._level)
             w = len(lvl) * 6
 
             self.layout.drawText(lvl, self.width // 2 - (w // 2),
-                                 self.height // 2 + 1, color=colors.Red)
+                                 self.height // 2 + 1, color=COLORS.Red)
             # if self._keys.FIRE:#any(v > 0 for v in self._keys.itervalues()):
             #     self._levelUp = False
             #     self.resetBody()

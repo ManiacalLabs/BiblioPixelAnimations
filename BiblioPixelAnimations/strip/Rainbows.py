@@ -1,7 +1,7 @@
-from bibliopixel.animation import BaseStripAnim
+from bibliopixel.animation.strip import Strip
 
 
-class Rainbow(BaseStripAnim):
+class Rainbow(Strip):
     """Generate rainbow distributed over 256 pixels.
        If you want the full rainbow to fit in the number of pixels you
        are using, use RainbowCycle instead
@@ -21,7 +21,7 @@ class Rainbow(BaseStripAnim):
             self._step = overflow
 
 
-class RainbowCycle(BaseStripAnim):
+class RainbowCycle(Strip):
     """Generate rainbow wheel equally distributed over strip."""
 
     def pre_run(self):

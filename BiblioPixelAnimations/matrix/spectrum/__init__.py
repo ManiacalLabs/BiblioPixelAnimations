@@ -1,5 +1,5 @@
-from bibliopixel.animation import BaseMatrixAnim
-from bibliopixel import log
+from bibliopixel.animation.matrix import Matrix
+from bibliopixel.util import log
 from . system_eq import EQ
 
 
@@ -136,7 +136,7 @@ DEFAULT_VIS_LIST = [
 ]
 
 
-class Spectrum(BaseMatrixAnim):
+class Spectrum(Matrix):
 
     def __init__(self, layout, vis_list=None, steps_per_vis=None,
                  bins=64, max_freq=4000, log_scale=True, auto_gain=False,

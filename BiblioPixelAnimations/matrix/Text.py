@@ -1,10 +1,10 @@
-from bibliopixel.animation import BaseMatrixAnim
-import bibliopixel.colors as colors
-from bibliopixel import font
+from bibliopixel.animation.matrix import Matrix
+from bibliopixel.colors import COLORS
+from bibliopixel.layout import font
 
 
-class ScrollText(BaseMatrixAnim):
-    COLOR_DEFAULTS = (('bgcolor', colors.Off), ('color', colors.White))
+class ScrollText(Matrix):
+    COLOR_DEFAULTS = (('bgcolor', COLORS.Off), ('color', COLORS.White))
 
     def __init__(self, layout, text='ScrollText', xPos=0, yPos=0,
                  font_name=font.default_font, font_scale=1, **kwds):
@@ -33,8 +33,8 @@ class ScrollText(BaseMatrixAnim):
             self.animComplete = True
 
 
-class BounceText(BaseMatrixAnim):
-    COLOR_DEFAULTS = (('bgcolor', colors.Off), ('color', colors.White))
+class BounceText(Matrix):
+    COLOR_DEFAULTS = (('bgcolor', COLORS.Off), ('color', COLORS.White))
 
     def __init__(self, layout, text='BounceText', xPos=0, yPos=0, buffer=0,
                  font_name=font.default_font, font_scale=1, **kwds):

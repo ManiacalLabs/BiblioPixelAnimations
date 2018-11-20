@@ -1,10 +1,11 @@
-from bibliopixel.animation import BaseStripAnim
-import bibliopixel.colors as colors
+from bibliopixel.animation.strip import Strip
+from bibliopixel.colors.arithmetic import color_scale
+from bibliopixel.colors import COLORS
 
 
-class LarsonScanner(BaseStripAnim):
+class LarsonScanner(Strip):
     """Larson scanner (i.e. Cylon Eye or K.I.T.T.)."""
-    COLOR_DEFAULTS = ('color', colors.Red),
+    COLOR_DEFAULTS = ('color', COLORS.Red),
 
     def __init__(self, layout, tail=2, start=0, end=-1, **kwds):
         super().__init__(layout, start, end, **kwds)
@@ -30,7 +31,7 @@ class LarsonScanner(BaseStripAnim):
         self.layout.set(self._last, color)
 
         for i in range(self._tail):
-            c2 = colors.color_scale(color, 255 - (self._fadeAmt * i))
+            c2 = color_scale(color, 255 - (self._fadeAmt * i))
             self.layout.set(self._last - i, c2)
             self.layout.set(self._last + i, c2)
 

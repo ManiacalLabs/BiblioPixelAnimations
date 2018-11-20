@@ -1,9 +1,9 @@
-from bibliopixel.animation import BaseCircleAnim
-from bibliopixel import colors
+from bibliopixel.animation.circle import Circle
+from bibliopixel.colors import COLORS
 
 
-class ArcRotate(BaseCircleAnim):
-    COLOR_DEFAULTS = ('colors', [colors.Red, colors.Green, colors.Blue]),
+class ArcRotate(Circle):
+    COLOR_DEFAULTS = ('colors', [COLORS.Red, COLORS.Green, COLORS.Blue]),
 
     def __init__(self, layout, arc=180, outerRing=-1, outterRing=None, **kwds):
         super().__init__(layout, **kwds)
@@ -13,7 +13,6 @@ class ArcRotate(BaseCircleAnim):
         if outerRing < 0 or outerRing > self.layout.lastRing:
             outerRing = self.layout.lastRing
         self.outerRing = outerRing
-        self.colors = colors
         self.arcCount = len(self.palette)
         self.arc = arc / 2
 

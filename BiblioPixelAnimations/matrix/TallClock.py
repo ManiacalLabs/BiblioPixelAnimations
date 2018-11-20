@@ -1,8 +1,8 @@
-from bibliopixel.animation import BaseMatrixAnim
+from bibliopixel.animation.matrix import Matrix
 import time
 
 
-class TallClock(BaseMatrixAnim):
+class TallClock(Matrix):
 
     def __init__(self, layout, **kwds):
         super().__init__(layout, **kwds)

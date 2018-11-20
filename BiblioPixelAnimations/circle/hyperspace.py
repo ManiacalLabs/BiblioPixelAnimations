@@ -1,10 +1,11 @@
-from bibliopixel.animation import BaseCircleAnim
-import bibliopixel.colors as colors
+from bibliopixel.animation.circle import Circle
+from bibliopixel.colors import COLORS
+from bibliopixel.colors.arithmetic import color_scale
 import random
 
 
-class Hyperspace(BaseCircleAnim):
-    COLOR_DEFAULTS = ('colors', [colors.Green]),
+class Hyperspace(Circle):
+    COLOR_DEFAULTS = ('colors', [COLORS.Green]),
 
     def __init__(self, layout, tail=4, growthRate=4, angleDiff=6, **kwds):
         super().__init__(layout, **kwds)
@@ -20,7 +21,7 @@ class Hyperspace(BaseCircleAnim):
         for i in range(self._tail):
             if ring - i >= 0 and ring - i <= self.lastRing:
                 level = 255 - ((255 // self._tail) * i)
-                self.layout.set(ring - i, angle, colors.color_scale(color, level))
+                self.layout.set(ring - i, angle, color_scale(color, level))
 
     def step(self, amt=1):
         self.layout.all_off()
@@ -49,7 +50,7 @@ class Hyperspace(BaseCircleAnim):
         self._step = 0
 
 
-class HyperspaceRainbow(BaseCircleAnim):
+class HyperspaceRainbow(Circle):
     def __init__(self, layout, tail=4, growthRate=4, angleDiff=6, **kwds):
         super().__init__(layout, **kwds)
 
@@ -65,7 +66,7 @@ class HyperspaceRainbow(BaseCircleAnim):
         for i in range(self._tail):
             if ring - i >= 0 and ring - i <= self.lastRing:
                 level = 255 - ((255 // self._tail) * i)
-                self.layout.set(ring - i, angle, colors.color_scale(color, level))
+                self.layout.set(ring - i, angle, color_scale(color, level))
 
     def step(self, amt=1):
         self.layout.all_off()

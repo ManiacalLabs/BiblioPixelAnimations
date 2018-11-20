@@ -1,12 +1,12 @@
-from bibliopixel.animation import BaseMatrixAnim
-from bibliopixel import colors
+from bibliopixel.animation.matrix import Matrix
+from bibliopixel.colors import COLORS
 
 import psutil
 from collections import deque
 
 
-class CPUUsage(BaseMatrixAnim):
-    COLOR_DEFAULTS = ('onColor', colors.Red),
+class CPUUsage(Matrix):
+    COLOR_DEFAULTS = ('onColor', COLORS.Red),
 
     def __init__(self, layout, **kwds):
         super().__init__(layout, **kwds)

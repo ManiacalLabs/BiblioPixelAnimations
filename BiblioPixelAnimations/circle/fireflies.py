@@ -1,10 +1,10 @@
-from bibliopixel.animation import BaseCircleAnim
-from bibliopixel import colors
 import random
+from bibliopixel.animation.circle import Circle
+from bibliopixel.colors import COLORS
 
 
-class FireFlies(BaseCircleAnim):
-    COLOR_DEFAULTS = ('colors', [colors.Red, colors.Green, colors.Blue]),
+class FireFlies(Circle):
+    COLOR_DEFAULTS = ('colors', [COLORS.Red, COLORS.Green, COLORS.Blue]),
 
     def __init__(self, layout, count=10, **kwds):
         super().__init__(layout, **kwds)

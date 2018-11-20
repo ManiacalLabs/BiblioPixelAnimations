@@ -1,11 +1,11 @@
-from bibliopixel.animation.cube import BaseCubeAnim
+from bibliopixel.animation.cube import Cube
 
 
 def spiralOrder(matrix):
     return matrix and list(matrix.pop(0)) + spiralOrder(list(zip(*matrix))[::-1])
 
 
-class WaveSpiral(BaseCubeAnim):
+class WaveSpiral(Cube):
 
     def __init__(self, layout, offset=1, dir=True, **kwds):
         super().__init__(layout, **kwds)

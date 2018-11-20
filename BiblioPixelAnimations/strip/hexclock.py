@@ -2,11 +2,11 @@
 # Inspired by http://whatcolourisit.scn9a.org/
 
 import time
-from bibliopixel.animation import BaseStripAnim
-import bibliopixel.colors as colors
+from bibliopixel.animation.strip import Strip
+from bibliopixel.colors import COLORS
 
 
-class HEXClock(BaseStripAnim):
+class HEXClock(Strip):
 
     def __init__(self, layout, **kwds):
         super().__init__(layout, 0, -1, **kwds)
@@ -14,7 +14,7 @@ class HEXClock(BaseStripAnim):
     def step(self, amt=1):
         t = time.localtime()
         hex = "#{0:0>2}{1:0>2}{2:0>2}".format(t.tm_hour, t.tm_min, t.tm_sec)
-        c = colors.hex2rgb(hex)
+        c = COLORS[hex]
         self.layout.fill(c)
 
         self._step = 0

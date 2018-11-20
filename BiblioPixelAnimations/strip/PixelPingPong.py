@@ -17,10 +17,10 @@
 #
 # Best run in the region of 5-200 FPS
 
-from bibliopixel.animation import BaseStripAnim
+from bibliopixel.animation.strip import Strip
 
 
-class PixelPingPong(BaseStripAnim):
+class PixelPingPong(Strip):
     COLOR_DEFAULTS = ('color', (255, 255, 255)),
 
     def __init__(self, layout, max_led=None, total_pixels=1, fade_delay=1, **kwds):

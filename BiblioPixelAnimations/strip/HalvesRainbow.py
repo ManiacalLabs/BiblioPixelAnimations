@@ -1,10 +1,10 @@
-from bibliopixel.animation import BaseStripAnim
+from bibliopixel.animation.strip import Strip
 import math
 
 # This one is best run in the region of 50 frames a second
 
 
-class HalvesRainbow(BaseStripAnim):
+class HalvesRainbow(Strip):
 
     def __init__(self, layout, max_led=-1, centre_out=True, rainbow_inc=4,
                  **kwds):

@@ -1,8 +1,8 @@
-from bibliopixel.animation import BaseMatrixAnim
+from bibliopixel.animation.matrix import Matrix
 from noise import pnoise3, snoise3
 
 
-class PerlinSimplex(BaseMatrixAnim):
+class PerlinSimplex(Matrix):
 
     def __init__(self, layout, freq=16, octaves=1, type=True, **kwds):
         super().__init__(layout, **kwds)

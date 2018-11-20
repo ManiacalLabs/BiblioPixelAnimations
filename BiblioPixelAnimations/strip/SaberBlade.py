@@ -1,9 +1,9 @@
-from bibliopixel.animation import BaseStripAnim
-from bibliopixel import colors as bp_colors
+from bibliopixel.animation.strip import Strip
+from bibliopixel.colors import COLORS
 
 
-class SaberBlade(BaseStripAnim):
-    COLOR_DEFAULTS = ('colors', [bp_colors.Red])
+class SaberBlade(Strip):
+    COLOR_DEFAULTS = ('colors', [COLORS.Red])
 
     def __init__(self, layout, speed=1, **kwds):
         super().__init__(layout, **kwds)

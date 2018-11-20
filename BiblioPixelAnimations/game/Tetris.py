@@ -1,8 +1,9 @@
 # Based on: https://gist.github.com/kch42/565419
 
 from random import randrange as rand
-import bibliopixel.colors as colors
-from bibliopixel.animation import BaseGameAnim
+from bibliopixel.colors import COLORS
+from bibliopixel.colors.conversions import hue_helper
+from bibliopixel.animation.game import Game
 
 
 # The configuration
@@ -11,22 +12,22 @@ rows = 40
 maxfps = 30
 
 color_map = [
-    (0, 0, 0),
-    colors.Red,
-    colors.Orange,
-    colors.Yellow,
-    colors.Green,
-    colors.Blue,
-    colors.Purple,
-    colors.Violet,
+    COLORS.Black,
+    COLORS.Red,
+    COLORS.Orange,
+    COLORS.Yellow,
+    COLORS.Green,
+    COLORS.Blue,
+    COLORS.Purple,
+    COLORS.Violet,
 
-    colors.Cyan,
-    colors.SeaGreen,
-    colors.Navy,
-    colors.YellowGreen,
-    colors.DarkRed,
-    colors.Teal,
-    colors.MediumVioletRed,
+    COLORS.Cyan,
+    COLORS.SeaGreen,
+    COLORS.Navy,
+    COLORS.YellowGreen,
+    COLORS.DarkRed,
+    COLORS.Teal,
+    COLORS.MediumVioletRed,
 ]
 
 # Define the shapes of the single parts
@@ -114,7 +115,7 @@ def new_board():
     return board
 
 
-class Tetris(BaseGameAnim):
+class Tetris(Game):
 
     def __init__(self, layout, inputDev, evil=False, **kwds):
         super().__init__(layout, inputDev, **kwds)
@@ -190,7 +191,7 @@ class Tetris(BaseGameAnim):
 
     def disp_msg(self, msg, x, y):
         self.layout.drawText(msg, x, y, font_scale=1,
-                             font='6x4', color=colors.White)
+                             font='6x4', color=COLORS.White)
 
     def draw_matrix(self, matrix, offset):
         off_x, off_y = offset
@@ -295,64 +296,64 @@ class Tetris(BaseGameAnim):
         if self.gameover:
             self.layout.all_off()
             self.layout.drawText("GAME", self.width // 2 - 11,
-                                 self.height // 2 - 8, color=colors.Green)
+                                 self.height // 2 - 8, color=COLORS.Green)
             self.layout.drawText("OVER", self.width // 2 - 11,
-                                 self.height // 2 + 1, color=colors.Green)
+                                 self.height // 2 + 1, color=COLORS.Green)
             s = "{}".format(self.score)
             self.layout.drawText(s, self.width // 2 - (len(s) * 4) //
-                                 2 + 1, self.height // 2 + 9, font_scale=1, font='6x4', color=colors.Green)
+                                 2 + 1, self.height // 2 + 9, font_scale=1, font='6x4', color=COLORS.Green)
         elif self.win:
             for x in range(self.width):
-                c = colors.hue_helper(
+                c = hue_helper(
                     self.width - x, self.width, self._speedStep * 2)
                 self.layout.drawLine(self.width // 2, self.height // 2, x, 0, c)
                 self.layout.drawLine(self.width // 2, self.height // 2,
                                      self.width - 1 - x, self.height - 1, c)
             for y in range(self.height):
-                c = colors.hue_helper(y, self.height, self._speedStep * 2)
+                c = hue_helper(y, self.height, self._speedStep * 2)
                 self.layout.drawLine(self.width // 2, self.height // 2, 0, y, c)
                 self.layout.drawLine(self.width // 2, self.height // 2,
                                      self.width - 1, self.height - 1 - y, c)
 
             self.layout.drawText("YOU", self.width // 2 - 9,
-                                 self.height // 2 - 8, color=colors.Black, bg=None)
+                                 self.height // 2 - 8, color=COLORS.Black, bg=None)
             self.layout.drawText("WIN!", self.width // 2 - 10,
-                                 self.height // 2 + 1, color=colors.Black, bg=None)
+                                 self.height // 2 + 1, color=COLORS.Black, bg=None)
         else:
             if self.paused:
                 self.layout.all_off()
                 if self.levelUp:
                     self.layout.drawText(
-                        "LVL", self.width // 2 - 8, self.height // 2 - 8, color=colors.Green)
+                        "LVL", self.width // 2 - 8, self.height // 2 - 8, color=COLORS.Green)
                     str_level = "{}".format(self.level)
                     self.layout.drawText(
-                        str_level, self.width // 2 - (len(str_level) * 6) // 2 + 1, self.height // 2 + 1, color=colors.Green)
+                        str_level, self.width // 2 - (len(str_level) * 6) // 2 + 1, self.height // 2 + 1, color=COLORS.Green)
                 else:
                     x = self.width // 2 - 2
                     y = 1
-                    self.layout.drawText("P", x, y + 0, color=colors.White)
-                    self.layout.drawText("A", x, y + 8, color=colors.White)
-                    self.layout.drawText("U", x, y + 16, color=colors.White)
-                    self.layout.drawText("S", x, y + 24, color=colors.White)
-                    self.layout.drawText("E", x, y + 32, color=colors.White)
-                    self.layout.drawText("D", x, y + 40, color=colors.White)
+                    self.layout.drawText("P", x, y + 0, color=COLORS.White)
+                    self.layout.drawText("A", x, y + 8, color=COLORS.White)
+                    self.layout.drawText("U", x, y + 16, color=COLORS.White)
+                    self.layout.drawText("S", x, y + 24, color=COLORS.White)
+                    self.layout.drawText("E", x, y + 32, color=COLORS.White)
+                    self.layout.drawText("D", x, y + 40, color=COLORS.White)
 
             else:
                 self.disp_msg("{}".format(self.score), 1, 1)
 
                 lines_left = self.level * self.lines_per_level - self.lines
                 for l in range(lines_left):
-                    self.layout.set(0, self.height - 1 - l * 2, colors.Red)
+                    self.layout.set(0, self.height - 1 - l * 2, COLORS.Red)
 
                 # draw rainbow border
                 self.layout.drawLine(2, 8, cols + 3, 8,
-                                     colorFunc=lambda pos: colors.hue_helper(pos, cols + 2, self._speedStep * 2))
+                                     colorFunc=lambda pos: hue_helper(pos, cols + 2, self._speedStep * 2))
                 self.layout.drawLine(2, self.height - 1, cols + 3, self.height - 1,
-                                     colorFunc=lambda pos: colors.hue_helper(cols + 2 - pos, cols + 2, self._speedStep * 2))
+                                     colorFunc=lambda pos: hue_helper(cols + 2 - pos, cols + 2, self._speedStep * 2))
                 self.layout.drawLine(2, 9, 2, self.height - 2,
-                                     colorFunc=lambda pos: colors.hue_helper(rows + 2 - pos, rows, self._speedStep * 2))
+                                     colorFunc=lambda pos: hue_helper(rows + 2 - pos, rows, self._speedStep * 2))
                 self.layout.drawLine(cols + 3, 9, cols + 3, self.height - 2,
-                                     colorFunc=lambda pos: colors.hue_helper(pos, rows, self._speedStep * 2))
+                                     colorFunc=lambda pos: hue_helper(pos, rows, self._speedStep * 2))
 
                 # draw current board state
                 self.draw_matrix(self.board, (3, 9))

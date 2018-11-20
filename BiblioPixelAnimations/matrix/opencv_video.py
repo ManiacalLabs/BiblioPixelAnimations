@@ -26,7 +26,7 @@
 # You must set <inputfile>, <output>, <width>, <height>, <framerate>
 
 # Load driver for your hardware, visualizer just for example
-from bibliopixel.animation import BaseMatrixAnim
+from bibliopixel.animation.matrix import Matrix
 from bibliopixel.util import log
 try:
     import cv2
@@ -34,7 +34,7 @@ except ImportError:
     log.error('Could not import cv2 library')
 
 
-class OpenCVVideo(BaseMatrixAnim):
+class OpenCVVideo(Matrix):
 
     def __init__(self, layout, videoSource=None, mirror=True, offset=0.0,
                  crop=True, useVidFPS=False, **kwds):

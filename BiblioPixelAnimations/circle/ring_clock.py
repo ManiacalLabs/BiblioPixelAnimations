@@ -1,13 +1,14 @@
-from bibliopixel.animation import BaseCircleAnim
-from bibliopixel import colors
+from bibliopixel.animation.circle import Circle
+from bibliopixel.colors import COLORS
+from bibliopixel.colors.arithmetic import color_scale
 import time
 
 
-class RingClock(BaseCircleAnim):
+class RingClock(Circle):
     COLOR_DEFAULTS = (
-        ('c_hour', colors.Red),
-        ('c_min', colors.Green),
-        ('c_sec', colors.Blue),
+        ('c_hour', COLORS.Red),
+        ('c_min', COLORS.Green),
+        ('c_sec', COLORS.Blue),
     )
 
     def __init__(self, layout,
@@ -47,6 +48,6 @@ class RingClock(BaseCircleAnim):
             self.layout.set(h['ring'], point, h['color'])
             if h['tail'] > 0:
                 for i in range(h['tail']):
-                    scaled = colors.color_scale(h['color'], 255 - ((256 // h['tail']) * i))
+                    scaled = color_scale(h['color'], 255 - ((256 // h['tail']) * i))
                     self.layout.set(h['ring'], point + i, scaled)
                     self.layout.set(h['ring'], point - i, scaled)

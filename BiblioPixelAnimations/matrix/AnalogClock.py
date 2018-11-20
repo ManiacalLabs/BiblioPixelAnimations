@@ -1,10 +1,10 @@
 import time
 
-from bibliopixel.animation import BaseMatrixAnim
-from bibliopixel.util import pointOnCircle
+from bibliopixel.animation.matrix import Matrix
+from bibliopixel.util.util import pointOnCircle
 
 
-class AnalogClock(BaseMatrixAnim):
+class AnalogClock(Matrix):
     def __init__(self, layout, aa=True, **kwds):
         super().__init__(layout, **kwds)
         self._centerX = (self.width - 1) // 2
@@ -28,7 +28,7 @@ class AnalogClock(BaseMatrixAnim):
         self.layout.drawLine(self._centerX, self._centerY, p_sec[0], p_sec[1], (0, 0, 255), aa=self.aa)
 
 
-class RGBAnalogClock(BaseMatrixAnim):
+class RGBAnalogClock(Matrix):
 
     def __init__(self, layout, aa=True, **kwds):
         super().__init__(layout, **kwds)

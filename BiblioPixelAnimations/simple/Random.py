@@ -1,5 +1,5 @@
 import random
-from bibliopixel.animation import Animation
+from bibliopixel.animation.animation import Animation
 
 
 class Random(Animation):

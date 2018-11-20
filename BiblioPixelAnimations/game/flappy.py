@@ -1,10 +1,11 @@
-import bibliopixel.colors as colors
-from bibliopixel.animation import BaseGameAnim
-from random import randint
 import time
+from bibliopixel.colors import COLORS
+from bibliopixel.colors.conversions import hue_helper
+from bibliopixel.animation.game import Game
+from random import randint
 
 
-class Flappy(BaseGameAnim):
+class Flappy(Game):
 
     def __init__(self, layout, inputDev, **kwds):
         super().__init__(layout, inputDev, **kwds)
@@ -116,18 +117,18 @@ class Flappy(BaseGameAnim):
 
     def drawPipes(self):
         for p in self._pipes:
-            self.layout.drawLine(p[0], 0, p[0], p[1], colorFunc=lambda pos: colors.hue_helper(
+            self.layout.drawLine(p[0], 0, p[0], p[1], colorFunc=lambda pos: hue_helper(
                 p[1] - pos, p[1], self._speedStep * 2))
-            self.layout.drawLine(p[0], p[1] + self.height // 3, p[0], self.height - 1, colorFunc=lambda pos: colors.hue_helper(
+            self.layout.drawLine(p[0], p[1] + self.height // 3, p[0], self.height - 1, colorFunc=lambda pos: hue_helper(
                 pos, self.height - p[1] + self.height // 3, self._speedStep * 2))
 
     def drawBird(self):
-        self.layout.set(self._x, self._pos, colors.Red)
+        self.layout.set(self._x, self._pos, COLORS.Red)
 
     def drawScore(self):
         s = "{}".format(self.score)
         self.layout.drawText(s, self.width // 2 - (len(s) * 4) //
-                             2 + 1, 0, font_scale=1, font='6x4', color=colors.Blue)
+                             2 + 1, 0, font_scale=1, font='6x4', color=COLORS.Blue)
 
     def step(self, amt=1):
         if (self.levelUp or self.gameover) and (self._lastKeys != self._keys) and any(v is True for v in self._keys.itervalues()) and (time.time() - self.doStartTime > 1):
@@ -150,31 +151,31 @@ class Flappy(BaseGameAnim):
             self.drawBird()
             self.drawPipes()
             self.layout.drawText("GAME", self.width // 2 - 11,
-                                 self.height // 2 - 8, color=colors.Blue)
+                                 self.height // 2 - 8, color=COLORS.Blue)
             self.layout.drawText("OVER", self.width // 2 - 11,
-                                 self.height // 2 + 1, color=colors.Blue)
+                                 self.height // 2 + 1, color=COLORS.Blue)
             s = "{}".format(self.score)
             self.layout.drawText(s, self.width // 2 - (len(s) * 4) //
-                                 2 + 1, self.height // 2 + 9, font_scale=1, font='6x4', color=colors.Blue)
+                                 2 + 1, self.height // 2 + 9, font_scale=1, font='6x4', color=COLORS.Blue)
         else:
             if self.paused:
                 self.layout.all_off()
                 if self.levelUp:
                     self.drawPipes()
                     self.layout.drawText(
-                        "LVL", self.width // 2 - 8, self.height // 2 - 8, color=colors.Blue)
+                        "LVL", self.width // 2 - 8, self.height // 2 - 8, color=COLORS.Blue)
                     str_level = "{}".format(self.level)
                     self.layout.drawText(
-                        str_level, self.width // 2 - (len(str_level) * 6) // 2 + 1, self.height // 2 + 1, color=colors.Blue)
+                        str_level, self.width // 2 - (len(str_level) * 6) // 2 + 1, self.height // 2 + 1, color=COLORS.Blue)
                 else:
                     x = self.width // 2 - 2
                     y = 1
-                    self.layout.drawText("P", x, y + 0, color=colors.Blue)
-                    self.layout.drawText("A", x, y + 8, color=colors.Blue)
-                    self.layout.drawText("U", x, y + 16, color=colors.Blue)
-                    self.layout.drawText("S", x, y + 24, color=colors.Blue)
-                    self.layout.drawText("E", x, y + 32, color=colors.Blue)
-                    self.layout.drawText("D", x, y + 40, color=colors.Blue)
+                    self.layout.drawText("P", x, y + 0, color=COLORS.Blue)
+                    self.layout.drawText("A", x, y + 8, color=COLORS.Blue)
+                    self.layout.drawText("U", x, y + 16, color=COLORS.Blue)
+                    self.layout.drawText("S", x, y + 24, color=COLORS.Blue)
+                    self.layout.drawText("E", x, y + 32, color=COLORS.Blue)
+                    self.layout.drawText("D", x, y + 40, color=COLORS.Blue)
 
             else:
                 self.moveBird()

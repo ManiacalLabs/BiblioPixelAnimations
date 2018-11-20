@@ -1,7 +1,7 @@
-from bibliopixel.animation import BaseCircleAnim
+from bibliopixel.animation.circle import Circle
 
 
-class CircleBloom(BaseCircleAnim):
+class CircleBloom(Circle):
 
     def __init__(self, layout, spread=1, **kwds):
         super().__init__(layout, **kwds)

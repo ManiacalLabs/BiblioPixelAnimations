@@ -1,10 +1,10 @@
-from bibliopixel.animation import BaseStripAnim
-from bibliopixel import colors
+from bibliopixel.animation.strip import Strip
+from bibliopixel.colors import COLORS
 
 
-class PartyMode(BaseStripAnim):
+class PartyMode(Strip):
     """Stobe Light Effect."""
-    COLOR_DEFAULTS = ('colors', [colors.Red, colors.Green, colors.Blue]),
+    COLOR_DEFAULTS = ('colors', [COLORS.Red, COLORS.Green, COLORS.Blue]),
 
     def pre_run(self):
         self._step = 0

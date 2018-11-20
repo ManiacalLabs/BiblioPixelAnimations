@@ -1,7 +1,7 @@
-from bibliopixel.animation import BaseAnimation
+from bibliopixel.animation.animation import Animation
 
 
-class LogFade(BaseAnimation):
+class LogFade(Animation):
     def __init__(self, *args, color=None, ratio=0.98, **kwds):
         super().__init__(*args, preclear=False, **kwds)
         self.color = color and tuple(c * (1 - ratio) for c in color)

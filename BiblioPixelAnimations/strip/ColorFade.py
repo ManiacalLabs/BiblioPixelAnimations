@@ -1,10 +1,11 @@
-from bibliopixel.animation import BaseStripAnim
-import bibliopixel.colors as colors
+from bibliopixel.animation.strip import Strip
+from bibliopixel.colors import COLORS
+from bibliopixel.colors.arithmetic import color_scale
 
 
-class ColorFade(BaseStripAnim):
+class ColorFade(Strip):
     """Fill the dots progressively along the strip."""
-    COLOR_DEFAULTS = ('colors', [colors.Red]),
+    COLOR_DEFAULTS = ('colors', [COLORS.Red]),
 
     def wave_range(self, start, peak, step):
         main = [i for i in range(start, peak + 1, step)]
@@ -21,6 +22,6 @@ class ColorFade(BaseStripAnim):
     def step(self, amt=1):
         c_index, l_index = divmod(self._step, self._level_count)
         color = self.palette(c_index)
-        color = colors.color_scale(color, self._levels[l_index])
+        color = color_scale(color, self._levels[l_index])
         self.layout.fill(color, self._start, self._end)
         self._step += amt

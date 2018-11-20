@@ -1,8 +1,8 @@
-from bibliopixel.animation import BaseStripAnim
+from bibliopixel.animation.strip import Strip
 from bibliopixel import colors
 
 
-class LinearRainbow(BaseStripAnim):
+class LinearRainbow(Strip):
 
     def __init__(self, layout, max_led=-1, individual_pixel=False, **kwds):
         super().__init__(layout, 0, -1, **kwds)

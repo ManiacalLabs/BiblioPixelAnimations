@@ -1,8 +1,8 @@
-from bibliopixel.animation import BaseCircleAnim
+from bibliopixel.animation.circle import Circle
 from bibliopixel.colors import palettes
 
 
-class Swirl(BaseCircleAnim):
+class Swirl(Circle):
     COLOR_DEFAULTS = ('palette', palettes.get('three_sixty')),
 
     def __init__(self, layout, angle=12, **kwds):

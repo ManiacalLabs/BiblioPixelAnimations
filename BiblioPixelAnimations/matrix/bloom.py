@@ -1,8 +1,8 @@
-from bibliopixel.animation import BaseMatrixAnim
-from bibliopixel.util import genVector
+from bibliopixel.animation.matrix import Matrix
+from bibliopixel.util.util import genVector
 
 
-class Bloom(BaseMatrixAnim):
+class Bloom(Matrix):
 
     def __init__(self, layout, dir=True, **kwds):
         super().__init__(layout, **kwds)

@@ -1,9 +1,9 @@
-from bibliopixel.animation import BaseCubeAnim
-import bibliopixel.colors as colors
 import random
+from bibliopixel.colors.arithmetic import color_scale
+from bibliopixel.animation.cube import Cube
 
 
-class RainBow(BaseCubeAnim):
+class RainBow(Cube):
 
     def __init__(self, layout, tail=4, growthRate=12, **kwds):
         super().__init__(layout, **kwds)
@@ -18,7 +18,7 @@ class RainBow(BaseCubeAnim):
         for i in range(self._tail):
             if y - i >= 0 and y - i < self.y:
                 level = 255 - ((255 // self._tail) * i)
-                self.layout.set(x, y - i, z, colors.color_scale(color, level))
+                self.layout.set(x, y - i, z, color_scale(color, level))
 
     def step(self, amt=1):
         self.layout.all_off()

@@ -1,7 +1,7 @@
-from bibliopixel.animation import BaseStripAnim
+from bibliopixel.animation.strip import Strip
 
 
-class ColorWipe(BaseStripAnim):
+class ColorWipe(Strip):
     """Fill the dots progressively along the strip."""
     COLOR_DEFAULTS = ('color', [255, 0, 0]),
 

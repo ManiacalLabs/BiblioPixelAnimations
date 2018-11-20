@@ -11,14 +11,15 @@
 #  max_bright - The maximum brightness, some leds twinkle better if they ramp to less than full
 #                 brightness (19 - 255). Lower brightness also speeds up the twinkle rate.
 
-from bibliopixel import colors as bp_colors
+from bibliopixel.colors import COLORS
+from bibliopixel.colors.arithmetic import color_scale
 import random
 
 
 # Base class to be used by any display type
 
 class TwinkleBase:
-    def __init__(self, layout, colors=[bp_colors.Red, bp_colors.Green, bp_colors.Blue],
+    def __init__(self, layout, colors=[COLORS.Red, COLORS.Green, COLORS.Blue],
                  density=20, speed=2, max_bright=255):
         self.layout = layout
         self.colors = colors
@@ -37,7 +38,7 @@ class TwinkleBase:
     def pre_run(self):
         self._step = 0
         # direction, color, level
-        self.pixels = [(0, bp_colors.Off, 0)] * self.layout.numLEDs
+        self.pixels = [(0, COLORS.Off, 0)] * self.layout.numLEDs
 
     def pick_led(self, speed):
         idx = random.randrange(0, self.layout.numLEDs)
@@ -48,7 +49,7 @@ class TwinkleBase:
                 p_level += speed
                 p_dir = 1  # 1 is growing
                 p_color = random.choice(self.colors)
-                self.layout._set_base(idx, bp_colors.color_scale(p_color, p_level))
+                self.layout._set_base(idx, color_scale(p_color, p_level))
 
                 self.pixels[idx] = p_dir, p_color, p_level
 
@@ -63,13 +64,13 @@ class TwinkleBase:
                 if p_level > 255:
                     p_level = 255
                     p_dir = 2  # start dimming
-                self.layout._set_base(i, bp_colors.color_scale(p_color, p_level))
+                self.layout._set_base(i, color_scale(p_color, p_level))
             elif p_dir == 2:
                 p_level -= self.speed
                 if p_level < 0:
                     p_level = 0
                     p_dir = 0  # turn off
-                self.layout._set_base(i, bp_colors.color_scale(p_color, p_level))
+                self.layout._set_base(i, color_scale(p_color, p_level))
 
             self.pixels[i] = (p_dir, p_color, p_level)
 

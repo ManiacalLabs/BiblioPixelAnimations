@@ -4,8 +4,8 @@ http://forum.maniacallabs.com/showthread.php?tid=9&highlight=circlepop
 """
 
 import random
-from bibliopixel.animation import BaseMatrixAnim
-import bibliopixel.colors as colors
+from bibliopixel.animation.matrix import Matrix
+from bibliopixel.colors import COLORS
 
 
 class Circle:
@@ -28,8 +28,8 @@ class Circle:
             self._color %= 360
 
 
-class CirclePop(BaseMatrixAnim):
-    LEGACY_COLORS = ('bgcolor', colors.Off),
+class CirclePop(Matrix):
+    LEGACY_COLORS = ('bgcolor', COLORS.Off),
 
     def __init__(self, layout, **kwds):
         super().__init__(layout, **kwds)

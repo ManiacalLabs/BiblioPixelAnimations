@@ -1,8 +1,8 @@
-from bibliopixel.animation import BaseMatrixAnim
+from bibliopixel.animation.matrix import Matrix
 import time
 
 
-class OneKClock(BaseMatrixAnim):
+class OneKClock(Matrix):
     def pre_run(self):
         self._step = 0
 

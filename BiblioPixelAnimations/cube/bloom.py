@@ -1,4 +1,4 @@
-from bibliopixel.animation.cube import BaseCubeAnim
+from bibliopixel.animation.cube import Cube
 import math
 
 
@@ -24,7 +24,7 @@ def genCubeVector(x, y, z, x_mult=1, y_mult=1, z_mult=1):
     return [[[vect(_x, _y, _z) for _z in range(z)] for _y in range(y)] for _x in range(x)]
 
 
-class CubeBloom(BaseCubeAnim):
+class CubeBloom(Cube):
 
     def __init__(self, layout, dir=True, **kwds):
         super().__init__(layout, **kwds)

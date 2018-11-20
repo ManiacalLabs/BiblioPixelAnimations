@@ -1,13 +1,13 @@
-from bibliopixel.animation import BaseMatrixAnim
-from bibliopixel import colors
+from bibliopixel.animation.matrix import Matrix
+from bibliopixel.colors import COLORS
 import random
 
 
-class LangtonsAntBase(BaseMatrixAnim):
+class LangtonsAntBase(Matrix):
     COLOR_DEFAULTS = (
-        ('offColor', colors.Off),
-        ('antColor', colors.Green),
-        ('pathColor', colors.Red)
+        ('offColor', COLORS.Off),
+        ('antColor', COLORS.Green),
+        ('pathColor', COLORS.Red)
     )
 
     def __init__(self, layout, **kwds):
@@ -58,8 +58,8 @@ class LangtonsAnt(LangtonsAntBase):
 
 
 class LangtonsAntRainbow(LangtonsAntBase):
-    DEFAULT_COLORS = [colors.Red, colors.Orange, colors.Yellow,
-                      colors.Green, colors.Blue, colors.Violet]
+    DEFAULT_COLORS = [COLORS.Red, COLORS.Orange, COLORS.Yellow,
+                      COLORS.Green, COLORS.Blue, COLORS.Violet]
 
     def __init__(self, layout, colors=None, **kwds):
         super().__init__(layout, **kwds)

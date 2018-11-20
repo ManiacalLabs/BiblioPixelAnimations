@@ -1,4 +1,4 @@
-from bibliopixel.animation import BaseMatrixAnim
+from bibliopixel.animation.matrix import Matrix
 try:
     from websocket import create_connection
 except ImportError:
@@ -125,7 +125,7 @@ class SandStorm(KimotionShader):
                 self.led.set(x, y, c)
 
 
-class Kimotion(BaseMatrixAnim):
+class Kimotion(Matrix):
     max_depth = 1200.0
     shaders = {
         "Sandstorm": SandStorm
