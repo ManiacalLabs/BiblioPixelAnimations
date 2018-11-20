@@ -1,5 +1,5 @@
 from bibliopixel.animation import BaseCircleAnim
-from bibliopixel.util.colors import palettes
+from bibliopixel.colors import palettes
 
 
 class Diag(BaseCircleAnim):

@@ -1,5 +1,5 @@
 from bibliopixel.animation import BaseCircleAnim
-from bibliopixel.util.colors import COLORS
+from bibliopixel.colors import COLORS
 
 
 class CircleFill(BaseCircleAnim):
