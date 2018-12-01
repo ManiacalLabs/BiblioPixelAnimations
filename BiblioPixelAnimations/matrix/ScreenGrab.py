@@ -45,15 +45,16 @@ if grab is None:
     except Exception:
         try:
             from PIL import ImageGrab
+            grab = ImageGrab.grab
             log.debug("Using PIL ImageGrab module")
         except Exception:
             try:
                 import pyscreenshot as ImageGrab
+                grab = ImageGrab.grab
                 log.debug("Using pyscreenshot module")
             except Exception:
-                raise Exception("Unable to find any available screenshot option.")
-
-        grab = ImageGrab.grab
+                log.error("Unable to find any available screenshot option.")
+                grab = None
 
 
 class ScreenGrab(Matrix):
