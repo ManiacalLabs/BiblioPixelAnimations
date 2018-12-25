@@ -8,84 +8,13 @@ try:
     from PIL import Image, ImageSequence
 except ImportError:
     error = "Please install Python Imaging Library: pip install pillow"
-    log.logger.error(error)
+    log.error(error)
 
 ROOT = pathlib.Path(__file__).parents[2]
 DEFAULT_ANIM = ROOT / 'Graphics' / 'MarioRotating.gif'
 
 
-def _getBufferFromImage(img, layout, bgcolor, bright, offset):
-    duration = None
-    if 'duration' in img.info:
-        duration = img.info['duration']
-
-    w = layout.width - offset[0]
-    if img.size[0] < w:
-        w = img.size[0]
-
-    h = layout.height - offset[1]
-    if img.size[1] < h:
-        h = img.size[1]
-
-    ox = offset[0]
-    oy = offset[1]
-
-    buffer = [0 for x in range(layout.numLEDs * 3)]
-    gamma = layout.drivers[0].gamma
-    if bgcolor != (0, 0, 0):
-        for i in range(layout.numLEDs):
-            buffer[i * 3 + 0] = gamma.get(bgcolor[0])
-            buffer[i * 3 + 1] = gamma.get(bgcolor[1])
-            buffer[i * 3 + 2] = gamma.get(bgcolor[2])
-
-    frame = Image.new("RGBA", img.size)
-    frame.paste(img)
-
-    for x in range(ox, w + ox):
-        for y in range(oy, h + oy):
-            if x < 0 or y < 0:
-                continue
-            pixel = layout.coord_map[y][x]
-            r, g, b, a = frame.getpixel((x - ox, y - oy))
-            if a == 0:
-                r, g, b = bgcolor
-            else:
-                r = (r * a) >> 8
-                g = (g * a) >> 8
-                b = (b * a) >> 8
-            if bright != 255:
-                r, g, b = color_scale((r, g, b), bright)
-
-            buffer[pixel * 3 + 0] = gamma.get(r)
-            buffer[pixel * 3 + 1] = gamma.get(g)
-            buffer[pixel * 3 + 2] = gamma.get(b)
-
-    return (duration, buffer)
-
-
-def _loadGIFSequence(imagePath, layout, bgcolor, bright, offset):
-    img = Image.open(imagePath)
-    if offset == (0, 0):
-        w = 0
-        h = 0
-        if img.size[0] < layout.width:
-            w = (layout.width - img.size[0]) // 2
-        if img.size[1] < layout.height:
-            h = (layout.height - img.size[1]) // 2
-        offset = (w, h)
-
-    images = []
-    count = 0
-    for frame in ImageSequence.Iterator(img):
-        images.append(_getBufferFromImage(
-            frame, layout, bgcolor, bright, offset))
-        count += 1
-
-    return images
-
-
-class loadnextthread(threading.Thread):
-
+class LoadNextThread(threading.Thread):
     def __init__(self, imganim):
         super().__init__()
         self.setDaemon(True)
@@ -116,22 +45,24 @@ class ImageAnim(Matrix):
     def __init__(self, layout, imagePath=None, offset=(0, 0), bgcolor=COLORS.Off,
                  brightness=255, cycles=1, seconds=None, random=False,
                  use_file_fps=True, **kwds):
-        """Helper class for displaying image animations for GIF files or a set of bitmaps
+        """
+        Helper class for displaying image animations for GIF files or a set of
+        bitmaps
 
-        layout
+        layout:
             layoutMatrix instance
 
-        imagePath
+        imagePath:
             Path to either a single animated GIF image or folder of GIF files
 
-        offset
+        offset:
             X, Y coordinates of the top-left corner of the image
 
-        bgcolor
+        bgcolor:
             RGB tuple color to replace any transparent pixels with.
             Avoids transparent showing as black
 
-        brightness
+        brightness:
             Brightness value (0-255) to scale the image by.
             Otherwise uses master brightness at the time of creation
         """
@@ -177,7 +108,7 @@ class ImageAnim(Matrix):
     def pre_run(self):
         if self.folder_mode:
             if not self.load_thread or not self.load_thread.is_alive():
-                self.load_thread = loadnextthread(self)
+                self.load_thread = LoadNextThread(self)
                 self.load_thread.start()
 
             self.load_thread.loadNext()
@@ -188,11 +119,52 @@ class ImageAnim(Matrix):
     def loadGIFFile(self, gif):
         _, ext = os.path.splitext(gif)
         next_buf = self.next_img_buf()
-        if ext.lower().endswith("gif"):
-            log.logger.debug("Loading {0} ...".format(gif))
-            self._image_buffers[next_buf] = _loadGIFSequence(gif, self.layout, self._bgcolor, self._bright, self._offset)
-        else:
+        if not ext.lower().endswith("gif"):
             raise ValueError('Must be a GIF file!')
+
+        log.debug("Loading {0} ...".format(gif))
+        self._image_buffers[next_buf] = self._loadGIFSequence(gif)
+
+    def _getBufferFromImage(self, img, ox, oy):
+        duration = img.info.get('duration')
+        w = min(self.layout.width - ox, img.size[0])
+        h = min(self.layout.height - oy, img.size[1])
+
+        buffer = [0] * (self.layout.numLEDs * 3)
+
+        gamma = self.layout.drivers[0].gamma
+        def apply_gamma(i, color):
+            buffer[i:i + 3] = (gamma.get(c) for c in color)
+
+        if self._bgcolor != (0, 0, 0):
+            for i in range(0, 3 * self.layout.numLEDs, ):
+                apply_gamma(i, self._bgcolor)
+
+        frame = Image.new("RGBA", img.size)
+        frame.paste(img)
+
+        for x in range(max(ox, 0), w + ox):
+            for y in range(max(oy, 0), h + oy):
+                pixel = self.layout.coord_map[y][x]
+                *color, a = frame.getpixel((x - ox, y - oy))
+                if a:
+                    color = tuple((c * a) >> 8 for c in color)
+                else:
+                    color = self._bgcolor
+                apply_gamma(3 * pixel, color)
+
+        return (duration, buffer)
+
+    def _loadGIFSequence(self, imagePath):
+        img = Image.open(imagePath)
+        if any(self._offset):
+            ox, oy = self._offset
+        else:
+            ox = max(0, (self.layout.width - img.size[0]) // 2)
+            oy = max(0, (self.layout.height - img.size[1]) // 2)
+
+        return [self._getBufferFromImage(frame, ox, oy)
+                for frame in ImageSequence.Iterator(img)]
 
     def loadNextGIF(self):
         if self.random:
@@ -200,7 +172,8 @@ class ImageAnim(Matrix):
                 self.folder_index = self.gif_indices[0]
                 self.gif_indices = list(range(len(self.gif_files)))
             else:
-                self.folder_index = self.gif_indices.pop(random.randrange(0, len(self.gif_indices)))
+                index = random.randrange(len(self.gif_indices))
+                self.folder_index = self.gif_indices.pop(index)
         else:
             self.folder_index += 1
             if self.folder_index >= len(self.gif_files):
@@ -239,7 +212,8 @@ class ImageAnim(Matrix):
                     else:
                         loadnext = True
 
-                if loadnext and not self.load_thread.loading():  # wait another cycle if still loading
+                if loadnext and not self.load_thread.loading():
+                    # wait another cycle if still loading
                     self.animComplete = True
                     self.load_thread.loadNext()
                     self.swapbuf()
