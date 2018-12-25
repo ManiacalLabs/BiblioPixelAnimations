@@ -1,4 +1,4 @@
-import glob, os, pathlib, random, threading, time
+import fractions, glob, os, pathlib, random, threading, time
 from bibliopixel.animation.matrix import Matrix
 from bibliopixel.util import log
 from bibliopixel.colors import COLORS
@@ -42,15 +42,16 @@ class LoadNextThread(threading.Thread):
 
 
 class ImageAnim(Matrix):
-    def __init__(self, layout, imagePath=None, offset=(0, 0), bgcolor=COLORS.Off,
-                 brightness=255, cycles=1, seconds=None, random=False,
-                 use_file_fps=True, **kwds):
+    def __init__(
+            self, layout, imagePath=None, offset=(0, 0), bgcolor=COLORS.Off,
+            brightness=255, cycles=1, seconds=None, random=False,
+            use_file_fps=True, use_gamma=True, scale_to=None, **kwds):
         """
-        Helper class for displaying image animations for GIF files or a set of
+        Animation class for displaying image animations for GIF files or a set of
         bitmaps
 
         layout:
-            layoutMatrix instance
+            layout.Matrix instance
 
         imagePath:
             Path to either a single animated GIF image or folder of GIF files
@@ -65,6 +66,18 @@ class ImageAnim(Matrix):
         brightness:
             Brightness value (0-255) to scale the image by.
             Otherwise uses master brightness at the time of creation
+
+        use_gamma:
+            If true, use the driver's gamma on the raw image data.
+            TODO: why do we do this?
+
+        scale_to:
+            Which dimensions to scale the image to?
+            None:  Don't scale
+            'x':   Scale to use full width
+            'y':   Scale to use full height
+            'xy':  Scale both width and height
+            'fit:  Use best fit from 'x' or 'y'
         """
         super().__init__(layout, **kwds)
 
@@ -89,6 +102,8 @@ class ImageAnim(Matrix):
         self.gif_indices = []
         self.folder_index = -1
         self.load_thread = None
+        self.use_gamma = use_gamma
+        self.scale_to = scale_to and SCALE_TO[scale_to]
 
         if self.folder_mode:
             self.gif_files = glob.glob(self.imagePath + "/*.gif")
@@ -126,22 +141,35 @@ class ImageAnim(Matrix):
         self._image_buffers[next_buf] = self._loadGIFSequence(gif)
 
     def _getBufferFromImage(self, img, ox, oy):
+        frame = Image.new('RGBA', img.size)
+        frame.paste(img)
+
+        if self.scale_to:
+            ix, iy = frame.size
+            rx, ry = self.scale_to(fractions.Fraction(self.width, ix),
+                                   fractions.Fraction(self.height, iy))
+            new_size = round(rx * ix), round(ry * iy)
+            resamp = Image.LANCZOS if rx * ry < 1 else Image.BICUBIC
+            frame = frame.resize(new_size, resamp)
+
         duration = img.info.get('duration')
-        w = min(self.layout.width - ox, img.size[0])
-        h = min(self.layout.height - oy, img.size[1])
+        w = min(self.layout.width - ox, frame.size[0])
+        h = min(self.layout.height - oy, frame.size[1])
 
         buffer = [0] * (self.layout.numLEDs * 3)
 
-        gamma = self.layout.drivers[0].gamma
-        def apply_gamma(i, color):
-            buffer[i:i + 3] = (gamma.get(c) for c in color)
+        if self.use_gamma:
+            gamma = self.layout.drivers[0].gamma
+
+            def apply_gamma(i, color):
+                buffer[i:i + 3] = (gamma.get(c) for c in color)
+        else:
+            def apply_gamma(i, color):
+                buffer[i:i + 3] = color
 
         if self._bgcolor != (0, 0, 0):
             for i in range(0, 3 * self.layout.numLEDs, ):
                 apply_gamma(i, self._bgcolor)
-
-        frame = Image.new("RGBA", img.size)
-        frame.paste(img)
 
         for x in range(max(ox, 0), w + ox):
             for y in range(max(oy, 0), h + oy):
@@ -159,6 +187,8 @@ class ImageAnim(Matrix):
         img = Image.open(imagePath)
         if any(self._offset):
             ox, oy = self._offset
+        elif self.scale_to:
+            ox, oy = 0, 0
         else:
             ox = max(0, (self.layout.width - img.size[0]) // 2)
             oy = max(0, (self.layout.height - img.size[1]) // 2)
@@ -221,3 +251,11 @@ class ImageAnim(Matrix):
                     self.last_start = time.time()
             else:
                 self.animComplete = True
+
+
+SCALE_TO = {
+    'x': lambda rx, ry: (rx, 1),
+    'y': lambda rx, ry: (1, ry),
+    'xy': lambda rx, ry: (rx, ry),
+    'fit': lambda rx, ry: (min(rx, ry), min(rx, ry)),
+}
