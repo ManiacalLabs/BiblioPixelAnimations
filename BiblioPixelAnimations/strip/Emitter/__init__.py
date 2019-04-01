@@ -74,8 +74,8 @@ class Emitter(Strip):
                 self.bd_mean - self.bd_mu, self.bd_sigma, 16).astype(int),
             # These values will brighten the particles
             random.normal(
-                self.bd_mean + self.bd_mu, self.bd_sigma, 16).astype(int),
-            ), axis=0)
+                self.bd_mean + self.bd_mu, self.bd_sigma, 16).astype(int)),
+            axis=0)
 
     def make_vel(self):
         "Make a set of velocities to be randomly chosen for emitted particles"
