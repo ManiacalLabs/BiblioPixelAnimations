@@ -1,4 +1,4 @@
-# EmitterAnimation
+# Emitter() Animation
 
 *By Steve Mulanax 4/1/2019*
 
